@@ -1,3 +1,8 @@
 .PHONY: run_backend
+# run the Django server in the virtual environment
 run_back:
-	@ python3 ./backend/manage.py runserver
+	@ ./backend/env/bin/python ./backend/manage.py runserver
+
+.PHONY: run_frontend
+run_front:
+	@ cd ./frontend && npm start 
