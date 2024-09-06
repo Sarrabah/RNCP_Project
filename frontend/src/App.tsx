@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header';
+import ArticlesList from './components/ArticlesList';
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <p> This is my React app with TS. </p>
+      <header className="App-header">
+        <h1> Welcome</h1>
+      </header>
+      <ArticlesList />
     </div>
   );
 }
