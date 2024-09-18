@@ -1,0 +1,25 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #1466b8;
+}
+
+.search-bar {
+  width: 300px;
+  padding: 8px;
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+}
+
+.dropdownp {
+  text-align: center;
+}
+.img {
+  width: 130px;
+  height: auto;
+}
