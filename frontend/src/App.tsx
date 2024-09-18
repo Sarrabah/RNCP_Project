@@ -1,16 +1,8 @@
 import React from 'react';
-import './App.css';
-import ArticlesList from './components/ArticlesList';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1> Welcome</h1>
-      </header>
-      <ArticlesList />
-    </div>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
