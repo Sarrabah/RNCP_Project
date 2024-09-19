@@ -13,7 +13,7 @@ const Login = () => {
       description: 'Welcome! You are online now!',
     });
     setTimeout(() => {
-      navigate('/');
+      navigate('/homepage');
     }, 2000);
   };
   return (
@@ -55,7 +55,7 @@ const Login = () => {
             htmlType="submit"
             className="login-form-button"
           >
-            <Link to="/homepage">LOGIN</Link>
+            LOGIN
           </Button>
           <div className="register-link">
             New here ? <Link to="/register">Sign Up</Link>
