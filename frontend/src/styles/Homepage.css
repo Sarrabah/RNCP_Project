@@ -13,13 +13,25 @@
 
 .icons {
   display: flex;
-  gap: 20px;
+  gap: 30px;
 }
 
-.dropdownp {
+.products-list {
+  display: flex;
+  gap: 20px;
+}
+.product {
+  width: 25%;
   text-align: center;
 }
-.img {
+.logo {
   width: 130px;
   height: auto;
+}
+.Product-img {
+  width: 100%;
+  height: auto;
+}
+.title {
+  text-align: center;
 }
