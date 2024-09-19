@@ -1,12 +1,12 @@
 import React from 'react';
 import '../styles/Homepage.css';
+import Search from 'antd/es/transfer/search';
+
 const SearchBar: React.FC = () => {
   return (
-    <input
-      type="text"
-      className="search-bar"
-      placeholder="Search for products ..."
-    />
+    <div className="search-bar">
+      <Search placeholder="Search for products..." />
+    </div>
   );
 };
 export default SearchBar;
