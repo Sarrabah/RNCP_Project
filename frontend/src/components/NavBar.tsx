@@ -10,8 +10,8 @@ const NavBar: React.FC = () => {
       <img src={artcreapro} alt="Brand" className="logo" />
       <SearchBar />
       <div className="icons">
-        <UserOutlined className="icon" />
-        <ShoppingCartOutlined className="icon" />
+        <UserOutlined />
+        <ShoppingCartOutlined />
       </div>
     </div>
   );

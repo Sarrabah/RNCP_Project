@@ -1,4 +1,4 @@
-.login-container {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   background-color: #002766;
 }
 
-.login-form {
+.form {
   max-width: 300px;
   padding: 40px;
   background-color: white;

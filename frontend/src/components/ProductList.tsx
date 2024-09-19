@@ -1,5 +1,6 @@
 import React from 'react';
 import Product, { ProductProps } from './Product';
+import '../styles/Homepage.css';
 
 interface ProductListPropos {
   products: ProductProps[];
@@ -18,7 +19,6 @@ const ProductList: React.FC<ProductListPropos> = ({ products }) => {
           category={product.category}
         />
       ))}
-      ;
     </div>
   );
 };
