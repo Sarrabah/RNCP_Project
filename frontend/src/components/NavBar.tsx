@@ -7,7 +7,7 @@ import artcreapro from '../assets/art-crea-pro.png';
 const NavBar: React.FC = () => {
   return (
     <div className="navbar">
-      <img src={artcreapro} alt="Brand" className="img" />
+      <img src={artcreapro} alt="Brand" className="logo" />
       <SearchBar />
       <div className="icons">
         <UserOutlined className="icon" />
