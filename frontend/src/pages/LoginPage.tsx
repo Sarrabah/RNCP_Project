@@ -17,11 +17,11 @@ const Login = () => {
     }, 2000);
   };
   return (
-    <div className="login-container">
+    <div className="container">
       <Form
         name="login_form"
         initialValues={{ remember: true }}
-        className="login-form"
+        className="form"
         onFinish={onFinish}
       >
         <Form.Item

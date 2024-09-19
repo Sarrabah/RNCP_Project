@@ -1,12 +1,12 @@
 import React from 'react';
 import '../styles/Login.css';
-import '../styles/Welcomepage.css';
+import '../styles/Homepage.css';
 import { Link } from 'react-router-dom';
 
 const Welcomepage: React.FC = () => {
   return (
-    <div className="login-container">
-      <div className="login-form">
+    <div className="container">
+      <div className="form">
         <h2 className="title">Welcome to our site! </h2>
         <p>
           It is a space dedicated to professionals in the construction and
