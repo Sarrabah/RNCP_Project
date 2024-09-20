@@ -38,9 +38,10 @@ const products: ProductProps[] = [
     image: robinet,
     name: 'Faucet',
     price: '129 Euro',
-    category: 'bathroom',
+    category: 'Bathroom',
   },
 ];
+const categories: string[] = ['Furniture', 'Door', 'Floor', 'Bathroom'];
 const Homepage: React.FC = () => {
   return (
     <Layout>
@@ -51,7 +52,17 @@ const Homepage: React.FC = () => {
         </Sider>
         <Content style={{ marginTop: '2px', padding: '0 24px' }}>
           <h2 className="title"> All our available products! </h2>
-          <ProductList products={products} />
+          {categories.map((category) => {
+            const filteredProducts = products.filter(
+              (product) => product.category === category,
+            );
+            return (
+              <div key={category}>
+                <h3>{category}</h3>
+                <ProductList products={filteredProducts} />
+              </div>
+            );
+          })}
         </Content>
       </Layout>
     </Layout>
