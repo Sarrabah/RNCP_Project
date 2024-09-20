@@ -3,17 +3,18 @@ import SearchBar from './SearchBar';
 import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import '../styles/Homepage.css';
 import artcreapro from '../assets/art-crea-pro.png';
+import { Header } from 'antd/es/layout/layout';
 
 const NavBar: React.FC = () => {
   return (
-    <div className="navbar">
+    <Header className="navbar">
       <img src={artcreapro} alt="Brand" className="logo" />
       <SearchBar />
       <div className="icons">
         <UserOutlined />
         <ShoppingCartOutlined />
       </div>
-    </div>
+    </Header>
   );
 };
 export default NavBar;
