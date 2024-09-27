@@ -19,6 +19,7 @@
 .products-list {
   display: flex;
   gap: 20px;
+  padding: 0.1%;
 }
 .product {
   width: 25%;
