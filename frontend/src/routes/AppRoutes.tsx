@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Login from '../pages/LoginPage';
 import Register from '../pages/RegisterPage';
 import Homepage from '../pages/HomePage';
@@ -10,23 +10,25 @@ import Sidebar from '../components/SideBar';
 
 const { Content } = Layout;
 const AppRoutes = () => {
+  const location = useLocation();
+  const hideLayoutPaths = ['/login', '/register', '/'];
+  const hideLayout = hideLayoutPaths.includes(location.pathname);
+
   return (
-    <Router>
+    <Layout>
+      {hideLayout == false && <NavBar />}
       <Layout>
-        <NavBar />
-        <Layout>
-          <Sidebar />
-          <Content style={{ marginTop: '2px', padding: '0 24px' }}>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/homepage" element={<Homepage />} />
-              <Route path="/" element={<Welcomepage />} />
-            </Routes>
-          </Content>
-        </Layout>
+        {hideLayout == false && <Sidebar />}
+        <Content>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/homepage" element={<Homepage />} />
+            <Route path="/" element={<Welcomepage />} />
+          </Routes>
+        </Content>
       </Layout>
-    </Router>
+    </Layout>
   );
 };
 
