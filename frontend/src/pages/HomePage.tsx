@@ -48,7 +48,7 @@ const Homepage: React.FC = () => {
         );
         return (
           <div key={category}>
-            <h3>{category}</h3>
+            <h3 style={{ padding: '0.1%' }}>{category}</h3>
             <ProductList products={filteredProducts} />
           </div>
         );
