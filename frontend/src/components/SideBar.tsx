@@ -5,7 +5,7 @@ const { Sider } = Layout;
 
 const Sidebar: React.FC = () => {
   return (
-    <Sider width={250} style={{ height: '100vh' }}>
+    <Sider width={250}>
       <Menu theme="dark">
         <Menu.Item key="1">
           <a href="/homepage"> Home</a>
