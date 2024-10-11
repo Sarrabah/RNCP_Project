@@ -7,6 +7,7 @@ import Welcomepage from '../pages/Welcomepage';
 import NavBar from '../components/NavBar';
 import { Layout } from 'antd';
 import Sidebar from '../components/SideBar';
+import CategoryPage from '../pages/CategoryPage';
 
 const { Content } = Layout;
 const AppRoutes = () => {
@@ -25,6 +26,7 @@ const AppRoutes = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/homepage" element={<Homepage />} />
             <Route path="/" element={<Welcomepage />} />
+            <Route path="/category/:category" element={<CategoryPage />} />
           </Routes>
         </Content>
       </Layout>

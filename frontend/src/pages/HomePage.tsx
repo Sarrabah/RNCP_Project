@@ -20,7 +20,7 @@ import vasque from '../assets/vasque.png';
 import '../styles/Homepage.css';
 import { Link } from 'react-router-dom';
 
-const products: ProductProps[] = [
+export const products: ProductProps[] = [
   {
     id: 1,
     image: bouton,
