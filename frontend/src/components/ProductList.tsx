@@ -1,6 +1,7 @@
 import React from 'react';
 import Product, { ProductProps } from './Product';
 import '../styles/Homepage.css';
+import { Col, Row } from 'antd';
 
 interface ProductListPropos {
   products: ProductProps[];
@@ -8,18 +9,26 @@ interface ProductListPropos {
 
 const ProductList: React.FC<ProductListPropos> = ({ products }) => {
   return (
-    <div className="products-list">
+    <Row className='products-list'>
       {products.map((product) => (
-        <Product
+        <Col
           key={product.id}
-          id={product.id}
-          image={product.image}
-          name={product.name}
-          price={product.price}
-          category={product.category}
-        />
+          xs={24}
+          sm={12} 
+          md={8}
+          lg={6} 
+        >
+          <Product
+            key={product.id}
+            id={product.id}
+            image={product.image}
+            name={product.name}
+            price={product.price}
+            category={product.category}
+          />
+        </Col>
       ))}
-    </div>
+    </Row>
   );
 };
 export default ProductList;
