@@ -1,11 +1,12 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import SubMenu from 'antd/es/menu/SubMenu';
+
 const { Sider } = Layout;
 
 const Sidebar: React.FC = () => {
   return (
-    <Sider width={250}>
+    <Sider breakpoint="lg" collapsedWidth="80" width={250}>
       <Menu theme="dark">
         <Menu.Item key="1">
           <a href="/homepage"> Home</a>
