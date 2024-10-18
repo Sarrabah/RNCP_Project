@@ -8,7 +8,9 @@ import { Header } from 'antd/es/layout/layout';
 const NavBar: React.FC = () => {
   return (
     <Header className="navbar">
-      <img src={artcreapro} alt="Brand" className="logo" />
+      <a href="/HomePage">
+        <img src={artcreapro} alt="Brand" className="logo" />
+      </a>
       <SearchBar />
       <div className="icons">
         <UserOutlined />
