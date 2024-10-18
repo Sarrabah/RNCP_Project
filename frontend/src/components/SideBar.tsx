@@ -24,21 +24,21 @@ const Sidebar: React.FC = () => {
           title="Products by category"
         >
           <Menu.Item key="2.1">
-            <a href="/category/furniture">Furniture Hardware</a>
+            <a href="/category/furniture">Furniture</a>
           </Menu.Item>
 
           <Menu.Item key="2.2">
-            <a href="/category/bathroom">Bathroom Hardware</a>
+            <a href="/category/bathroom">Bathroom</a>
           </Menu.Item>
           <Menu.Item key="2.3">
-            <a href="/category/door">Door Hardware</a>
+            <a href="/category/door">Door</a>
           </Menu.Item>
           <Menu.Item key="2.4">
-            <a href="/category/floor">Floor Covering</a>
+            <a href="/category/floor">Floor</a>
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="3" icon={<FormOutlined />}>
-          Create new quote requests
+          Create new quote request
         </Menu.Item>
         <Menu.Item key="4" icon={<OrderedListOutlined />}>
           Quote requests list
