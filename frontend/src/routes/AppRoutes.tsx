@@ -8,6 +8,8 @@ import NavBar from '../components/NavBar';
 import { Layout } from 'antd';
 import Sidebar from '../components/SideBar';
 import CategoryPage from '../pages/CategoryPage';
+import QuoteForm from '../components/QuoteForm';
+import QuoteTable from '../components/QuoteTable';
 
 const { Content } = Layout;
 const AppRoutes = () => {
@@ -27,6 +29,8 @@ const AppRoutes = () => {
             <Route path="/homepage" element={<Homepage />} />
             <Route path="/" element={<Welcomepage />} />
             <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="/newquoterequest" element={<QuoteForm />} />
+            <Route path="/quoterequestlist" element={<QuoteTable />} />
           </Routes>
         </Content>
       </Layout>
