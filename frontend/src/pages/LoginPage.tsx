@@ -1,9 +1,8 @@
 import { Button, Form, Input, notification } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import React from 'react';
-import { Link, NavigateFunction } from 'react-router-dom';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const navigate: NavigateFunction = useNavigate();
