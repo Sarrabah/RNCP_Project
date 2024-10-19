@@ -38,10 +38,10 @@ const Sidebar: React.FC = () => {
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="3" icon={<FormOutlined />}>
-          Create new quote request
+          <a href="/newquoterequest">Create new quote request</a>
         </Menu.Item>
         <Menu.Item key="4" icon={<OrderedListOutlined />}>
-          Quote requests list
+          <a href="/quoterequestlist">Quote requests list </a>
         </Menu.Item>
       </Menu>
     </Sider>
