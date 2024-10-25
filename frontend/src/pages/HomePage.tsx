@@ -146,17 +146,19 @@ const Homepage: React.FC = () => {
         return (
           <div key={category}>
             <h3 style={{ padding: '0.1%', fontSize: '30px' }}>{category}</h3>
-
+            <ProductList products={filteredProducts.slice(0, 3)} />
             <div className="category-header">
               <Link
-                style={{ fontSize: '16px', marginBottom: '15px' }}
+                style={{
+                  fontSize: '16px',
+                  marginBottom: '15px',
+                  marginTop: '20px',
+                }}
                 to={`/category/${category}`}
               >
                 See More
               </Link>
             </div>
-
-            <ProductList products={filteredProducts.slice(0, 3)} />
           </div>
         );
       })}
