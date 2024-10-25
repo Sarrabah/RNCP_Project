@@ -10,6 +10,7 @@ import Sidebar from '../components/SideBar';
 import CategoryPage from '../pages/CategoryPage';
 import QuoteForm from '../components/QuoteForm';
 import QuoteTable from '../components/QuoteTable';
+import ProductDetail from '../components/ProductDetail';
 
 const { Content } = Layout;
 const AppRoutes = () => {
@@ -31,6 +32,7 @@ const AppRoutes = () => {
             <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/newquoterequest" element={<QuoteForm />} />
             <Route path="/quoterequestlist" element={<QuoteTable />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
           </Routes>
         </Content>
       </Layout>
