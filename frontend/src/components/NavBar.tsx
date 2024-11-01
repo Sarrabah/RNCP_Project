@@ -12,9 +12,13 @@ const NavBar: React.FC = () => {
         <img src={artcreapro} alt="Brand" className="logo" />
       </a>
       <SearchBar />
-      <div className="icons">
-        <UserOutlined />
-        <ShoppingCartOutlined />
+      <div className="icons" >
+        <a href="/profile">
+          <UserOutlined />
+        </a>
+        <a href="/basket">
+          <ShoppingCartOutlined />
+        </a>
       </div>
     </Header>
   );
