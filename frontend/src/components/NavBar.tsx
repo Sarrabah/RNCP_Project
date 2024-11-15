@@ -9,9 +9,9 @@ import { Link } from 'react-router-dom';
 const NavBar: React.FC = () => {
   return (
     <Header className="navbar">
-      <a href="/homepage">
+      <Link to="/homepage">
         <img src={artcreapro} alt="Brand" className="logo" />
-      </a>
+      </Link>
       <SearchBar />
       <div className="icons">
         <Link to="/profile">

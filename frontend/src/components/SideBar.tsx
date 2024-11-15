@@ -7,6 +7,7 @@ import {
   AppstoreOutlined,
 } from '@ant-design/icons';
 import SubMenu from 'antd/es/menu/SubMenu';
+import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 
@@ -15,7 +16,7 @@ const Sidebar: React.FC = () => {
     <Sider breakpoint="lg" collapsedWidth="80" width={250}>
       <Menu theme="dark" mode="inline">
         <Menu.Item key="1" icon={<HomeOutlined />}>
-          <a href="/homepage"> Home</a>
+          <Link to="/homepage"> Home</Link>
         </Menu.Item>
 
         <SubMenu
@@ -24,24 +25,24 @@ const Sidebar: React.FC = () => {
           title="Products by category"
         >
           <Menu.Item key="2.1">
-            <a href="/category/furniture">Furniture</a>
+            <Link to="/category/furniture">Furniture</Link>
           </Menu.Item>
 
           <Menu.Item key="2.2">
-            <a href="/category/bathroom">Bathroom</a>
+            <Link to="/category/bathroom">Bathroom</Link>
           </Menu.Item>
           <Menu.Item key="2.3">
-            <a href="/category/door">Door</a>
+            <Link to="/category/door">Door</Link>
           </Menu.Item>
           <Menu.Item key="2.4">
-            <a href="/category/floor">Floor</a>
+            <Link to="/category/floor">Floor</Link>
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="3" icon={<FormOutlined />}>
-          <a href="/newquoterequest">Create new quote request</a>
+          <Link to="/newquoterequest">Create new quote request</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<OrderedListOutlined />}>
-          <a href="/quoterequestlist">Quote requests list </a>
+          <Link to="/quoterequestlist">Quote requests list </Link>
         </Menu.Item>
       </Menu>
     </Sider>
