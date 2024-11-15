@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductProps } from '../components/Product';
+import { ProductInterface } from '../types/types';
 import ProductList from '../components/ProductList';
 import bouton from '../assets/bouton.png';
 import stopporte from '../assets/stop-porte.png';
@@ -20,7 +20,7 @@ import vasque from '../assets/vasque.png';
 import '../styles/Homepage.css';
 import { Link } from 'react-router-dom';
 
-export const products: ProductProps[] = [
+export const products: Array<ProductInterface> = [
   {
     id: 1,
     image: bouton,
