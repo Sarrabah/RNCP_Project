@@ -1,10 +1,11 @@
 import React from 'react';
-import Product, { ProductProps } from './Product';
+import Product from './Product';
 import '../styles/Homepage.css';
 import { Col, Row } from 'antd';
+import { ProductInterface } from '../types/types';
 
 interface ProductListPropos {
-  products: ProductProps[];
+  products: Array<ProductInterface>;
 }
 
 const ProductList: React.FC<ProductListPropos> = ({ products }) => {
