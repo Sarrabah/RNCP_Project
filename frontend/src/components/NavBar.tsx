@@ -4,6 +4,7 @@ import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import '../styles/Homepage.css';
 import artcreapro from '../assets/art-crea-pro.png';
 import { Header } from 'antd/es/layout/layout';
+import { Link } from 'react-router-dom';
 
 const NavBar: React.FC = () => {
   return (
@@ -13,12 +14,12 @@ const NavBar: React.FC = () => {
       </a>
       <SearchBar />
       <div className="icons">
-        <a href="/profile">
+        <Link to="/profile">
           <UserOutlined />
-        </a>
-        <a href="/basket">
+        </Link>
+        <Link to="/basket">
           <ShoppingCartOutlined />
-        </a>
+        </Link>
       </div>
     </Header>
   );
