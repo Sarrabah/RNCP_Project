@@ -3,21 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Homepage.css';
 import { Button, Card, InputNumber } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import { ProductInterface } from '../types/types';
+import { useBasketContext } from '../context/BasketContext';
 
-export interface ProductProps {
-  id: number;
-  image: string;
-  name: string;
-  price: string;
-  category: string;
-}
-
-const Product: React.FC<ProductProps> = ({ id, image, name, price }) => {
+const Product: React.FC<ProductInterface> = ({
+  id,
+  image,
+  name,
+  price,
+  category,
+}) => {
   const [quantity, setQuantity] = useState<number>(1);
   const navigate = useNavigate();
+  const { addToBasket } = useBasketContext();
 
   const handleAddToBasket = () => {
-    console.log(`Added ${quantity} of ${name}' to the basket!`);
+    addToBasket({ id, image, name, price, category }, quantity);
+    console.log(`Added ${quantity} of ${name} to the basket!`);
   };
 
   const goToProductDetails = () => {
