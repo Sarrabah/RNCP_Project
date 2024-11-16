@@ -28,8 +28,6 @@ const Basket: React.FC = () => {
             </Col>
             <Col xs={24} sm={12} md={10}>
               <Text strong>{item.product.name}</Text>
-              <br />
-              <Text> {item.product.price}</Text>
             </Col>
             <Col xs={24} sm={6} md={6}>
               <Text>{item.quantity}</Text>
@@ -40,19 +38,7 @@ const Basket: React.FC = () => {
           </Row>
         ))}
       </div>
-      {basket.length > 0 ? (
-        <div style={{ marginTop: '20px', textAlign: 'right' }}>
-          <Title level={3}>
-            Total :{' '}
-            {basket.reduce(
-              (total, item) =>
-                total + parseFloat(item.product.price) * item.quantity,
-              0,
-            )}{' '}
-            Euro
-          </Title>
-        </div>
-      ) : (
+      {basket.length == 0 && (
         <Title level={3} style={{ textAlign: 'center' }}>
           {' '}
           Your basket is empty!

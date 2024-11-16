@@ -6,19 +6,13 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import { ProductInterface } from '../types/types';
 import { useBasketContext } from '../context/BasketContext';
 
-const Product: React.FC<ProductInterface> = ({
-  id,
-  image,
-  name,
-  price,
-  category,
-}) => {
+const Product: React.FC<ProductInterface> = ({ id, image, name, category }) => {
   const [quantity, setQuantity] = useState<number>(1);
   const navigate = useNavigate();
   const { addToBasket } = useBasketContext();
 
   const handleAddToBasket = () => {
-    addToBasket({ id, image, name, price, category }, quantity);
+    addToBasket({ id, image, name, category }, quantity);
     console.log(`Added ${quantity} of ${name} to the basket!`);
   };
 
@@ -39,7 +33,6 @@ const Product: React.FC<ProductInterface> = ({
       onClick={goToProductDetails}
     >
       <h3> {name} </h3>
-      <p> {price} </p>
       <div onClick={(e) => e.stopPropagation()}>
         <InputNumber
           min={1}

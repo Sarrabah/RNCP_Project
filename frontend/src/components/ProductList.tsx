@@ -18,7 +18,6 @@ const ProductList: React.FC<ProductListPropos> = ({ products }) => {
             id={product.id}
             image={product.image}
             name={product.name}
-            price={product.price}
             category={product.category}
           />
         </Col>
