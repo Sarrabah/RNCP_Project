@@ -6,6 +6,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 const Basket: React.FC = () => {
   const { basket, setBasket } = useBasketContext();
   const { Text, Title } = Typography;
+
   const quoteRequestsList: Array<string> = [
     'Quote Request 1',
     'Quote Request 2',
@@ -16,9 +17,17 @@ const Basket: React.FC = () => {
   const handleQuoteSelection = (quoteRArray: Array<string>) => {
     setSelectedQuotes(quoteRArray);
   };
+
   const handleSaveBasket = () => {
     setBasket([]);
   };
+
+  const handleDeleteProduct = (ProductId: number) => {
+    setBasket((prevBasket) =>
+      prevBasket.filter((item) => item.product.id !== ProductId),
+    );
+  };
+
   return (
     <div>
       <Title level={2} style={{ textAlign: 'center' }}>
@@ -46,7 +55,11 @@ const Basket: React.FC = () => {
               <Text>{item.quantity}</Text>
             </Col>
             <Col xs={24} sm={2} md={4}>
-              <Button icon={<DeleteOutlined />} danger disabled={true} />
+              <Button
+                icon={<DeleteOutlined />}
+                danger
+                onClick={() => handleDeleteProduct(item.product.id)}
+              />
             </Col>
           </Row>
         ))}
