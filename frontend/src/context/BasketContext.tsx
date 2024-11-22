@@ -3,6 +3,9 @@ import { ProductInterface } from '../types/types';
 
 export interface BasketContextInterface {
   basket: Array<{ product: ProductInterface; quantity: number }>;
+  setBasket: React.Dispatch<
+    React.SetStateAction<Array<{ product: ProductInterface; quantity: number }>>
+  >;
   addToBasket: (product: ProductInterface, quantity: number) => void;
 }
 
@@ -34,7 +37,7 @@ const BasketProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
   return (
-    <BasketContext.Provider value={{ basket, addToBasket }}>
+    <BasketContext.Provider value={{ basket, setBasket, addToBasket }}>
       {children}
     </BasketContext.Provider>
   );

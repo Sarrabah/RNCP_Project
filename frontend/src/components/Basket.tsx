@@ -4,7 +4,7 @@ import { Button, Checkbox, Col, Divider, Row, Typography } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 const Basket: React.FC = () => {
-  const { basket } = useBasketContext();
+  const { basket, setBasket } = useBasketContext();
   const { Text, Title } = Typography;
   const quoteRequestsList: Array<string> = [
     'Quote Request 1',
@@ -15,6 +15,9 @@ const Basket: React.FC = () => {
 
   const handleQuoteSelection = (quoteRArray: Array<string>) => {
     setSelectedQuotes(quoteRArray);
+  };
+  const handleSaveBasket = () => {
+    setBasket([]);
   };
   return (
     <div>
@@ -55,6 +58,18 @@ const Basket: React.FC = () => {
               value={selectedQuotes}
               onChange={handleQuoteSelection}
             />
+            <Button
+              type="primary"
+              style={{
+                marginTop: '20px',
+                display: 'block',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
+              onClick={handleSaveBasket}
+            >
+              Save Basket
+            </Button>
           </div>
         )}
       </div>
