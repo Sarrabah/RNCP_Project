@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useBasketContext } from '../context/BasketContext';
-import { Button, Col, Row, Typography } from 'antd';
+import { Button, Checkbox, Col, Divider, Row, Typography } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 const Basket: React.FC = () => {
   const { basket } = useBasketContext();
   const { Text, Title } = Typography;
+  const quoteRequestsList: Array<string> = [
+    'Quote Request 1',
+    'Quote Request 2',
+    'Quote Request 3',
+  ];
+  const [selectedQuotes, setSelectedQuotes] = useState<Array<string>>([]);
+
+  const handleQuoteSelection = (quoteRArray: Array<string>) => {
+    setSelectedQuotes(quoteRArray);
+  };
   return (
-    <div style={{ padding: '20px' }}>
+    <div>
       <Title level={2} style={{ textAlign: 'center' }}>
         Basket
       </Title>
@@ -37,10 +47,20 @@ const Basket: React.FC = () => {
             </Col>
           </Row>
         ))}
+        {basket.length > 0 && (
+          <div>
+            <Title level={3}>Select the desired quotes requests</Title>
+            <Checkbox.Group
+              options={quoteRequestsList}
+              value={selectedQuotes}
+              onChange={handleQuoteSelection}
+            />
+          </div>
+        )}
       </div>
+      <Divider />
       {basket.length == 0 && (
         <Title level={3} style={{ textAlign: 'center' }}>
-          {' '}
           Your basket is empty!
         </Title>
       )}
