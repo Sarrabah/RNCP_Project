@@ -3,30 +3,25 @@ from typing import List, TypedDict
 from django.http import HttpRequest, JsonResponse
 
 
-class Article(TypedDict):
+class QuoteRequest(TypedDict):
     id: int
-    title: str
-    content: str
+    quoteName: str
+    status: str
 
 
-ARTICLES: List[Article] = [
+QUOTEREQUESTS: List[QuoteRequest] = [
     {
         "id": 1,
-        "title": "Premier article",
-        "content": "Contenu du premier article",
+        "quoteName": "Quote 1",
+        "status": "Pending",
     },
     {
         "id": 2,
-        "title": "Deuxième article",
-        "content": "Contenu du deuxième article",
-    },
-    {
-        "id": 3,
-        "title": "Troisième article",
-        "content": "Contenu du troisième article",
+        "quoteName": "Quote 2",
+        "status": "Completed",
     },
 ]
 
 
-def article_list(request: HttpRequest) -> JsonResponse:
-    return JsonResponse(ARTICLES, safe=False)
+def quote_request_list(request: HttpRequest) -> JsonResponse:
+    return JsonResponse(QUOTEREQUESTS, safe=False)

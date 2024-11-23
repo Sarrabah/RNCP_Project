@@ -1,5 +1,5 @@
 from django.urls import path
 
-from .views import article_list
+from .views import quote_request_list
 
-urlpatterns = [path("articles/", article_list, name="articles-list")]
+urlpatterns = [path("quotereqlist", quote_request_list, name="quote-request-list")]

@@ -1,8 +1,8 @@
 import { Button, Table } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const QuoteTable: React.FC = () => {
-  const dataSource = [
+  /* const dataSource = [
     {
       key: '1',
       quoteName: 'Quote 1',
@@ -13,12 +13,23 @@ const QuoteTable: React.FC = () => {
       quoteName: 'Quote 2',
       status: 'Completed',
     },
-  ];
+  ]; */
   interface QuoteRecord {
-    key: string;
+    id: number;
     quoteName: string;
     status: string;
   }
+
+  async function fetchQuoteRequests(): Promise<QuoteRecord[]> {
+    const response = await fetch('/api/quotereqlist');
+    const data = await response.json();
+    return data;
+  }
+  const [dataList, setDataList] = useState<QuoteRecord[]>([]);
+  useEffect(() => {
+    fetchQuoteRequests().then((dl) => setDataList(dl));
+  }, []);
+
   const columns = [
     { title: 'Quote Name', dataIndex: 'quoteName', key: 'quotename' },
     { title: 'Status', dataIndex: 'status', key: 'status' },
@@ -26,7 +37,7 @@ const QuoteTable: React.FC = () => {
       title: 'Edit',
       key: 'edit',
       render: (record: QuoteRecord) => (
-        <Button type="primary" onClick={() => handleEdit(record.key)}>
+        <Button type="primary" onClick={() => handleEdit(record.id)}>
           Edit
         </Button>
       ),
@@ -35,22 +46,22 @@ const QuoteTable: React.FC = () => {
       title: 'Archive',
       key: 'archive',
       render: (record: QuoteRecord) => (
-        <Button danger onClick={() => handleArchive(record.key)}>
+        <Button danger onClick={() => handleArchive(record.id)}>
           Archive
         </Button>
       ),
     },
   ];
 
-  const handleEdit = (key: string) => {
+  const handleEdit = (key: number) => {
     console.log(`Editing quote with key: ${key}`);
   };
 
-  const handleArchive = (key: string) => {
+  const handleArchive = (key: number) => {
     console.log(`Archiving quot with key: ${key}`);
   };
 
-  return <Table dataSource={dataSource} columns={columns} />;
+  return <Table dataSource={dataList} columns={columns} />;
 };
 
 export default QuoteTable;
