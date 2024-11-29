@@ -2,18 +2,6 @@ import { Button, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const QuoteTable: React.FC = () => {
-  /* const dataSource = [
-    {
-      key: '1',
-      quoteName: 'Quote 1',
-      status: 'Pending',
-    },
-    {
-      key: '2',
-      quoteName: 'Quote 2',
-      status: 'Completed',
-    },
-  ]; */
   interface QuoteRecord {
     id: number;
     quoteName: string;
@@ -25,6 +13,7 @@ const QuoteTable: React.FC = () => {
     const data = await response.json();
     return data;
   }
+
   const [dataList, setDataList] = useState<QuoteRecord[]>([]);
   useEffect(() => {
     fetchQuoteRequests().then((dl) => setDataList(dl));
