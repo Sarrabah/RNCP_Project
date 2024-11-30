@@ -9,7 +9,7 @@ const QuoteTable: React.FC = () => {
   }
 
   async function fetchQuoteRequests(): Promise<QuoteRecord[]> {
-    const response = await fetch('/api/quotereqlist');
+    const response = await fetch('/api/quoterequests');
     const data = await response.json();
     return data;
   }
