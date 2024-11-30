@@ -1,5 +1,16 @@
 from django.urls import path
 
-from .views import quote_request_list
+from .views import QuoteRequestListApiView
 
-urlpatterns = [path("quotereqlist", quote_request_list, name="quote-request-list")]
+urlpatterns = [
+    path(
+        "quoterequests",
+        QuoteRequestListApiView.as_view(),
+        name="get-all-quote-requests",
+    ),
+    path(
+        "quoterequest",
+        QuoteRequestListApiView.as_view(),
+        name="add-new-quote-request",
+    ),
+]

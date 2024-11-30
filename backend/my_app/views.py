@@ -1,27 +1,45 @@
-from typing import List, TypedDict
+from typing import List
 
-from django.http import HttpRequest, JsonResponse
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-
-class QuoteRequest(TypedDict):
-    id: int
-    quoteName: str
-    status: str
+from .serializers import QuoteRequestResponseSerializer, QuoteRequestSerializer
 
 
-QUOTEREQUESTS: List[QuoteRequest] = [
-    {
-        "id": 1,
-        "quoteName": "Quote 1",
-        "status": "Pending",
-    },
-    {
-        "id": 2,
-        "quoteName": "Quote 2",
-        "status": "Completed",
-    },
-]
+class QuoteRequest:
+    def __init__(self, id: int, quoteName: str, status: str):
+        self.id = id
+        self.quoteName = quoteName
+        self.status = status
 
 
-def quote_request_list(request: HttpRequest) -> JsonResponse:
-    return JsonResponse(QUOTEREQUESTS, safe=False)
+qr1 = QuoteRequest(1, "QuoteR1", "Pending")
+qr2 = QuoteRequest(2, "QuoteR2", "Pending")
+
+QUOTEREQUESTS: List[QuoteRequest] = [qr1, qr2]
+
+
+class QuoteRequestResponse:
+    dataResponse: list[QuoteRequest]
+    errorResponse: str
+
+
+qrRes = QuoteRequestResponse()
+qrRes.dataResponse = QUOTEREQUESTS
+qrRes.errorResponse = ""
+
+
+class QuoteRequestListApiView(APIView):
+
+    def get(self, request):
+        serializer = QuoteRequestResponseSerializer(qrRes)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = QuoteRequestSerializer(data=request.data)
+
+        if serializer.is_valid():
+            print(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
