@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import { useBasketContext } from '../context/BasketContext';
-import { Button, Checkbox, Col, Divider, Row, Typography } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Col,
+  Divider,
+  notification,
+  Row,
+  Typography,
+} from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 const Basket: React.FC = () => {
   const { basket, setBasket } = useBasketContext();
   const { Text, Title } = Typography;
+  const navigate: NavigateFunction = useNavigate();
 
   const quoteRequestsList: Array<string> = [
     'Quote Request 1',
@@ -20,6 +30,14 @@ const Basket: React.FC = () => {
 
   const handleSaveBasket = () => {
     setBasket([]);
+    notification.success({
+      message: 'Your choises has been successfully saved!',
+      placement: 'topRight',
+    });
+
+    setTimeout(() => {
+      navigate('/homepage');
+    }, 1500);
   };
 
   const handleDeleteProduct = (ProductId: number) => {
