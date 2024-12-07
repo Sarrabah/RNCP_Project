@@ -10,3 +10,8 @@ class QuoteRequestSerializer(serializers.Serializer):
 class QuoteRequestResponseSerializer(serializers.Serializer):
     dataResponse = QuoteRequestSerializer(many=True)
     errorResponse = serializers.CharField()
+
+
+class QuoteRequestPostSerializer(serializers.Serializer):
+    quoteName = serializers.CharField()
+    status = serializers.CharField()
