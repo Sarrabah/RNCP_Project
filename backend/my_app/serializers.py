@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 
 class QuoteRequestSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+    id = serializers.IntegerField(read_only=True)
     quoteName = serializers.CharField()
     status = serializers.CharField()
 
@@ -10,8 +10,3 @@ class QuoteRequestSerializer(serializers.Serializer):
 class QuoteRequestResponseSerializer(serializers.Serializer):
     dataResponse = QuoteRequestSerializer(many=True)
     errorResponse = serializers.CharField()
-
-
-class QuoteRequestPostSerializer(serializers.Serializer):
-    quoteName = serializers.CharField()
-    status = serializers.CharField()
