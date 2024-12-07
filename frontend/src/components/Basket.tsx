@@ -29,15 +29,22 @@ const Basket: React.FC = () => {
   };
 
   const handleSaveBasket = () => {
-    setBasket([]);
-    notification.success({
-      message: 'Your choises has been successfully saved!',
-      placement: 'topRight',
-    });
+    if (selectedQuotes.length > 0) {
+      setBasket([]);
+      notification.success({
+        message: 'Your choises has been successfully saved!',
+        placement: 'topRight',
+      });
 
-    setTimeout(() => {
-      navigate('/homepage');
-    }, 1500);
+      setTimeout(() => {
+        navigate('/homepage');
+      }, 1500);
+    } else {
+      notification.warning({
+        message: 'Please select at least one quote request!',
+        placement: 'topRight',
+      });
+    }
   };
 
   const handleDeleteProduct = (ProductId: number) => {
