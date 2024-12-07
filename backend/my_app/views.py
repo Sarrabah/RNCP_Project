@@ -20,15 +20,14 @@ class QuoteRequestResponse:
 
 
 class QuoteRequestListApiView(APIView):
+    QUOTEREQUESTS: List[QuoteRequest] = [
+        QuoteRequest(1, "QuoteR1", "Pending"),
+        QuoteRequest(2, "QuoteR2", "Pending"),
+    ]
 
     def get(self, request):
-        qr1 = QuoteRequest(1, "QuoteR1", "Pending")
-        qr2 = QuoteRequest(2, "QuoteR2", "Pending")
-
-        QUOTEREQUESTS: List[QuoteRequest] = [qr1, qr2]
-
         qrRes = QuoteRequestResponse()
-        qrRes.dataResponse = QUOTEREQUESTS
+        qrRes.dataResponse = self.QUOTEREQUESTS
         qrRes.errorResponse = ""
 
         serializer = QuoteRequestResponseSerializer(qrRes)
@@ -36,10 +35,19 @@ class QuoteRequestListApiView(APIView):
 
     def post(self, request):
         serializer = QuoteRequestSerializer(data=request.data)
+
         if serializer.is_valid():
             validated_data = serializer.validated_data
+
             if validated_data is not None:
-                validated_data["id"] = 1  # type: ignore
+                validated_data["id"] = len(self.QUOTEREQUESTS) + 1  # type: ignore
+
+                new_quote_request = QuoteRequest(
+                    validated_data["id"],  # type: ignore
+                    validated_data["quoteName"],  # type: ignore
+                    validated_data["status"],  # type: ignore
+                )
+                self.QUOTEREQUESTS.append(new_quote_request)
                 return Response(validated_data, status=status.HTTP_201_CREATED)
             else:
                 return Response(
