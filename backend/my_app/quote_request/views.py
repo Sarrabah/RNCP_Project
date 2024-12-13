@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import QuoteRequestResponseSerializer, QuoteRequestSerializer
+from .quote_request.serializers import QuoteRequestResponseSerializer, QuoteRequestSerializer
 
 
 class QuoteRequest:
@@ -40,12 +40,12 @@ class QuoteRequestListApiView(APIView):
             validated_data = serializer.validated_data
 
             if validated_data is not None:
-                validated_data["id"] = len(self.QUOTEREQUESTS) + 1  # type: ignore
+                validated_data["id"] = len(self.QUOTEREQUESTS) + 1  
 
                 new_quote_request = QuoteRequest(
-                    validated_data["id"],  # type: ignore
-                    validated_data["quoteName"],  # type: ignore
-                    validated_data["status"],  # type: ignore
+                    validated_data["id"], 
+                    validated_data["quoteName"],  
+                    validated_data["status"],  
                 )
                 self.QUOTEREQUESTS.append(new_quote_request)
                 return Response(validated_data, status=status.HTTP_201_CREATED)
