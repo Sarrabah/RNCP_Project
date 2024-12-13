@@ -3,7 +3,7 @@
 # run the Django server in the virtual environment
 .PHONY: run_backend
 run_back:
-	@ ./backend/env/bin/python ./backend/manage.py runserver
+	@ ./backend/rncp/bin/python ./backend/manage.py runserver
 
 # Linting and formatting
 SUCCESS_MSG :=  "(˵•̀ ᴗ -˵)"
@@ -32,7 +32,7 @@ flake8:
 # frontend side
 .PHONY: run_frontend
 run_front:
-	@ cd ./frontend && npm start 
+	@ cd ./frontend && npm install && npm start 
 
 .PHONY: verify_lint_front
 verify_lint_front:
