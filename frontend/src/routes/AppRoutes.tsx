@@ -1,22 +1,22 @@
-import React from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import Login from '../pages/LoginPage';
-import Register from '../pages/RegisterPage';
-import Homepage from '../pages/HomePage';
-import Welcomepage from '../pages/Welcomepage';
-import NavBar from '../components/NavBar';
-import { Layout } from 'antd';
-import Sidebar from '../components/SideBar';
-import CategoryPage from '../pages/CategoryPage';
-import QuoteForm from '../components/QuoteForm';
-import QuoteTable from '../components/QuoteTable';
-import ProductDetail from '../components/ProductDetail';
-import Basket from '../components/Basket';
+import React from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Login from "../pages/LoginPage";
+import Register from "../pages/RegisterPage";
+import Homepage from "../pages/HomePage";
+import Welcomepage from "../pages/Welcomepage";
+import NavBar from "../components/NavBar";
+import { Layout } from "antd";
+import Sidebar from "../components/SideBar";
+import CategoryPage from "../pages/CategoryPage";
+import QuoteForm from "../components/QuoteForm";
+import QuoteTable from "../components/QuoteTable";
+import ProductDetail from "../components/ProductDetail";
+import Basket from "../components/Basket";
 
 const { Content } = Layout;
 const AppRoutes = () => {
   const location = useLocation();
-  const hideLayoutPaths = ['/login', '/register', '/'];
+  const hideLayoutPaths = ["/login", "/register", "/"];
   const hideLayout = hideLayoutPaths.includes(location.pathname);
 
   return (

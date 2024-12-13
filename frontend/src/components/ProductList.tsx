@@ -1,8 +1,8 @@
-import React from 'react';
-import Product from './Product';
-import '../styles/Homepage.css';
-import { Col, Row } from 'antd';
-import { ProductInterface } from '../types/types';
+import React from "react";
+import Product from "./Product";
+import "../styles/Homepage.css";
+import { Col, Row } from "antd";
+import { ProductInterface } from "../types/types";
 
 interface ProductListPropos {
   products: Array<ProductInterface>;

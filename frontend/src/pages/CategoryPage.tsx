@@ -1,7 +1,7 @@
-import React from 'react';
-import { products } from './HomePage';
-import { useParams } from 'react-router-dom';
-import ProductList from '../components/ProductList';
+import React from "react";
+import { products } from "./HomePage";
+import { useParams } from "react-router-dom";
+import ProductList from "../components/ProductList";
 
 const CategoryPage: React.FC = () => {
   const { category } = useParams<{ category: string }>();

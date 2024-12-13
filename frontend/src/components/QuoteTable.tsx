@@ -1,5 +1,5 @@
-import { Button, Table } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Button, Table } from "antd";
+import React, { useEffect, useState } from "react";
 
 const QuoteTable: React.FC = () => {
   interface QuoteRecord {
@@ -9,10 +9,10 @@ const QuoteTable: React.FC = () => {
   }
 
   async function fetchQuoteRequests(): Promise<QuoteRecord[]> {
-    const response = await fetch('/api/quoterequests');
+    const response = await fetch("/api/quoterequests");
     const data = await response
       .json()
-      .then((response) => response['dataResponse']);
+      .then((response) => response["dataResponse"]);
     return data;
   }
 
@@ -22,11 +22,11 @@ const QuoteTable: React.FC = () => {
   }, []);
 
   const columns = [
-    { title: 'Quote Name', dataIndex: 'quoteName', key: 'quotename' },
-    { title: 'Status', dataIndex: 'status', key: 'status' },
+    { title: "Quote Name", dataIndex: "quoteName", key: "quotename" },
+    { title: "Status", dataIndex: "status", key: "status" },
     {
-      title: 'Edit',
-      key: 'edit',
+      title: "Edit",
+      key: "edit",
       render: (record: QuoteRecord) => (
         <Button type="primary" onClick={() => handleEdit(record.id)}>
           Edit
@@ -34,8 +34,8 @@ const QuoteTable: React.FC = () => {
       ),
     },
     {
-      title: 'Archive',
-      key: 'archive',
+      title: "Archive",
+      key: "archive",
       render: (record: QuoteRecord) => (
         <Button danger onClick={() => handleArchive(record.id)}>
           Archive

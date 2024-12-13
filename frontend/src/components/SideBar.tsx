@@ -1,13 +1,13 @@
-import React from 'react';
-import { Layout, Menu } from 'antd';
+import React from "react";
+import { Layout, Menu } from "antd";
 import {
   HomeOutlined,
   FormOutlined,
   OrderedListOutlined,
   AppstoreOutlined,
-} from '@ant-design/icons';
-import SubMenu from 'antd/es/menu/SubMenu';
-import { Link } from 'react-router-dom';
+} from "@ant-design/icons";
+import SubMenu from "antd/es/menu/SubMenu";
+import { Link } from "react-router-dom";
 
 const { Sider } = Layout;
 

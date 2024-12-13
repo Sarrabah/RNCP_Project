@@ -1,18 +1,18 @@
-import { Button, Form, Input, notification } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import React from 'react';
-import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
-import '../styles/Login.css';
+import { Button, Form, Input, notification } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import React from "react";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import "../styles/Login.css";
 
 const Login = () => {
   const navigate: NavigateFunction = useNavigate();
   const onFinish = () => {
     notification.success({
-      message: 'Connexion réussie',
-      description: 'Welcome! You are online now!',
+      message: "Connexion réussie",
+      description: "Welcome! You are online now!",
     });
     setTimeout(() => {
-      navigate('/homepage');
+      navigate("/homepage");
     }, 2000);
   };
   return (
@@ -26,7 +26,7 @@ const Login = () => {
         <Form.Item
           name="username"
           rules={[
-            { required: true, message: 'Please put your user name here!' },
+            { required: true, message: "Please put your user name here!" },
           ]}
         >
           <Input
@@ -38,7 +38,7 @@ const Login = () => {
         <Form.Item
           name="password"
           rules={[
-            { required: true, message: 'Please put your password here!' },
+            { required: true, message: "Please put your password here!" },
           ]}
         >
           <Input
