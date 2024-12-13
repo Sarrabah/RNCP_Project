@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import { ProductInterface } from '../types/types';
+import React, { createContext, useContext, useState } from "react";
+import { ProductInterface } from "../types/types";
 
 export interface BasketContextInterface {
   basket: Array<{ product: ProductInterface; quantity: number }>;
@@ -44,9 +44,9 @@ const BasketProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 export const useBasketContext = () => {
   const context = useContext(BasketContext);
-  console.log('context', context);
+  console.log("context", context);
   if (context === undefined) {
-    throw new Error('useBasketContext must be used within a BasketProvider');
+    throw new Error("useBasketContext must be used within a BasketProvider");
   }
   return context;
 };

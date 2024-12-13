@@ -1,8 +1,8 @@
-import { Button, Form, Input, notification } from 'antd';
-import '../styles/Formstyles.css';
-import React from 'react';
-import FormItem from 'antd/es/form/FormItem';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { Button, Form, Input, notification } from "antd";
+import "../styles/Formstyles.css";
+import React from "react";
+import FormItem from "antd/es/form/FormItem";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const QuoteForm: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
@@ -18,39 +18,39 @@ const QuoteForm: React.FC = () => {
   const addNewQuoteRequest = async (values: { quotename: string }) => {
     const { quotename } = values;
     const date = getDate();
-    const status = 'Created';
+    const status = "Created";
 
     try {
-      const response = await fetch('/api/quoterequest', {
-        method: 'POST',
+      const response = await fetch("/api/quoterequest", {
+        method: "POST",
         body: JSON.stringify({
           quoteName: quotename,
           date,
           status,
         }),
         headers: {
-          'Content-type': 'application/json',
+          "Content-type": "application/json",
         },
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit quote request!');
+        throw new Error("Failed to submit quote request!");
       }
 
       const data = await response.json();
 
       notification.success({
-        message: 'The quote been successfully created!',
-        placement: 'topRight',
+        message: "The quote been successfully created!",
+        placement: "topRight",
       });
 
       setTimeout(() => {
-        navigate('/homepage');
+        navigate("/homepage");
       }, 2000);
 
       return data;
     } catch (error) {
-      console.error('Error submitting quote request', error);
+      console.error("Error submitting quote request", error);
     }
   };
 
@@ -63,14 +63,14 @@ const QuoteForm: React.FC = () => {
             label="Quote Name"
             name="quotename"
             rules={[
-              { required: true, message: 'Please input the quote name!' },
+              { required: true, message: "Please input the quote name!" },
             ]}
           >
             <Input placeholder="Enter quote name " />
           </FormItem>
 
           <FormItem>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
               Create New Quote
             </Button>
           </FormItem>

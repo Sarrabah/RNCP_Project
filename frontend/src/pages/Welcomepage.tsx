@@ -1,7 +1,7 @@
-import React from 'react';
-import '../styles/Login.css';
-import '../styles/Homepage.css';
-import { Link } from 'react-router-dom';
+import React from "react";
+import "../styles/Login.css";
+import "../styles/Homepage.css";
+import { Link } from "react-router-dom";
 
 const Welcomepage: React.FC = () => {
   return (

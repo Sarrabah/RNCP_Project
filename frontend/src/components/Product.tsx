@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/Homepage.css';
-import { Button, Card, InputNumber } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import { ProductInterface } from '../types/types';
-import { useBasketContext } from '../context/BasketContext';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/Homepage.css";
+import { Button, Card, InputNumber } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { ProductInterface } from "../types/types";
+import { useBasketContext } from "../context/BasketContext";
 
 const Product: React.FC<ProductInterface> = ({ id, image, name, category }) => {
   const [quantity, setQuantity] = useState<number>(1);
@@ -38,14 +38,14 @@ const Product: React.FC<ProductInterface> = ({ id, image, name, category }) => {
           min={1}
           value={quantity}
           onChange={handleQuantityChange}
-          style={{ marginRight: '10px' }}
+          style={{ marginRight: "10px" }}
         />
         <Button
           type="primary"
           icon={<ShoppingCartOutlined />}
           onClick={handleAddToBasket}
         >
-          {' '}
+          {" "}
         </Button>
       </div>
     </Card>

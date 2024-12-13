@@ -1,19 +1,19 @@
-import { Button, Form, Input, notification } from 'antd';
-import React from 'react';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
-import '../styles/Register.css';
-import { NavigateFunction } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Button, Form, Input, notification } from "antd";
+import React from "react";
+import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import "../styles/Register.css";
+import { NavigateFunction } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate: NavigateFunction = useNavigate();
   const onFinish = () => {
     notification.success({
-      message: 'Création réussie',
-      description: 'Login juste now!',
+      message: "Création réussie",
+      description: "Login juste now!",
     });
     setTimeout(() => {
-      navigate('/login');
+      navigate("/login");
     }, 2000);
   };
   return (
@@ -27,7 +27,7 @@ const Register = () => {
         <Form.Item
           name="email"
           rules={[
-            { required: true, message: 'Please put here your adress mail ! ' },
+            { required: true, message: "Please put here your adress mail ! " },
           ]}
         >
           <Input
@@ -39,7 +39,7 @@ const Register = () => {
         <Form.Item
           name="username"
           rules={[
-            { required: true, message: 'Please put here your user Name! ' },
+            { required: true, message: "Please put here your user Name! " },
           ]}
         >
           <Input
@@ -51,7 +51,7 @@ const Register = () => {
         <Form.Item
           name="password"
           rules={[
-            { required: true, message: 'Please put here your password! ' },
+            { required: true, message: "Please put here your password! " },
           ]}
         >
           <Input

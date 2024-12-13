@@ -1,7 +1,7 @@
-import React from 'react';
-import AppRoutes from './routes/AppRoutes';
-import { BrowserRouter as Router } from 'react-router-dom';
-import BasketProvider from './context/BasketContext';
+import React from "react";
+import AppRoutes from "./routes/AppRoutes";
+import { BrowserRouter as Router } from "react-router-dom";
+import BasketProvider from "./context/BasketContext";
 
 function App() {
   return (

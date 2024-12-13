@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useBasketContext } from '../context/BasketContext';
+import React, { useState } from "react";
+import { useBasketContext } from "../context/BasketContext";
 import {
   Button,
   Checkbox,
@@ -8,9 +8,9 @@ import {
   notification,
   Row,
   Typography,
-} from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+} from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const Basket: React.FC = () => {
   const { basket, setBasket } = useBasketContext();
@@ -18,9 +18,9 @@ const Basket: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
 
   const quoteRequestsList: Array<string> = [
-    'Quote Request 1',
-    'Quote Request 2',
-    'Quote Request 3',
+    "Quote Request 1",
+    "Quote Request 2",
+    "Quote Request 3",
   ];
   const [selectedQuotes, setSelectedQuotes] = useState<Array<string>>([]);
 
@@ -32,17 +32,17 @@ const Basket: React.FC = () => {
     if (selectedQuotes.length > 0) {
       setBasket([]);
       notification.success({
-        message: 'Your choises has been successfully saved!',
-        placement: 'topRight',
+        message: "Your choises has been successfully saved!",
+        placement: "topRight",
       });
 
       setTimeout(() => {
-        navigate('/homepage');
+        navigate("/homepage");
       }, 1500);
     } else {
       notification.warning({
-        message: 'Please select at least one quote request!',
-        placement: 'topRight',
+        message: "Please select at least one quote request!",
+        placement: "topRight",
       });
     }
   };
@@ -55,7 +55,7 @@ const Basket: React.FC = () => {
 
   return (
     <div>
-      <Title level={2} style={{ textAlign: 'center' }}>
+      <Title level={2} style={{ textAlign: "center" }}>
         Basket
       </Title>
       <div>
@@ -64,13 +64,13 @@ const Basket: React.FC = () => {
             key={item.product.id}
             gutter={[16, 16]}
             align="middle"
-            style={{ padding: '10px', borderBottom: '1px solid #f0f0f0' }}
+            style={{ padding: "10px", borderBottom: "1px solid #f0f0f0" }}
           >
             <Col xs={24} sm={6} md={4}>
               <img
                 src={item.product.image}
                 alt={item.product.name}
-                style={{ width: '100%', borderRadius: '8px' }}
+                style={{ width: "100%", borderRadius: "8px" }}
               />
             </Col>
             <Col xs={24} sm={12} md={10}>
@@ -99,10 +99,10 @@ const Basket: React.FC = () => {
             <Button
               type="primary"
               style={{
-                marginTop: '20px',
-                display: 'block',
-                marginLeft: 'auto',
-                marginRight: 'auto',
+                marginTop: "20px",
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
               }}
               onClick={handleSaveBasket}
             >
@@ -113,7 +113,7 @@ const Basket: React.FC = () => {
       </div>
       <Divider />
       {basket.length == 0 && (
-        <Title level={3} style={{ textAlign: 'center' }}>
+        <Title level={3} style={{ textAlign: "center" }}>
           Your basket is empty!
         </Title>
       )}
