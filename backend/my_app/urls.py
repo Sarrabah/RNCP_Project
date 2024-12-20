@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import QuoteRequestListApiView
+from .views import ProductListApiView, QuoteRequestListApiView
 
 urlpatterns = [
     path(
@@ -12,5 +12,10 @@ urlpatterns = [
         "quoterequest",
         QuoteRequestListApiView.as_view(),
         name="add-new-quote-request",
+    ),
+    path(
+        "products",
+        ProductListApiView.as_view(),
+        name="all-products",
     ),
 ]
