@@ -60,7 +60,7 @@ class QuoteRequestListApiView(APIView):
 
 
 class Product:
-    def __init__(self, id: int, name: str, image: str, category: str):
+    def __init__(self, id: int, image: str, name: str, category: str):
         self.id = id
         self.image = image
         self.name = name
