@@ -25,7 +25,7 @@ const BasketProvider: React.FC<{ children: React.ReactNode }> = ({
       const existingProduct = prevBasket.find(
         (item) => item.product.id === product.id,
       );
-      if (existingProduct != undefined) {
+      if (existingProduct !== undefined) {
         return prevBasket.map((item) => {
           return item.product.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
@@ -44,7 +44,7 @@ const BasketProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 export const useBasketContext = () => {
   const context = useContext(BasketContext);
-  console.log("context", context);
+  // console.log("context", context);
   if (context === undefined) {
     throw new Error("useBasketContext must be used within a BasketProvider");
   }
