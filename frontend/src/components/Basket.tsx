@@ -112,7 +112,7 @@ const Basket: React.FC = () => {
         )}
       </div>
       <Divider />
-      {basket.length == 0 && (
+      {basket.length === 0 && (
         <Title level={3} style={{ textAlign: "center" }}>
           Your basket is empty!
         </Title>

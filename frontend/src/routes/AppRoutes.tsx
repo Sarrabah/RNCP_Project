@@ -21,9 +21,9 @@ const AppRoutes = () => {
 
   return (
     <Layout>
-      {hideLayout == false && <NavBar />}
+      {hideLayout === false && <NavBar />}
       <Layout>
-        {hideLayout == false && <Sidebar />}
+        {hideLayout === false && <Sidebar />}
         <Content>
           <Routes>
             <Route path="/login" element={<Login />} />
