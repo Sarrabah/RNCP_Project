@@ -1,13 +1,9 @@
 import { Button, Table } from "antd";
 import React, { useEffect, useState } from "react";
+import { QuoteRecord } from "../types/types";
 
 const QuoteTable: React.FC = () => {
-  interface QuoteRecord {
-    id: number;
-    quoteName: string;
-    status: string;
-  }
-
+  
   async function fetchQuoteRequests(): Promise<QuoteRecord[]> {
     const response = await fetch("/api/quoterequests");
     const data = await response
