@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { QuoteRecord } from "../types/types";
 
 const QuoteTable: React.FC = () => {
-  
   async function fetchQuoteRequests(): Promise<QuoteRecord[]> {
     const response = await fetch("/api/quoterequests");
     const data = await response
