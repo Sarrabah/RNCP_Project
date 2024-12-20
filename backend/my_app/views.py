@@ -42,12 +42,12 @@ class QuoteRequestListApiView(APIView):
             validated_data = serializer.validated_data
 
             if validated_data is not None:
-                validated_data["id"] = len(self.QUOTEREQUESTS) + 1
+                validated_data["id"] = len(self.QUOTEREQUESTS) + 1  # type: ignore
 
                 new_quote_request = QuoteRequest(
-                    validated_data["id"],
-                    validated_data["quoteName"],
-                    validated_data["status"],
+                    validated_data["id"],  # type: ignore
+                    validated_data["quoteName"],  # type: ignore
+                    validated_data["status"],  # type: ignore
                 )
                 self.QUOTEREQUESTS.append(new_quote_request)
                 return Response(validated_data, status=status.HTTP_201_CREATED)
