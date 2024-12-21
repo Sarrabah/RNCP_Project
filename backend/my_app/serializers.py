@@ -22,3 +22,8 @@ class ProductsSerializer(serializers.Serializer):
 class ProductsResponseSerializer(serializers.Serializer):
     dataResponse = ProductsSerializer(many=True)
     errorResponse = serializers.CharField()
+
+
+class ProductDetailsResponseSerializer(serializers.Serializer):
+    dataResponse = ProductsSerializer()
+    errorResponse = serializers.CharField()

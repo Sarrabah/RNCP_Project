@@ -4,7 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import (ProductsResponseSerializer,
+from .serializers import (ProductDetailsResponseSerializer,
+                          ProductsResponseSerializer,
                           QuoteRequestResponseSerializer,
                           QuoteRequestSerializer)
 
@@ -179,3 +180,32 @@ class ProductListApiView(APIView):
 
         serializer = ProductsResponseSerializer(productsRes)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ProductDetailsResponse:
+    dataResponse: Product
+    errorResponse: str
+
+
+class ProductDetailsApiView(APIView):
+    Products: List[Product] = ProductListApiView.Products
+
+    def get(self, request, id):
+        product = None
+        for p in self.Products:
+            if p.id == id:
+                product = p
+                break
+
+        if product is not None:
+            productRes = ProductDetailsResponse()
+            productRes.dataResponse = product
+            productRes.errorResponse = ""
+
+            serializer = ProductDetailsResponseSerializer(productRes)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(
+                f"There is no product for this id {id}",
+                status=status.HTTP_404_NOT_FOUND,
+            )
