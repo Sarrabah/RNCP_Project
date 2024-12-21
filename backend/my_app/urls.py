@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import ProductListApiView, QuoteRequestListApiView
+from .views import (ProductDetailsApiView, ProductListApiView,
+                    QuoteRequestListApiView)
 
 urlpatterns = [
     path(
@@ -17,5 +18,10 @@ urlpatterns = [
         "products",
         ProductListApiView.as_view(),
         name="all-products",
+    ),
+    path(
+        "product/<int:id>",
+        ProductDetailsApiView.as_view(),
+        name="product-details",
     ),
 ]
