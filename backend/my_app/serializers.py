@@ -27,3 +27,13 @@ class ProductsResponseSerializer(serializers.Serializer):
 class ProductDetailsResponseSerializer(serializers.Serializer):
     dataResponse = ProductsSerializer()
     errorResponse = serializers.CharField()
+
+
+class ProductInformationsSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    quantity = serializers.IntegerField()
+
+
+class BasketElementsSerializer(serializers.Serializer):
+    quoteRequestIdList = serializers.ListField()
+    productInformations = ProductInformationsSerializer(many=True)
