@@ -17,28 +17,53 @@ const Basket: React.FC = () => {
   const { Text, Title } = Typography;
   const navigate: NavigateFunction = useNavigate();
 
-  const quoteRequestsList: Array<string> = [
-    "Quote Request 1",
-    "Quote Request 2",
-    "Quote Request 3",
+  const quoteRequestsList: Array<{ id: number; name: string }> = [
+    { id: 1, name: "Quote Request 1" },
+    { id: 2, name: "Quote Request 2" },
+    { id: 3, name: "Quote Request 3" },
   ];
-  const [selectedQuotes, setSelectedQuotes] = useState<Array<string>>([]);
+  const [selectedIds, setSelectedIds] = useState<Array<number>>([]);
 
-  const handleQuoteSelection = (quoteRArray: Array<string>) => {
-    setSelectedQuotes(quoteRArray);
+  const handleQuoteSelection = (quoteRIds: Array<number>) => {
+    setSelectedIds(quoteRIds);
   };
 
-  const handleSaveBasket = () => {
-    if (selectedQuotes.length > 0) {
-      setBasket([]);
-      notification.success({
-        message: "Your choises has been successfully saved!",
-        placement: "topRight",
-      });
+  const handleSaveBasket = async () => {
+    if (selectedIds.length > 0) {
+      try {
+        const response = await fetch("/api/basketelements", {
+          method: "POST",
+          body: JSON.stringify({
+            quoteRequestIdList: selectedIds,
+            productInformations: basket.map((p) => ({
+              id: p.product.id,
+              quantity: p.quantity,
+            })),
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        });
 
-      setTimeout(() => {
-        navigate("/homepage");
-      }, 1500);
+        if (!response.ok) {
+          throw new Error("Failed to save the basket!");
+        }
+
+        const data = await response.json();
+
+        notification.success({
+          message: "Your choises has been successfully saved!",
+          placement: "topRight",
+        });
+
+        setTimeout(() => {
+          navigate("/homepage");
+        }, 1000);
+        setBasket([]);
+        return data;
+      } catch (error) {
+        console.error("Error saving basket", error);
+      }
     } else {
       notification.warning({
         message: "Please select at least one quote request!",
@@ -92,8 +117,11 @@ const Basket: React.FC = () => {
           <div>
             <Title level={3}>Select the desired quotes requests</Title>
             <Checkbox.Group
-              options={quoteRequestsList}
-              value={selectedQuotes}
+              options={quoteRequestsList.map((qr) => ({
+                label: qr.name, // Display the name
+                value: qr.id, // Use the unique ID as the value
+              }))}
+              value={selectedIds}
               onChange={handleQuoteSelection}
             />
             <Button
