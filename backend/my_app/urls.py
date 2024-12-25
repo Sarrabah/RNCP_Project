@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import (ProductDetailsApiView, ProductListApiView,
-                    QuoteRequestListApiView)
+from .views import (BasketElementsApiView, ProductDetailsApiView,
+                    ProductListApiView, QuoteRequestListApiView)
 
 urlpatterns = [
     path(
@@ -23,5 +23,8 @@ urlpatterns = [
         "product/<int:id>",
         ProductDetailsApiView.as_view(),
         name="product-details",
+    ),
+    path(
+        "basketelements", BasketElementsApiView.as_view(), name="save-basket-elements"
     ),
 ]

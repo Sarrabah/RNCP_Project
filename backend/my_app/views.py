@@ -4,7 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import (ProductDetailsResponseSerializer,
+from .serializers import (BasketElementsSerializer,
+                          ProductDetailsResponseSerializer,
                           ProductsResponseSerializer,
                           QuoteRequestResponseSerializer,
                           QuoteRequestSerializer)
@@ -209,3 +210,17 @@ class ProductDetailsApiView(APIView):
                 f"There is no product for this id {id}",
                 status=status.HTTP_404_NOT_FOUND,
             )
+
+
+class BasketElementsApiView(APIView):
+
+    def post(self, request):
+        serializer = BasketElementsSerializer(data=request.data)
+
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            print(validated_data)
+            return Response(validated_data, status=status.HTTP_200_OK)
+
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
