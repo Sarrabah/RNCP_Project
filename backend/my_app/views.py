@@ -25,8 +25,8 @@ class QuoteRequestResponse:
 
 class QuoteRequestListApiView(APIView):
     QUOTEREQUESTS: List[QuoteRequest] = [
-        QuoteRequest(1, "QuoteR1", "Pending"),
-        QuoteRequest(2, "QuoteR2", "Pending"),
+        QuoteRequest(1, "QuoteR1", "Progress"),
+        QuoteRequest(2, "QuoteR2", "Progress"),
     ]
 
     def get(self, request):
