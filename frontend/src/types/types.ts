@@ -7,6 +7,6 @@ export interface ProductInterface {
 
 export interface QuoteRecord {
   id: number;
-  quoteName: string;
+  name: string;
   status: string;
 }
