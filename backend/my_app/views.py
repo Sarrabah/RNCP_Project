@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Product
+from .models import Architect, Product, QuoteRequest
 from .serializers import (BasketElementsSerializer,
                           ProductDetailsResponseSerializer,
                           ProductsResponseSerializer,
@@ -12,22 +12,23 @@ from .serializers import (BasketElementsSerializer,
                           QuoteRequestSerializer)
 
 
-class QuoteRequest:
-    def __init__(self, id: int, name: str, status: str):
+class QuoteRequestType:
+    def __init__(self, id: int, name: str, status: str, archi_id: Architect):
         self.id = id
         self.name = name
         self.status = status
+        self.archi_id = archi_id
 
 
 class QuoteRequestResponse:
-    dataResponse: list[QuoteRequest]
+    dataResponse: list[QuoteRequestType]
     errorResponse: str
 
 
 class QuoteRequestListApiView(APIView):
-    QUOTEREQUESTS: List[QuoteRequest] = [
-        QuoteRequest(1, "QuoteR1", "Progress"),
-        QuoteRequest(2, "QuoteR2", "Progress"),
+    QUOTEREQUESTS: List[QuoteRequestType] = [
+        QuoteRequestType(qr.id, qr.name, qr.status, qr.archi_id)
+        for qr in QuoteRequest.objects.all()
     ]
 
     def get(self, request):

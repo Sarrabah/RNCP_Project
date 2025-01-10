@@ -17,7 +17,7 @@ const QuoteTable: React.FC = () => {
   }, []);
 
   const columns = [
-    { title: "Quote Name", dataIndex: "quoteName", key: "quotename" },
+    { title: "Quote Name", dataIndex: "name", key: "name" },
     { title: "Status", dataIndex: "status", key: "status" },
     {
       title: "Edit",

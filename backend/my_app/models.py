@@ -20,9 +20,9 @@ class Architect(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.CharField(unique=True, max_length=255)
     password = models.CharField(max_length=255)
-    adress = models.CharField(max_length=255, blank=True, null=True)
+    adress = models.CharField(max_length=255, blank=True)
     region_code = models.CharField(max_length=20)
-    phone_number = models.CharField(max_length=30, blank=True, null=True)
+    phone_number = models.CharField(max_length=30, blank=True)
 
     def __str__(self) -> str:
         return self.first_name
