@@ -41,3 +41,16 @@ verify_lint_front:
 .PHONY: lint_frontend
 lint_frontend:
 	@cd ./frontend && npm run lint:fix && npm run format
+
+# Database side
+
+# verify MySQL Connection to ensure Django can connect to your MySQL database
+.PHONY: verify_mysql_connection
+verify_mysql_connection:
+	@ cd ./backend &&  python manage.py inspectdb
+
+# Connect to DB
+.PHONY: db_connect
+db_connect:
+	@ mysql -u rncp -p
+ 
