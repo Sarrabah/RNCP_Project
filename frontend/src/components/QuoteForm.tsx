@@ -15,8 +15,8 @@ const QuoteForm: React.FC = () => {
     return `${date}/${month}/${year}`;
   };
 
-  const addNewQuoteRequest = async (values: {name: string }) => {
-    const {name } = values;
+  const addNewQuoteRequest = async (values: { name: string }) => {
+    const { name } = values;
     const date = getDate();
     const status = "Created";
 
@@ -24,7 +24,7 @@ const QuoteForm: React.FC = () => {
       const response = await fetch("/api/quoterequest", {
         method: "POST",
         body: JSON.stringify({
-          name:name,
+          name: name,
           date,
           status,
         }),
@@ -61,7 +61,7 @@ const QuoteForm: React.FC = () => {
         <Form name="quote-form" layout="vertical" onFinish={addNewQuoteRequest}>
           <FormItem
             label="Quote Name"
-            name=name"
+            name="name"
             rules={[
               { required: true, message: "Please input the quote name!" },
             ]}
