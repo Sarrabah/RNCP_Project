@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from .models import Product
+
 
 class QuoteRequestSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -12,11 +14,10 @@ class QuoteRequestResponseSerializer(serializers.Serializer):
     errorResponse = serializers.CharField()
 
 
-class ProductsSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    image = serializers.CharField()
-    name = serializers.CharField()
-    category = serializers.CharField()
+class ProductsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ["id", "image", "name", "category"]
 
 
 class ProductsResponseSerializer(serializers.Serializer):
