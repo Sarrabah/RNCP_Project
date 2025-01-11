@@ -26,14 +26,13 @@ class QuoteRequestResponse:
 
 
 class QuoteRequestListApiView(APIView):
-    QUOTEREQUESTS: List[QuoteRequestType] = [
-        QuoteRequestType(qr.id, qr.name, qr.status, qr.archi_id)
-        for qr in QuoteRequest.objects.all()
-    ]
 
     def get(self, request):
         qrRes = QuoteRequestResponse()
-        qrRes.dataResponse = self.QUOTEREQUESTS
+        qrRes.dataResponse = [
+            QuoteRequestType(qr.id, qr.name, qr.status, qr.archi_id)
+            for qr in QuoteRequest.objects.all()
+        ]
         qrRes.errorResponse = ""
 
         serializer = QuoteRequestResponseSerializer(qrRes)
@@ -43,23 +42,36 @@ class QuoteRequestListApiView(APIView):
         serializer = QuoteRequestSerializer(data=request.data)
 
         if serializer.is_valid():
-            validated_data = serializer.validated_data
+            try:
+                validated_data = serializer.validated_data
 
-            if validated_data is not None:
-                validated_data["id"] = len(self.QUOTEREQUESTS) + 1  # type: ignore
+                if not isinstance(validated_data, dict):
+                    return Response(
+                        {"error": "Validated data is not in the expected format."},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    )
 
-                new_quote_request = QuoteRequest(
-                    validated_data["id"],  # type: ignore
-                    validated_data["name"],  # type: ignore
-                    validated_data["status"],  # type: ignore
+                new_quote_request = QuoteRequest.objects.create(
+                    name=validated_data.get("name"),
+                    status=validated_data.get("status"),
+                    archi_id=validated_data.get("archi_id"),
                 )
-                self.QUOTEREQUESTS.append(new_quote_request)
-                return Response(validated_data, status=status.HTTP_201_CREATED)
-            else:
+
+                created_data = QuoteRequestSerializer(new_quote_request).data
+                return Response(created_data, status=status.HTTP_201_CREATED)
+
+            except KeyError as e:
                 return Response(
-                    {"error": "Validated data is None"},
+                    {"error": f"Missing key in validated data: {str(e)}"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            except Exception as e:
+                return Response(
+                    {"error": f"An unexpected error occurred: {str(e)}"},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
