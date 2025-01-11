@@ -17,14 +17,14 @@ urlpatterns = [
     path(
         "products",
         ProductListApiView.as_view(),
-        name="all-products",
+        name="get-all-products",
     ),
     path(
         "product/<int:id>",
         ProductDetailsApiView.as_view(),
-        name="product-details",
+        name="get-product-details",
     ),
     path(
-        "basketelements", BasketElementsApiView.as_view(), name="save-basket-elements"
+        "basketelements", BasketElementsApiView.as_view(), name="post-basket-elements"
     ),
 ]
