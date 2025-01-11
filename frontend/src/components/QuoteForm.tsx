@@ -7,26 +7,18 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 const QuoteForm: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
 
-  const getDate = () => {
-    const today: Date = new Date();
-    const month: number = today.getMonth();
-    const year: number = today.getFullYear();
-    const date: number = today.getDate();
-    return `${date}/${month}/${year}`;
-  };
-
   const addNewQuoteRequest = async (values: { name: string }) => {
     const { name } = values;
-    const date = getDate();
     const status = "Created";
+    const archi_id = 1;
 
     try {
       const response = await fetch("/api/quoterequest", {
         method: "POST",
         body: JSON.stringify({
           name: name,
-          date,
           status,
+          archi_id: archi_id,
         }),
         headers: {
           "Content-type": "application/json",

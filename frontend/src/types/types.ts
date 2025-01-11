@@ -9,4 +9,5 @@ export interface QuoteRecord {
   id: number;
   name: string;
   status: string;
+  archi_id: number;
 }
