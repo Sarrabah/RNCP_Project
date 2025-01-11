@@ -96,26 +96,37 @@ class ProductDetailsResponse:
 
 
 class ProductDetailsApiView(APIView):
-    Products: List[Product] = ProductListApiView.Products
 
     def get(self, request, id):
-        product = None
-        for p in self.Products:
-            if p.id == id:
-                product = p
-                break
+        try:
+            try:
+                product = Product.objects.get(pk=id)
+            except Product.DoesNotExist:
+                return Response(
+                    {"error": f"Product with id {id} not found."},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+            except ValueError:
+                return Response(
+                    {"error": f"Invalid product id: {id}. It must be a valid integer."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            except Exception as e:
+                return Response(
+                    {"error": f"An unexpected error occurred: {str(e)}"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
 
-        if product is not None:
             productRes = ProductDetailsResponse()
             productRes.dataResponse = product
             productRes.errorResponse = ""
-
             serializer = ProductDetailsResponseSerializer(productRes)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
+
+        except Exception as e:
             return Response(
-                f"There is no product for this id {id}",
-                status=status.HTTP_404_NOT_FOUND,
+                {"error": f"An internal server error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
 
