@@ -165,6 +165,7 @@ class BasketElementsApiView(APIView):
                         QuoteRequestProduct.objects.create(
                             quote_request_id=instanceQuoteRequest,
                             product_id=instanceProduct,
+                            quantity=p["quantity"],
                         )
 
                 return Response(validated_data, status=status.HTTP_200_OK)
