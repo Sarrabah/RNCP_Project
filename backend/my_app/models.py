@@ -63,6 +63,7 @@ class QuoteRequestProduct(models.Model):
         QuoteRequest, models.DO_NOTHING, db_column="quote_request_id"
     )
     product_id = models.ForeignKey(Product, models.DO_NOTHING, db_column="product_id")
+    quantity = models.IntegerField()
 
     class Meta:
         db_table = "quote_request_product"
