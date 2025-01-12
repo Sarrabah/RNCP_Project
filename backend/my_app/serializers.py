@@ -9,26 +9,11 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "status", "archi_id"]
 
 
-class QuoteRequestResponseSerializer(serializers.Serializer):
-    dataResponse = QuoteRequestSerializer(many=True)
-    errorResponse = serializers.CharField()
-
-
-class ProductsSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
         fields = ["id", "image", "name", "category"]
-
-
-class ProductsResponseSerializer(serializers.Serializer):
-    dataResponse = ProductsSerializer(many=True)
-    errorResponse = serializers.CharField()
-
-
-class ProductDetailsResponseSerializer(serializers.Serializer):
-    dataResponse = ProductsSerializer()
-    errorResponse = serializers.CharField()
 
 
 class ProductInformationsSerializer(serializers.Serializer):

@@ -1,22 +1,22 @@
 from django.urls import path
 
-from .views import (BasketElementsApiView, ProductDetailsApiView,
-                    ProductListApiView, QuoteRequestListApiView)
+from .views import (BasketElementsApiView, ProductApiView,
+                    ProductDetailsApiView, QuoteRequestApiView)
 
 urlpatterns = [
     path(
         "quoterequests",
-        QuoteRequestListApiView.as_view(),
+        QuoteRequestApiView.as_view(),
         name="get-all-quote-requests",
     ),
     path(
         "quoterequest",
-        QuoteRequestListApiView.as_view(),
+        QuoteRequestApiView.as_view(),
         name="add-new-quote-request",
     ),
     path(
         "products",
-        ProductListApiView.as_view(),
+        ProductApiView.as_view(),
         name="get-all-products",
     ),
     path(
