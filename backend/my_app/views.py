@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Architect, Product, QuoteRequest
+from .models import Architect, Product, QuoteRequest, QuoteRequestProduct
 from .serializers import (BasketElementsSerializer,
                           ProductDetailsResponseSerializer,
                           ProductsResponseSerializer,
@@ -148,9 +148,31 @@ class BasketElementsApiView(APIView):
         serializer = BasketElementsSerializer(data=request.data)
 
         if serializer.is_valid():
-            validated_data = serializer.validated_data
-            print(validated_data)
-            return Response(validated_data, status=status.HTTP_200_OK)
+            try:
+                validated_data = serializer.validated_data
 
+                if not isinstance(validated_data, dict):
+                    return Response(
+                        {"error": "Validated data is not in the expected format."},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    )
+
+                for qr_id in validated_data["quoteRequestIdList"]:
+
+                    for p in validated_data["productInformations"]:
+                        instanceQuoteRequest = QuoteRequest.objects.get(pk=qr_id)
+                        instanceProduct = Product.objects.get(pk=p["id"])
+                        QuoteRequestProduct.objects.create(
+                            quote_request_id=instanceQuoteRequest,
+                            product_id=instanceProduct,
+                        )
+
+                return Response(validated_data, status=status.HTTP_200_OK)
+
+            except Exception as e:
+                return Response(
+                    {"error": f"An unexpected error occurred: {str(e)}"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
