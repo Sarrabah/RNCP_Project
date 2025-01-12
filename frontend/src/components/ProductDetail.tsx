@@ -14,9 +14,7 @@ const ProductDetail: React.FC = () => {
 
   const fetchProductDetails = useCallback(async () => {
     const response = await fetch(`/api/product/${id}`);
-    const data = await response
-      .json()
-      .then((response) => response["dataResponse"]);
+    const data = await response.json();
     setProduct(data);
   }, [id]);
 

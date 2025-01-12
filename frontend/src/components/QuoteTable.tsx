@@ -5,9 +5,7 @@ import { QuoteRecord } from "../types/types";
 const QuoteTable: React.FC = () => {
   async function fetchQuoteRequests(): Promise<QuoteRecord[]> {
     const response = await fetch("/api/quoterequests");
-    const data = await response
-      .json()
-      .then((response) => response["dataResponse"]);
+    const data = await response.json();
     return data;
   }
 

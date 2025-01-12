@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 const Homepage: React.FC = () => {
   async function fetchProducts(): Promise<ProductInterface[]> {
     const response = await fetch("/api/products");
-    const data = await response
-      .json()
-      .then((response) => response["dataResponse"]);
+    const data = await response.json();
     return data;
   }
 
