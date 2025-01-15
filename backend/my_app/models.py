@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -14,18 +15,14 @@ class Product(models.Model):
         db_table = "product"
 
 
-class Architect(models.Model):
+class Architect(AbstractUser):
     id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.CharField(unique=True, max_length=255)
-    password = models.CharField(max_length=255)
     adress = models.CharField(max_length=255, blank=True)
     region_code = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=30, blank=True)
 
     def __str__(self) -> str:
-        return self.first_name
+        return self.email
 
     class Meta:
         db_table = "architect"
