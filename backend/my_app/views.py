@@ -1,10 +1,11 @@
+from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Product, QuoteRequest, QuoteRequestProduct
-from .serializers import (BasketElementsSerializer, ProductSerializer,
-                          QuoteRequestSerializer)
+from .models import Architect, Product, QuoteRequest, QuoteRequestProduct
+from .serializers import (ArchitectSerializer, BasketElementsSerializer,
+                          ProductSerializer, QuoteRequestSerializer)
 
 
 class QuoteRequestApiView(APIView):
@@ -118,3 +119,34 @@ class BasketElementsApiView(APIView):
                 )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ArchitectRegisterApiView(APIView):
+    def post(self, request):
+        serializer = ArchitectSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                validated_data = serializer.validated_data
+                if not isinstance(validated_data, dict):
+                    return Response(
+                        {"error": "Data is not in the expected format!"},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    )
+
+                new_user = Architect.objects.create(
+                    first_name=validated_data["first_name"],
+                    last_name=validated_data["last_name"],
+                    email=validated_data["email"],
+                    password=make_password(validated_data["password"]),
+                    adress=validated_data["adress"],
+                    region_code=validated_data["region_code"],
+                    phone_number=validated_data["phone_number"],
+                )
+                created_data = ArchitectSerializer(new_user).data
+                return Response(created_data, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                return Response(
+                    {"error": f"An unexpected error occurred: {str(e)}"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

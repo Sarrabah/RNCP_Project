@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Product, QuoteRequest
+from .models import Architect, Product, QuoteRequest
 
 
 class QuoteRequestSerializer(serializers.ModelSerializer):
@@ -24,3 +24,19 @@ class ProductInformationsSerializer(serializers.Serializer):
 class BasketElementsSerializer(serializers.Serializer):
     quoteRequestIdList = serializers.ListField()
     productInformations = ProductInformationsSerializer(many=True)
+
+
+class ArchitectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Architect
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "password",
+            "adress",
+            "region_code",
+            "phone_number",
+        ]
+        extra_kwargs = {"password": {"write_only": True}}
