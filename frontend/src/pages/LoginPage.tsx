@@ -1,5 +1,5 @@
 import { Button, Form, Input, notification } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import React from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
@@ -24,15 +24,13 @@ const Login = () => {
         onFinish={onFinish}
       >
         <Form.Item
-          name="username"
-          rules={[
-            { required: true, message: "Please put your user name here!" },
-          ]}
+          name="email"
+          rules={[{ required: true, message: "Please put your email here!" }]}
         >
           <Input
-            prefix={<UserOutlined />}
+            prefix={<MailOutlined />}
             className="site-form-item-icon"
-            placeholder="Username"
+            placeholder="Email"
           />
         </Form.Item>
         <Form.Item
