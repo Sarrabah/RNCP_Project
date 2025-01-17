@@ -39,9 +39,9 @@ const Register = () => {
           last_name: last_name,
           email: email,
           password: password,
-          adress: adress,
+          adress: adress || null,
           region_code: region_code,
-          phone_number: phone_number,
+          phone_number: phone_number || null,
         }),
         headers: {
           "Content-type": "application/json",
@@ -64,7 +64,11 @@ const Register = () => {
       }, 2000);
 
       return data;
-    } catch (error) {
+    } catch (error: any) {
+      notification.error({
+        message: "Error",
+        description: "Error occured when registering",
+      });
       console.error("Error submitting the new user ", error);
     }
   };
