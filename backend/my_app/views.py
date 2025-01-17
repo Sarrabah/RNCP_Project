@@ -1,4 +1,6 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -8,7 +10,7 @@ from .serializers import (ArchitectSerializer, BasketElementsSerializer,
                           ProductSerializer, QuoteRequestSerializer)
 
 
-class QuoteRequestApiView(APIView):
+class QuoteRequestApiView(LoginRequiredMixin, APIView):
 
     def get(self, request):
         try:
@@ -52,7 +54,7 @@ class QuoteRequestApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProductApiView(APIView):
+class ProductApiView(LoginRequiredMixin, APIView):
     def get(self, request):
         try:
             productsRes = Product.objects.all()
@@ -65,7 +67,7 @@ class ProductApiView(APIView):
             )
 
 
-class ProductDetailsApiView(APIView):
+class ProductDetailsApiView(LoginRequiredMixin, APIView):
 
     def get(self, request, id):
         try:
@@ -84,7 +86,7 @@ class ProductDetailsApiView(APIView):
             )
 
 
-class BasketElementsApiView(APIView):
+class BasketElementsApiView(LoginRequiredMixin, APIView):
 
     def post(self, request):
         serializer = BasketElementsSerializer(data=request.data)
@@ -150,3 +152,28 @@ class ArchitectRegisterApiView(APIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginApiView(APIView):
+    def post(self, request):
+        try:
+            email = request.data["email"]
+            password = request.data["password"]
+            # authentificate the user with email and password
+            user = authenticate(request, username=email, password=password)
+
+            if user is not None:
+                # Login the user and creat a session
+                login(request, user)
+                return Response(
+                    {"message": "Login successful"}, status=status.HTTP_200_OK
+                )
+            else:
+                return Response(
+                    {"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST
+                )
+        except Exception as e:
+            return Response(
+                {"error": f"An unexpected error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

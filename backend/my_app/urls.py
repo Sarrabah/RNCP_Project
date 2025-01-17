@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import (ArchitectRegisterApiView, BasketElementsApiView,
-                    ProductApiView, ProductDetailsApiView, QuoteRequestApiView)
+                    LoginApiView, ProductApiView, ProductDetailsApiView,
+                    QuoteRequestApiView)
 
 urlpatterns = [
     path(
@@ -28,4 +29,5 @@ urlpatterns = [
         "basketelements", BasketElementsApiView.as_view(), name="post-basket-elements"
     ),
     path("register", ArchitectRegisterApiView.as_view(), name="register"),
+    path("login", LoginApiView.as_view(), name="login"),
 ]

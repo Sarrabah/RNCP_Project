@@ -11,3 +11,8 @@ export interface QuoteRecord {
   status: string;
   archi_id: number;
 }
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+}

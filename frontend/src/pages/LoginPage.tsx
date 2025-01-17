@@ -3,17 +3,42 @@ import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import React from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import { LoginPayload } from "../types/types";
 
 const Login = () => {
   const navigate: NavigateFunction = useNavigate();
-  const onFinish = () => {
-    notification.success({
-      message: "Connexion réussie",
-      description: "Welcome! You are online now!",
-    });
-    setTimeout(() => {
-      navigate("/homepage");
-    }, 2000);
+  const handleLogin = async (values: LoginPayload): Promise<void> => {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+        credentials: "include", // Ensure cookies (session) are included in the request
+      });
+      if (response.ok) {
+        notification.success({
+          message: "Login successful",
+          description: "Welcome! You are online now!",
+        });
+        setTimeout(() => {
+          navigate("/homepage");
+        }, 2000);
+      } else {
+        const errorData = await response.json();
+        notification.error({
+          message: "Login failed",
+          description: errorData.error,
+        });
+      }
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: "Something went wrong. Please try again later.",
+      });
+      console.error("Error during login:", error);
+    }
   };
   return (
     <div className="container">
@@ -21,7 +46,7 @@ const Login = () => {
         name="login_form"
         initialValues={{ remember: true }}
         className="form"
-        onFinish={onFinish}
+        onFinish={handleLogin}
       >
         <Form.Item
           name="email"
