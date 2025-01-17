@@ -132,7 +132,6 @@ class ArchitectRegisterApiView(APIView):
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-
                 new_user = Architect.objects.create(
                     first_name=validated_data["first_name"],
                     last_name=validated_data["last_name"],
@@ -145,6 +144,7 @@ class ArchitectRegisterApiView(APIView):
                 created_data = ArchitectSerializer(new_user).data
                 return Response(created_data, status=status.HTTP_201_CREATED)
             except Exception as e:
+                print("exception : ", e)
                 return Response(
                     {"error": f"An unexpected error occurred: {str(e)}"},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR,
