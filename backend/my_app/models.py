@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.timezone import now
 
 
 class Product(models.Model):
@@ -21,7 +22,8 @@ class Architect(AbstractUser):
     adress = models.CharField(max_length=255, blank=True)
     region_code = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=30, blank=True)
-    username = models.CharField(unique=False, max_length=100)
+    username = models.CharField(unique=False, max_length=100, default="username")
+    last_login = models.DateTimeField(default=now, blank=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name"]
