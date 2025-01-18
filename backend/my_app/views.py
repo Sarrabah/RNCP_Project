@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status
@@ -172,6 +172,20 @@ class LoginApiView(APIView):
                 return Response(
                     {"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST
                 )
+        except Exception as e:
+            return Response(
+                {"error": f"An unexpected error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+
+class LogoutApiView(APIView):
+    def post(self, request):
+        try:
+            logout(request)
+            return Response(
+                {"message": "Logged out successfully !"}, status=status.HTTP_200_OK
+            )
         except Exception as e:
             return Response(
                 {"error": f"An unexpected error occurred: {str(e)}"},
