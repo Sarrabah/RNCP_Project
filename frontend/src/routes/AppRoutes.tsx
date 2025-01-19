@@ -1,9 +1,9 @@
 import React from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Login from "../pages/LoginPage";
 import Register from "../pages/RegisterPage";
 import Homepage from "../pages/HomePage";
-import Welcomepage from "../pages/Welcomepage";
+import WelcomePage from "../pages/WelcomePage";
 import NavBar from "../components/NavBar";
 import { Layout } from "antd";
 import Sidebar from "../components/SideBar";
@@ -12,6 +12,7 @@ import QuoteForm from "../components/QuoteForm";
 import QuoteTable from "../components/QuoteTable";
 import ProductDetail from "../components/ProductDetail";
 import Basket from "../components/Basket";
+import PrivateRoute from "../components/PrivateRoute";
 
 const { Content } = Layout;
 const AppRoutes = () => {
@@ -26,15 +27,58 @@ const AppRoutes = () => {
         {hideLayout === false && <Sidebar />}
         <Content>
           <Routes>
+            <Route path="/" element={<WelcomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/homepage" element={<Homepage />} />
-            <Route path="/" element={<Welcomepage />} />
-            <Route path="/category/:category" element={<CategoryPage />} />
-            <Route path="/newquoterequest" element={<QuoteForm />} />
-            <Route path="/quoterequestlist" element={<QuoteTable />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/basket" element={<Basket />} />
+            <Route
+              path="/homepage"
+              element={
+                <PrivateRoute>
+                  <Homepage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/category/:category"
+              element={
+                <PrivateRoute>
+                  <CategoryPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/newquoterequest"
+              element={
+                <PrivateRoute>
+                  <QuoteForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/quoterequestlist"
+              element={
+                <PrivateRoute>
+                  <QuoteTable />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/product/:id"
+              element={
+                <PrivateRoute>
+                  <ProductDetail />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/basket"
+              element={
+                <PrivateRoute>
+                  <Basket />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Content>
       </Layout>

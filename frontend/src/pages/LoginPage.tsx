@@ -17,11 +17,13 @@ const Login = () => {
         body: JSON.stringify(values),
         credentials: "include", // Ensure cookies (session) are included in the request
       });
+
       if (response.ok) {
         notification.success({
           message: "Login successful",
           description: "Welcome! You are online now!",
         });
+        localStorage.setItem("isAuthentificated", "true");
         setTimeout(() => {
           navigate("/homepage");
         }, 2000);
@@ -35,7 +37,7 @@ const Login = () => {
     } catch (error) {
       notification.error({
         message: "Error",
-        description: "Something went wrong. Please try again later.",
+        description: "An error occurred while login in! Please try again! ",
       });
       console.error("Error during login:", error);
     }

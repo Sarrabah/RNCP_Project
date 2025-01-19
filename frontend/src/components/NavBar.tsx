@@ -4,7 +4,7 @@ import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import "../styles/Homepage.css";
 import artcreapro from "../assets/art-crea-pro.png";
 import { Header } from "antd/es/layout/layout";
-import { Link } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { useBasketContext } from "../context/BasketContext";
 import { Badge, Dropdown, MenuProps, message } from "antd";
 
@@ -24,6 +24,7 @@ const NavBar: React.FC = () => {
     return null;
   };
 
+  const navigate: NavigateFunction = useNavigate();
   const handleLogout = async (): Promise<any> => {
     try {
       const csrfToken = getCSRFToken();
@@ -39,9 +40,13 @@ const NavBar: React.FC = () => {
           "X-CSRFToken": csrfToken,
         },
       });
+
       if (response.ok) {
         message.success("Logged out successfully!");
-        window.location.href = "/login";
+        localStorage.removeItem("isAuthentificated");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } else {
         message.error("Failed to logout!");
       }
