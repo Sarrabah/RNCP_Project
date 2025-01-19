@@ -36,7 +36,7 @@ const NavBar: React.FC = () => {
         credentials: "include", // Include session cookies
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken, // Include the CSRF token
+          "X-CSRFToken": csrfToken,
         },
       });
       if (response.ok) {
