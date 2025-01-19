@@ -3,7 +3,7 @@ import "../styles/Login.css";
 import "../styles/Homepage.css";
 import { Link } from "react-router-dom";
 
-const Welcomepage: React.FC = () => {
+const WelcomePage: React.FC = () => {
   return (
     <div className="container">
       <div className="form">
@@ -21,4 +21,4 @@ const Welcomepage: React.FC = () => {
     </div>
   );
 };
-export default Welcomepage;
+export default WelcomePage;
