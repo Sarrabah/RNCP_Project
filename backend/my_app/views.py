@@ -163,7 +163,7 @@ class LoginApiView(APIView):
             user = authenticate(request, username=email, password=password)
 
             if user is not None:
-                # Login the user and creat a session
+                # Login the user and create a session
                 login(request, user)
                 return Response(
                     {"message": "Login successful"}, status=status.HTTP_200_OK
