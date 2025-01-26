@@ -3,7 +3,7 @@
 # run the Django server in the virtual environment
 .PHONY: run_backend
 run_back:
-	@ ./backend/.vrncp/bin/python ./backend/manage.py runserver
+	@ ./backend/.venv/bin/python ./backend/manage.py runserver
 
 # Linting and formatting
 SUCCESS_MSG :=  "(˵•̀ ᴗ -˵)"
