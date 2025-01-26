@@ -14,6 +14,7 @@ services:
       - DB_NAME=mydatabase
       - DB_USER=root
       - DB_PASSWORD=rootpassword
+      - SECRET_KEY=xyz
 
   db:
     image: mysql:8.0
