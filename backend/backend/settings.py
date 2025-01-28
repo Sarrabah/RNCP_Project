@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(BASE_DIR / "backend" / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0"]
 
 
 # Application definition
@@ -56,6 +56,7 @@ MIDDLEWARE = [
 # not sure
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Add your frontend URL here during development
+    "http://localhost:8000",  # Backend
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -63,7 +64,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "staticfiles"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -82,7 +83,6 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-load_dotenv(BASE_DIR / 'backend' / '.env')
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
@@ -129,8 +129,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")  # Static files will go here
+STATICFILES_DIRS = [BASE_DIR / "staticfiles" / "static"]  # Include your frontend files
 
-STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -139,9 +141,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Authentification with sessions
 
-SESSION_ENGINE = (
-    "django.contrib.sessions.backends.db"  # This stores sessions in the database
-)
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # This stores sessions in the db
 SESSION_COOKIE_NAME = "sessionid"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 LOGIN_URL = "/api/login"
