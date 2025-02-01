@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0"]
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -55,8 +55,9 @@ MIDDLEWARE = [
 ]
 # not sure
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",  # Add your frontend URL here during development
+    "http://localhost:3000",  # Frontend URL
     "http://localhost:8000",  # Backend
+    "http://51.159.190.76:8000"
 ]
 
 ROOT_URLCONF = "backend.urls"
