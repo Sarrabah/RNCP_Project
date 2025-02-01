@@ -6,11 +6,6 @@
   background-color: #1466b8;
 }
 
-.search-bar {
-  width: 300px;
-  padding: 8px;
-}
-
 .icons {
   display: flex;
   gap: 30px;
