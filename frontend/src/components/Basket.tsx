@@ -5,12 +5,14 @@ import {
   Checkbox,
   Col,
   Divider,
+  message,
   notification,
   Row,
   Typography,
 } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { getCSRFToken } from "./NavBar";
 
 const Basket: React.FC = () => {
   const { basket, setBasket } = useBasketContext();
@@ -31,8 +33,13 @@ const Basket: React.FC = () => {
   const handleSaveBasket = async () => {
     if (selectedIds.length > 0) {
       try {
+        const csrfToken = getCSRFToken();
+        if (!csrfToken) {
+          throw new Error("CSRF token not found. Please refresh the page.");
+        }
         const response = await fetch("/api/basketelements", {
           method: "POST",
+          credentials: "include", // Include session cookies
           body: JSON.stringify({
             quoteRequestIdList: selectedIds,
             productInformations: basket.map((p) => ({
@@ -42,6 +49,7 @@ const Basket: React.FC = () => {
           }),
           headers: {
             "Content-type": "application/json",
+            "X-CSRFToken": csrfToken,
           },
         });
 
@@ -62,6 +70,7 @@ const Basket: React.FC = () => {
         setBasket([]);
         return data;
       } catch (error) {
+        message.error("An error is occured while saving the basket!");
         console.error("Error saving basket", error);
       }
     } else {

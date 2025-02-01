@@ -1,8 +1,9 @@
-import { Button, Form, Input, notification } from "antd";
+import { Button, Form, Input, message, notification } from "antd";
 import "../styles/Formstyles.css";
 import React from "react";
 import FormItem from "antd/es/form/FormItem";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { getCSRFToken } from "./NavBar";
 
 const QuoteForm: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
@@ -13,8 +14,13 @@ const QuoteForm: React.FC = () => {
     const archi_id = 1;
 
     try {
+      const csrfToken = getCSRFToken();
+      if (!csrfToken) {
+        throw new Error("CSRF token not found. Please refresh the page.");
+      }
       const response = await fetch("/api/quoterequest", {
         method: "POST",
+        credentials: "include", // Include session cookies
         body: JSON.stringify({
           name: name,
           status,
@@ -22,10 +28,12 @@ const QuoteForm: React.FC = () => {
         }),
         headers: {
           "Content-type": "application/json",
+          "X-CSRFToken": csrfToken,
         },
       });
 
       if (!response.ok) {
+        message.error("Failed to submit your quote request!");
         throw new Error("Failed to submit quote request!");
       }
 
@@ -42,6 +50,7 @@ const QuoteForm: React.FC = () => {
 
       return data;
     } catch (error) {
+      message.error("An error is occured while submitting your quote request!");
       console.error("Error submitting quote request", error);
     }
   };
