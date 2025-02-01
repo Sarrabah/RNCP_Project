@@ -1,13 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
-import { ProductInterface } from "../types/types";
-
-export interface BasketContextInterface {
-  basket: Array<{ product: ProductInterface; quantity: number }>;
-  setBasket: React.Dispatch<
-    React.SetStateAction<Array<{ product: ProductInterface; quantity: number }>>
-  >;
-  addToBasket: (product: ProductInterface, quantity: number) => void;
-}
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { BasketContextInterface, ProductInterface } from "../types/types";
 
 export const BasketContext = createContext<BasketContextInterface | undefined>(
   undefined,
@@ -16,9 +8,16 @@ export const BasketContext = createContext<BasketContextInterface | undefined>(
 const BasketProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [basket, setBasket] = useState<
-    Array<{ product: ProductInterface; quantity: number }>
-  >([]);
+  let basketdata = JSON.parse(localStorage.getItem("basket") || "[]");
+
+  const [basket, setBasket] =
+    useState<Array<{ product: ProductInterface; quantity: number }>>(
+      basketdata,
+    );
+
+  useEffect(() => {
+    localStorage.setItem("basket", JSON.stringify(basket));
+  }, [basket]);
 
   const addToBasket = (product: ProductInterface, quantity: number) => {
     setBasket((prevBasket) => {

@@ -16,3 +16,11 @@ export interface LoginPayload {
   email: string;
   password: string;
 }
+
+export interface BasketContextInterface {
+  basket: Array<{ product: ProductInterface; quantity: number }>;
+  setBasket: React.Dispatch<
+    React.SetStateAction<Array<{ product: ProductInterface; quantity: number }>>
+  >;
+  addToBasket: (product: ProductInterface, quantity: number) => void;
+}
