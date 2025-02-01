@@ -57,7 +57,7 @@ MIDDLEWARE = [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Frontend URL
     "http://localhost:8000",  # Backend
-    "http://51.159.190.76:8000"
+    "http://51.159.190.76:8000",
 ]
 
 ROOT_URLCONF = "backend.urls"
