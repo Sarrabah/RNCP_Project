@@ -1,5 +1,4 @@
 import React from "react";
-import SearchBar from "./SearchBar";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import "../styles/Homepage.css";
 import artcreapro from "../assets/art-crea-pro.png";
@@ -71,7 +70,6 @@ const NavBar: React.FC = () => {
       <Link to="/homepage">
         <img src={artcreapro} alt="Brand" className="logo" />
       </Link>
-      <SearchBar />
       <div className="icons">
         <Dropdown
           menu={{ items: profileMenu }}
