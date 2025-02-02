@@ -5,7 +5,7 @@ export interface ProductInterface {
   category: string;
 }
 
-export interface QuoteRecord {
+export interface QuoteRequest {
   id: number;
   name: string;
   status: string;
