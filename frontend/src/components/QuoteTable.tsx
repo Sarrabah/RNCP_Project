@@ -27,11 +27,11 @@ const QuoteTable: React.FC = () => {
       ),
     },
     {
-      title: "Archive",
-      key: "archive",
+      title: "Save",
+      key: "save",
       render: (record: QuoteRecord) => (
-        <Button danger onClick={() => handleArchive(record.id)}>
-          Archive
+        <Button danger onClick={() => handleSave(record.id)}>
+          Save
         </Button>
       ),
     },
@@ -41,8 +41,8 @@ const QuoteTable: React.FC = () => {
     console.log(`Editing quote with key: ${key}`);
   };
 
-  const handleArchive = (key: number) => {
-    console.log(`Archiving quot with key: ${key}`);
+  const handleSave = (key: number) => {
+    console.log(`Saving quot with key: ${key}`);
   };
 
   return <Table dataSource={dataList} columns={columns} />;
