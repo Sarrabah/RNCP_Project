@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useBasketContext } from "../context/BasketContext";
 import {
   Button,
@@ -13,18 +13,24 @@ import {
 import { DeleteOutlined } from "@ant-design/icons";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { getCSRFToken } from "./NavBar";
+import { QuoteRequest } from "../types/types";
 
 const Basket: React.FC = () => {
   const { basket, setBasket } = useBasketContext();
   const { Text, Title } = Typography;
   const navigate: NavigateFunction = useNavigate();
-
-  const quoteRequestsList: Array<{ id: number; name: string }> = [
-    { id: 1, name: "Quote Request 1" },
-    { id: 2, name: "Quote Request 2" },
-    { id: 3, name: "Quote Request 3" },
-  ];
   const [selectedIds, setSelectedIds] = useState<Array<number>>([]);
+  const [quoteRequestsList, setQuoteRequestqList] = useState<QuoteRequest[]>(
+    [],
+  );
+  async function getAllQuoteRequests(): Promise<QuoteRequest[]> {
+    const response: Response = await fetch("/api/quoterequests");
+    const data: Promise<QuoteRequest[]> = response.json();
+    return data;
+  }
+  useEffect(() => {
+    getAllQuoteRequests().then((qr) => setQuoteRequestqList(qr));
+  });
 
   const handleQuoteSelection = (quoteRIds: Array<number>) => {
     setSelectedIds(quoteRIds);
@@ -127,7 +133,7 @@ const Basket: React.FC = () => {
             <Title level={3}>Select the desired quotes requests</Title>
             <Checkbox.Group
               options={quoteRequestsList.map((qr) => ({
-                label: qr.name, // Display the name
+                label: qr.name,
                 value: qr.id, // Use the unique ID as the value
               }))}
               value={selectedIds}
