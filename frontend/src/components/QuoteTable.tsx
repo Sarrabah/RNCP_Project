@@ -9,7 +9,7 @@ import {
   Typography,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import { QuoteRecord } from "../types/types";
+import { QuoteRequest } from "../types/types";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { getCSRFToken } from "./NavBar";
 import FormItem from "antd/es/form/FormItem";
@@ -18,7 +18,7 @@ import "../styles/Formstyles.css";
 const QuoteTable: React.FC = () => {
   const { Text } = Typography;
   const navigate: NavigateFunction = useNavigate();
-  const [dataList, setDataList] = useState<QuoteRecord[]>([]);
+  const [dataList, setDataList] = useState<QuoteRequest[]>([]);
 
   const addNewQuoteRequest = async (values: { name: string }) => {
     const { name } = values;
@@ -68,9 +68,9 @@ const QuoteTable: React.FC = () => {
     }
   };
 
-  async function fetchQuoteRequests(): Promise<QuoteRecord[]> {
-    const response = await fetch("/api/quoterequests");
-    const data = await response.json();
+  async function fetchQuoteRequests(): Promise<QuoteRequest[]> {
+    const response: Response = await fetch("/api/quoterequests");
+    const data: Promise<QuoteRequest[]> = await response.json();
     return data;
   }
 
@@ -84,7 +84,7 @@ const QuoteTable: React.FC = () => {
     {
       title: "Edit",
       key: "edit",
-      render: (record: QuoteRecord) => (
+      render: (record: QuoteRequest) => (
         <Button type="primary" onClick={() => handleEdit(record.id)}>
           Edit
         </Button>
@@ -93,7 +93,7 @@ const QuoteTable: React.FC = () => {
     {
       title: "Save",
       key: "save",
-      render: (record: QuoteRecord) => (
+      render: (record: QuoteRequest) => (
         <Button danger onClick={() => handleSave(record.id)}>
           Save
         </Button>
