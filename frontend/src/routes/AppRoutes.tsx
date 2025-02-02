@@ -8,7 +8,6 @@ import NavBar from "../components/NavBar";
 import { Layout } from "antd";
 import Sidebar from "../components/SideBar";
 import CategoryPage from "../pages/CategoryPage";
-import QuoteForm from "../components/QuoteForm";
 import QuoteTable from "../components/QuoteTable";
 import ProductDetail from "../components/ProductDetail";
 import Basket from "../components/Basket";
@@ -43,14 +42,6 @@ const AppRoutes = () => {
               element={
                 <PrivateRoute>
                   <CategoryPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/newquoterequest"
-              element={
-                <PrivateRoute>
-                  <QuoteForm />
                 </PrivateRoute>
               }
             />

@@ -2,7 +2,6 @@ import React from "react";
 import { Layout, Menu } from "antd";
 import {
   HomeOutlined,
-  FormOutlined,
   OrderedListOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
@@ -38,11 +37,8 @@ const Sidebar: React.FC = () => {
             <Link to="/category/floor">Floor</Link>
           </Menu.Item>
         </SubMenu>
-        <Menu.Item key="3" icon={<FormOutlined />}>
-          <Link to="/newquoterequest">Create new quote request</Link>
-        </Menu.Item>
-        <Menu.Item key="4" icon={<OrderedListOutlined />}>
-          <Link to="/quoterequestlist">Quote requests list </Link>
+        <Menu.Item key="3" icon={<OrderedListOutlined />}>
+          <Link to="/quoterequestlist">Create & display qr list </Link>
         </Menu.Item>
       </Menu>
     </Sider>
