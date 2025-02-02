@@ -14,7 +14,8 @@ class QuoteRequestApiView(LoginRequiredMixin, APIView):
 
     def get(self, request):
         try:
-            qrRes = QuoteRequest.objects.all()
+            archiId = Architect.objects.get(email=request.user).id
+            qrRes = QuoteRequest.objects.all().filter(archi_id=archiId)
             serializer = QuoteRequestSerializer(qrRes, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
