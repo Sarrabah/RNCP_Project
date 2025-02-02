@@ -8,7 +8,8 @@ export const BasketContext = createContext<BasketContextInterface | undefined>(
 const BasketProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  let basketdata = JSON.parse(localStorage.getItem("basket") || "[]");
+  let basketdata: [{ product: ProductInterface; quantity: number }] | [] =
+    JSON.parse(localStorage.getItem("basket") || "[]");
 
   const [basket, setBasket] =
     useState<Array<{ product: ProductInterface; quantity: number }>>(
