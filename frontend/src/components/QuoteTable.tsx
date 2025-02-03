@@ -23,7 +23,6 @@ const QuoteTable: React.FC = () => {
   const addNewQuoteRequest = async (values: { name: string }) => {
     const { name } = values;
     const status = "Created";
-    const archi_id = 1;
 
     try {
       const csrfToken = getCSRFToken();
@@ -36,7 +35,6 @@ const QuoteTable: React.FC = () => {
         body: JSON.stringify({
           name: name,
           status,
-          archi_id: archi_id,
         }),
         headers: {
           "Content-type": "application/json",

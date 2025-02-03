@@ -14,8 +14,9 @@ class QuoteRequestApiView(LoginRequiredMixin, APIView):
 
     def get(self, request):
         try:
-            archiId = Architect.objects.get(email=request.user).id
+            archiId = request.user.id
             qrRes = QuoteRequest.objects.all().filter(archi_id=archiId)
+
             serializer = QuoteRequestSerializer(qrRes, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
@@ -36,11 +37,10 @@ class QuoteRequestApiView(LoginRequiredMixin, APIView):
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-
                 new_quote_request = QuoteRequest.objects.create(
                     name=validated_data["name"],
                     status=validated_data["status"],
-                    archi_id=validated_data["archi_id"],
+                    archi_id=request.user,
                 )
 
                 created_data = QuoteRequestSerializer(new_quote_request).data
