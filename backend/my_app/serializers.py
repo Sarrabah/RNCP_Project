@@ -6,7 +6,7 @@ from .models import Architect, Product, QuoteRequest
 class QuoteRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuoteRequest
-        fields = ["id", "name", "status", "archi_id"]
+        fields = ["id", "name", "status"]
 
 
 class ProductSerializer(serializers.ModelSerializer):
