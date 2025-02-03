@@ -41,7 +41,8 @@ const NavBar: React.FC = () => {
 
       if (response.ok) {
         message.success("Logged out successfully!");
-        localStorage.removeItem("isAuthentificated");
+        localStorage.clear();
+
         setTimeout(() => {
           navigate("/login");
         }, 2000);
