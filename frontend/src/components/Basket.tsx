@@ -20,7 +20,7 @@ const Basket: React.FC = () => {
   const { Text, Title } = Typography;
   const navigate: NavigateFunction = useNavigate();
   const [selectedIds, setSelectedIds] = useState<Array<number>>([]);
-  const [quoteRequestsList, setQuoteRequestqList] = useState<QuoteRequest[]>(
+  const [quoteRequestsList, setQuoteRequestsList] = useState<QuoteRequest[]>(
     [],
   );
   async function getAllQuoteRequests(): Promise<QuoteRequest[]> {
@@ -29,8 +29,8 @@ const Basket: React.FC = () => {
     return data;
   }
   useEffect(() => {
-    getAllQuoteRequests().then((qr) => setQuoteRequestqList(qr));
-  });
+    getAllQuoteRequests().then((qr) => setQuoteRequestsList(qr));
+  }, []);
 
   const handleQuoteSelection = (quoteRIds: Array<number>) => {
     setSelectedIds(quoteRIds);
