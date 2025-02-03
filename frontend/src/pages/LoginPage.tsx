@@ -4,9 +4,11 @@ import React from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import { LoginPayload } from "../types/types";
+import { useBasketContext } from "../context/BasketContext";
 
 const Login = () => {
   const navigate: NavigateFunction = useNavigate();
+  const { setBasket } = useBasketContext();
   const handleLogin = async (values: LoginPayload): Promise<void> => {
     try {
       const response = await fetch("/api/login", {
@@ -24,6 +26,8 @@ const Login = () => {
           description: "Welcome! You are online now!",
         });
         localStorage.setItem("isAuthentificated", "true");
+        setBasket([]);
+
         setTimeout(() => {
           navigate("/homepage");
         }, 2000);
