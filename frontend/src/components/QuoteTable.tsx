@@ -80,31 +80,31 @@ const QuoteTable: React.FC = () => {
     { title: "Quote request name", dataIndex: "name", key: "name" },
     { title: "Status", dataIndex: "status", key: "status" },
     {
-      title: "Edit",
-      key: "edit",
+      title: "View",
+      key: "view",
       render: (record: QuoteRequest) => (
-        <Button type="primary" onClick={() => handleEdit(record.id)}>
-          Edit
+        <Button type="primary" onClick={() => handleView(record.id)}>
+          View
         </Button>
       ),
     },
     {
-      title: "Save",
-      key: "save",
+      title: "Send",
+      key: "send",
       render: (record: QuoteRequest) => (
-        <Button danger onClick={() => handleSave(record.id)}>
-          Save
+        <Button type="primary" onClick={() => handleSend(record.id)}>
+          Send
         </Button>
       ),
     },
   ];
 
-  const handleEdit = (key: number) => {
-    console.log(`Editing quote request with key: ${key}`);
+  const handleView = (key: number) => {
+    console.log(`Viewing quote request with key: ${key}`);
   };
 
-  const handleSave = (key: number) => {
-    console.log(`Saving quot with key: ${key}`);
+  const handleSend = (key: number) => {
+    console.log(`Sending quote request with key: ${key}`);
   };
 
   return (
