@@ -12,6 +12,7 @@ import QuoteTable from "../components/QuoteTable";
 import ProductDetail from "../components/ProductDetail";
 import Basket from "../components/Basket";
 import PrivateRoute from "../components/PrivateRoute";
+import QuoteRequestProductsPage from "../pages/QuoteRequestProductsPage";
 
 const { Content } = Layout;
 const AppRoutes = () => {
@@ -66,6 +67,14 @@ const AppRoutes = () => {
               element={
                 <PrivateRoute>
                   <Basket />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/quoterequestproducts/:id"
+              element={
+                <PrivateRoute>
+                  <QuoteRequestProductsPage />
                 </PrivateRoute>
               }
             />

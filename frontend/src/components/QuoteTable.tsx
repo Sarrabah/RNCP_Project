@@ -101,6 +101,7 @@ const QuoteTable: React.FC = () => {
 
   const handleView = (key: number) => {
     console.log(`Viewing quote request with key: ${key}`);
+    navigate("/quoterequestproducts");
   };
 
   const handleSend = (key: number) => {
