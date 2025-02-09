@@ -61,14 +61,18 @@ class QuoteRequest(models.Model):
 
 
 class QuoteRequestProduct(models.Model):
-    quote_request_id = models.ForeignKey(
+    id = models.AutoField(primary_key=True)
+    quote_request_object = models.ForeignKey(
         QuoteRequest, models.DO_NOTHING, db_column="quote_request_id"
     )
-    product_id = models.ForeignKey(Product, models.DO_NOTHING, db_column="product_id")
+    product_object = models.ForeignKey(
+        Product, models.DO_NOTHING, db_column="product_id"
+    )
     quantity = models.IntegerField()
 
     class Meta:
         db_table = "quote_request_product"
+        unique_together = ("quote_request_object", "product_object")
 
 
 class HardwareStoreQuoteRequest(models.Model):

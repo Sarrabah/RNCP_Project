@@ -2,7 +2,8 @@ from django.urls import path
 
 from .views import (ArchitectRegisterApiView, BasketElementsApiView,
                     LoginApiView, LogoutApiView, ProductApiView,
-                    ProductDetailsApiView, QuoteRequestApiView)
+                    ProductDetailsApiView, QuoteRequestApiView,
+                    QuoteRequestProductsApiView)
 
 urlpatterns = [
     path(
@@ -31,4 +32,9 @@ urlpatterns = [
     path("register", ArchitectRegisterApiView.as_view(), name="register"),
     path("login", LoginApiView.as_view(), name="login"),
     path("logout", LogoutApiView.as_view(), name="logout"),
+    path(
+        "quoterequestproducts/<int:id>",
+        QuoteRequestProductsApiView.as_view(),
+        name="get-all-products-according-to-a given-qr",
+    ),
 ]

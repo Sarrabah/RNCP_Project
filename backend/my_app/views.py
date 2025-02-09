@@ -7,7 +7,8 @@ from rest_framework.views import APIView
 
 from .models import Architect, Product, QuoteRequest, QuoteRequestProduct
 from .serializers import (ArchitectSerializer, BasketElementsSerializer,
-                          ProductSerializer, QuoteRequestSerializer)
+                          ProductSerializer, QuoteRequestProductsSerializer,
+                          QuoteRequestSerializer)
 
 
 class QuoteRequestApiView(LoginRequiredMixin, APIView):
@@ -64,6 +65,38 @@ class ProductApiView(LoginRequiredMixin, APIView):
         except Exception as e:
             return Response(
                 {"error": f"An unexpected error occurred: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+
+class QuoteRequestProductsApiView(LoginRequiredMixin, APIView):
+    def get(self, request, id):
+        try:
+            quoteRequestProducts = QuoteRequestProduct.objects.all().filter(
+                quote_request_object=id
+            )
+            productsDetails = []
+            for ele in quoteRequestProducts:
+                productName = ele.product_object.name
+                productImage = ele.product_object.image
+                productsDetails.append(
+                    {
+                        "product_name": productName,
+                        "product_image": productImage,
+                        "quantity": ele.quantity,
+                    }
+                )
+            finalResponse = {"id": id, "product_id_quantity": productsDetails}
+            serializer = QuoteRequestProductsSerializer(finalResponse)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except QuoteRequestProduct.DoesNotExist:
+            return Response(
+                {"error": f"Quote request with id {id} not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except Exception as e:
+            return Response(
+                {"error": f"An internal server error occurred: {str(e)}"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
