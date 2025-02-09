@@ -141,8 +141,8 @@ class BasketElementsApiView(LoginRequiredMixin, APIView):
                         instanceQuoteRequest = QuoteRequest.objects.get(pk=qr_id)
                         instanceProduct = Product.objects.get(pk=p["id"])
                         QuoteRequestProduct.objects.create(
-                            quote_request_id=instanceQuoteRequest,
-                            product_id=instanceProduct,
+                            quote_request_object=instanceQuoteRequest,
+                            product_object=instanceProduct,
                             quantity=p["quantity"],
                         )
 
