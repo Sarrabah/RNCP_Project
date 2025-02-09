@@ -48,5 +48,5 @@ If you want to acced to `Art Créa Pro` via internet you can use this link: http
 Otherwise, if you want to run it in your machine, after setting up the environment, you can access the application by navigating to http://localhost:8000 in your web browser.
 
 ## Contact
-For any questions or inquiries, please contact me with email [Sarra Ben Arbia](sarrabenarbia1996@gmail.com).
+For any questions or inquiries, please contact me with email [Sarra Ben Arbia](mailto:sarrabenarbia1996@gmail.com).
 
