@@ -1,3 +1,5 @@
+from itertools import product
+
 from rest_framework import serializers
 
 from .models import Architect, Product, QuoteRequest
@@ -24,6 +26,17 @@ class ProductInformationsSerializer(serializers.Serializer):
 class BasketElementsSerializer(serializers.Serializer):
     quoteRequestIdList = serializers.ListField()
     productInformations = ProductInformationsSerializer(many=True)
+
+
+class ProductNameImageQuantitySerializer(serializers.Serializer):
+    product_name = serializers.CharField()
+    product_image = serializers.CharField()
+    quantity = serializers.IntegerField()
+
+
+class QuoteRequestProductsSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    product_id_quantity = ProductNameImageQuantitySerializer(many=True)
 
 
 class ArchitectSerializer(serializers.ModelSerializer):
