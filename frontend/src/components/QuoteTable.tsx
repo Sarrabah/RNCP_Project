@@ -83,7 +83,11 @@ const QuoteTable: React.FC = () => {
       title: "View",
       key: "view",
       render: (record: QuoteRequest) => (
-        <Button type="primary" onClick={() => handleView(record.id)}>
+        <Button
+          type="primary"
+          style={{ backgroundColor: "#002766" }}
+          onClick={() => handleView(record.id)}
+        >
           View
         </Button>
       ),
@@ -92,7 +96,11 @@ const QuoteTable: React.FC = () => {
       title: "Send",
       key: "send",
       render: (record: QuoteRequest) => (
-        <Button type="primary" onClick={() => handleSend(record.id)}>
+        <Button
+          style={{ backgroundColor: "#002766" }}
+          type="primary"
+          onClick={() => handleSend(record.id)}
+        >
           Send
         </Button>
       ),
@@ -135,7 +143,7 @@ const QuoteTable: React.FC = () => {
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{ width: "100%" }}
+                style={{ width: "100%", backgroundColor: "#002766" }}
               >
                 Create
               </Button>
