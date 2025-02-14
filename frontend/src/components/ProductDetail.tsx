@@ -60,6 +60,7 @@ const ProductDetail: React.FC = () => {
           />
           <Button
             type="primary"
+            style={{ backgroundColor: "#002766" }}
             icon={<ShoppingCartOutlined />}
             onClick={handleAddToBasket}
           >

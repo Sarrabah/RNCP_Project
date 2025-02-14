@@ -146,6 +146,7 @@ const Basket: React.FC = () => {
                 display: "block",
                 marginLeft: "auto",
                 marginRight: "auto",
+                backgroundColor: "#002766",
               }}
               onClick={handleSaveBasket}
             >
