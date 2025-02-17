@@ -2,7 +2,7 @@ import { Button, Form, Input, notification } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import React from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
-import "../styles/Login.css";
+import "../styles/LoginAndRegister.css";
 import { LoginPayload } from "../types/types";
 import { useBasketContext } from "../context/BasketContext";
 
