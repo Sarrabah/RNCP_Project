@@ -1,6 +1,6 @@
 import React from "react";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
-import "../styles/Homepage.css";
+import "../pages/Home/Homepage.css";
 import artcreapro from "../assets/art-crea-pro.png";
 import { Header } from "antd/es/layout/layout";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";

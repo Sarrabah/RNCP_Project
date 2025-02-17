@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ProductInterface } from "../types/types";
-import ProductList from "../components/ProductList";
-import "../styles/Homepage.css";
+import { ProductInterface } from "../../types/types";
+import ProductList from "../../components/ProductList";
+import "./Homepage.css";
 import { Link } from "react-router-dom";
 
 const Homepage: React.FC = () => {

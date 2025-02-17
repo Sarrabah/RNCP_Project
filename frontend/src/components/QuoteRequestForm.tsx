@@ -1,24 +1,12 @@
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  message,
-  notification,
-  Table,
-  Typography,
-} from "antd";
-import React, { useEffect, useState } from "react";
-import { QuoteRequest } from "../types/types";
+import { Button, Form, Input, message, notification } from "antd";
+import React from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { getCSRFToken } from "./NavBar";
 import FormItem from "antd/es/form/FormItem";
-import "../styles/Formstyles.css";
+import "../pages/QuoteRequest/QuoteRequestFormStyle.css";
 
-const QuoteTable: React.FC = () => {
-  const { Text } = Typography;
+const QuoteForm: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
-  const [dataList, setDataList] = useState<QuoteRequest[]>([]);
 
   const addNewQuoteRequest = async (values: { name: string }) => {
     const { name } = values;
@@ -66,56 +54,6 @@ const QuoteTable: React.FC = () => {
     }
   };
 
-  async function fetchQuoteRequests(): Promise<QuoteRequest[]> {
-    const response: Response = await fetch("/api/quoterequests");
-    const data: Promise<QuoteRequest[]> = await response.json();
-    return data;
-  }
-
-  useEffect(() => {
-    fetchQuoteRequests().then((dl) => setDataList(dl));
-  }, []);
-
-  const columns = [
-    { title: "Quote request name", dataIndex: "name", key: "name" },
-    { title: "Status", dataIndex: "status", key: "status" },
-    {
-      title: "View",
-      key: "view",
-      render: (record: QuoteRequest) => (
-        <Button
-          type="primary"
-          style={{ backgroundColor: "#002766" }}
-          onClick={() => handleView(record.id)}
-        >
-          View
-        </Button>
-      ),
-    },
-    {
-      title: "Send",
-      key: "send",
-      render: (record: QuoteRequest) => (
-        <Button
-          style={{ backgroundColor: "#002766" }}
-          type="primary"
-          onClick={() => handleSend(record.id)}
-        >
-          Send
-        </Button>
-      ),
-    },
-  ];
-
-  const handleView = (key: number) => {
-    console.log(`Viewing quote request with key: ${key}`);
-    navigate("/quoterequestproducts");
-  };
-
-  const handleSend = (key: number) => {
-    console.log(`Sending quote request with key: ${key}`);
-  };
-
   return (
     <div>
       <div className="form-container">
@@ -151,13 +89,8 @@ const QuoteTable: React.FC = () => {
           </Form>
         </div>
       </div>
-      <Text style={{ fontSize: "18px" }} underline>
-        Quote request library:
-      </Text>
-      <Divider style={{ margin: "16px 0" }} />
-      <Table dataSource={dataList} columns={columns} />
     </div>
   );
 };
 
-export default QuoteTable;
+export default QuoteForm;

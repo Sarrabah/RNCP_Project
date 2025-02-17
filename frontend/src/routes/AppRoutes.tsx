@@ -2,15 +2,15 @@ import React from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Login from "../pages/LoginPage";
 import Register from "../pages/RegisterPage";
-import Homepage from "../pages/HomePage";
+import Homepage from "../pages/Home/HomePage";
 import WelcomePage from "../pages/WelcomePage";
 import NavBar from "../components/NavBar";
 import { Layout } from "antd";
 import Sidebar from "../components/SideBar";
 import CategoryPage from "../pages/CategoryPage";
-import QuoteTable from "../components/QuoteTable";
+import QuotePage from "../pages/QuoteRequest/QuoteRequestPage";
 import ProductDetail from "../components/ProductDetail";
-import Basket from "../components/Basket";
+import Basket from "../pages/BasketPage";
 import PrivateRoute from "../components/PrivateRoute";
 import QuoteRequestProductsPage from "../pages/QuoteRequestProductsPage";
 
@@ -50,7 +50,7 @@ const AppRoutes = () => {
               path="/quoterequestlist"
               element={
                 <PrivateRoute>
-                  <QuoteTable />
+                  <QuotePage />
                 </PrivateRoute>
               }
             />

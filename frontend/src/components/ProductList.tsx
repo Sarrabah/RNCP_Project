@@ -1,6 +1,6 @@
 import React from "react";
 import Product from "./Product";
-import "../styles/Homepage.css";
+import "../pages/Home/Homepage.css";
 import { Col, Row } from "antd";
 import { ProductInterface } from "../types/types";
 
