@@ -7,7 +7,7 @@ import {
   HomeOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
-import "../styles/Register.css";
+import "../styles/LoginAndRegister.css";
 import { NavigateFunction } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -73,11 +73,11 @@ const Register = () => {
     }
   };
   return (
-    <div className="register-container">
+    <div className="container">
       <Form
         name="register_form"
         initialValues={{ remember: true }}
-        className="register-form"
+        className="form"
         onFinish={addUser}
       >
         <Form.Item
@@ -156,11 +156,7 @@ const Register = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="register-form-button"
-          >
+          <Button type="primary" htmlType="submit" className="form-button">
             Create an account
           </Button>
         </Form.Item>
