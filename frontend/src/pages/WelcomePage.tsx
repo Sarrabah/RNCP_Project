@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/LoginAndRegister.css";
-import "../styles/Homepage.css";
 import { Link } from "react-router-dom";
 
 const WelcomePage: React.FC = () => {
@@ -13,7 +12,7 @@ const WelcomePage: React.FC = () => {
           interior design sector, to facilitate their task of requesting quotes
           from suppliers.
         </p>
-        <div className="title">
+        <div className="link">
           <Link to="/login"> Sign In </Link> or
           <Link to="/register"> Sign Up </Link>
         </div>

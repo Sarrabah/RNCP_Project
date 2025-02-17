@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Homepage.css";
+import "../pages/Home/Homepage.css";
 import { Button, Card, InputNumber } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { ProductInterface } from "../types/types";

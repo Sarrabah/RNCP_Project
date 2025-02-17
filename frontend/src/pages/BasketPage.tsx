@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { getCSRFToken } from "./NavBar";
+import { getCSRFToken } from "../components/NavBar";
 import { QuoteRequest } from "../types/types";
 
 const Basket: React.FC = () => {
