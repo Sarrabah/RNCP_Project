@@ -23,14 +23,14 @@ const Homepage: React.FC = () => {
     <div>
       <h2 className="title"> All our available products! </h2>
       {categories.map((category) => {
-        const filteredProducts = products.filter(
+        const filteredProducts: ProductInterface[] = products.filter(
           (product) => product.category === category,
         );
         return (
           <div key={category}>
             <h3 style={{ padding: "0.1%", fontSize: "30px" }}>{category}</h3>
             <ProductList products={filteredProducts.slice(0, 3)} />
-            <div className="category-header">
+            <div className="category-link">
               <Link
                 style={{
                   fontSize: "16px",

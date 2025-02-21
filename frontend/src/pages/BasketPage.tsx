@@ -13,19 +13,19 @@ import {
 import { DeleteOutlined } from "@ant-design/icons";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { getCSRFToken } from "../components/NavBar";
-import { QuoteRequest } from "../types/types";
+import { QuoteRequestInterface } from "../types/types";
 
 const Basket: React.FC = () => {
   const { basket, setBasket } = useBasketContext();
   const { Text, Title } = Typography;
   const navigate: NavigateFunction = useNavigate();
   const [selectedIds, setSelectedIds] = useState<Array<number>>([]);
-  const [quoteRequestsList, setQuoteRequestsList] = useState<QuoteRequest[]>(
-    [],
-  );
-  async function getAllQuoteRequests(): Promise<QuoteRequest[]> {
+  const [quoteRequestsList, setQuoteRequestsList] = useState<
+    QuoteRequestInterface[]
+  >([]);
+  async function getAllQuoteRequests(): Promise<QuoteRequestInterface[]> {
     const response: Response = await fetch("/api/quoterequests");
-    const data: Promise<QuoteRequest[]> = response.json();
+    const data: Promise<QuoteRequestInterface[]> = response.json();
     return data;
   }
   useEffect(() => {
@@ -41,7 +41,7 @@ const Basket: React.FC = () => {
       try {
         const csrfToken = getCSRFToken();
         if (!csrfToken) {
-          throw new Error("CSRF token not found. Please refresh the page.");
+          throw new Error("CSRF token not found");
         }
         const response = await fetch("/api/basketelements", {
           method: "POST",
@@ -130,11 +130,11 @@ const Basket: React.FC = () => {
         ))}
         {basket.length > 0 && (
           <div>
-            <Title level={3}>Select the desired quotes requests</Title>
+            <Title level={3}>Select the desired quote(s) request(s)</Title>
             <Checkbox.Group
               options={quoteRequestsList.map((qr) => ({
                 label: qr.name,
-                value: qr.id, // Use the unique ID as the value
+                value: qr.id,
               }))}
               value={selectedIds}
               onChange={handleQuoteSelection}

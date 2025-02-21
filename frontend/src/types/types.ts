@@ -5,7 +5,10 @@ export interface ProductInterface {
   category: string;
 }
 
-export interface QuoteRequest {
+export interface ProductListInterface {
+  products: ProductInterface[];
+}
+export interface QuoteRequestInterface {
   id: number;
   name: string;
   status: string;
