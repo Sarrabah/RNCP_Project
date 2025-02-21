@@ -1,14 +1,16 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Architect, Product, QuoteRequest, QuoteRequestProduct
+from .models import Product, QuoteRequestProduct
 from .serializers import (ArchitectSerializer, BasketElementsSerializer,
                           ProductSerializer, QuoteRequestProductsSerializer,
                           QuoteRequestSerializer)
+from .services import (create_new_user, get_product_details, get_products,
+                       get_quote_request, get_quote_request_products,
+                       post_basket_elements, post_login, post_quote_request)
 
 
 class QuoteRequestApiView(LoginRequiredMixin, APIView):
@@ -16,8 +18,7 @@ class QuoteRequestApiView(LoginRequiredMixin, APIView):
     def get(self, request):
         try:
             archiId = request.user.id
-            qrRes = QuoteRequest.objects.all().filter(archi_id=archiId)
-
+            qrRes = get_quote_request(archiId)
             serializer = QuoteRequestSerializer(qrRes, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
@@ -31,19 +32,14 @@ class QuoteRequestApiView(LoginRequiredMixin, APIView):
 
         if serializer.is_valid():
             try:
-                validated_data = serializer.validated_data
+                valid_data = serializer.validated_data
 
-                if not isinstance(validated_data, dict):
+                if not isinstance(valid_data, dict):
                     return Response(
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-                new_quote_request = QuoteRequest.objects.create(
-                    name=validated_data["name"],
-                    status=validated_data["status"],
-                    archi_id=request.user,
-                )
-
+                new_quote_request = post_quote_request(request, valid_data)
                 created_data = QuoteRequestSerializer(new_quote_request).data
                 return Response(created_data, status=status.HTTP_201_CREATED)
 
@@ -59,7 +55,7 @@ class QuoteRequestApiView(LoginRequiredMixin, APIView):
 class ProductApiView(LoginRequiredMixin, APIView):
     def get(self, request):
         try:
-            productsRes = Product.objects.all()
+            productsRes = get_products()
             serializer = ProductSerializer(productsRes, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
@@ -72,21 +68,7 @@ class ProductApiView(LoginRequiredMixin, APIView):
 class QuoteRequestProductsApiView(LoginRequiredMixin, APIView):
     def get(self, request, id):
         try:
-            quoteRequestProducts = QuoteRequestProduct.objects.all().filter(
-                quote_request_object=id
-            )
-            productsDetails = []
-            for ele in quoteRequestProducts:
-                productName = ele.product_object.name
-                productImage = ele.product_object.image
-                productsDetails.append(
-                    {
-                        "product_name": productName,
-                        "product_image": productImage,
-                        "quantity": ele.quantity,
-                    }
-                )
-            finalResponse = {"id": id, "product_id_quantity": productsDetails}
+            finalResponse = get_quote_request_products()
             serializer = QuoteRequestProductsSerializer(finalResponse)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except QuoteRequestProduct.DoesNotExist:
@@ -105,7 +87,7 @@ class ProductDetailsApiView(LoginRequiredMixin, APIView):
 
     def get(self, request, id):
         try:
-            productRes = Product.objects.get(pk=id)
+            productRes = get_product_details()
             serializer = ProductSerializer(productRes)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Product.DoesNotExist:
@@ -127,26 +109,15 @@ class BasketElementsApiView(LoginRequiredMixin, APIView):
 
         if serializer.is_valid():
             try:
-                validated_data = serializer.validated_data
+                valid_data = serializer.validated_data
 
-                if not isinstance(validated_data, dict):
+                if not isinstance(valid_data, dict):
                     return Response(
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-
-                for qr_id in validated_data["quoteRequestIdList"]:
-
-                    for p in validated_data["productInformations"]:
-                        instanceQuoteRequest = QuoteRequest.objects.get(pk=qr_id)
-                        instanceProduct = Product.objects.get(pk=p["id"])
-                        QuoteRequestProduct.objects.create(
-                            quote_request_object=instanceQuoteRequest,
-                            product_object=instanceProduct,
-                            quantity=p["quantity"],
-                        )
-
-                return Response(validated_data, status=status.HTTP_200_OK)
+                valid_data = post_basket_elements(valid_data)
+                return Response(valid_data, status=status.HTTP_200_OK)
 
             except Exception as e:
                 return Response(
@@ -162,21 +133,13 @@ class ArchitectRegisterApiView(APIView):
         serializer = ArchitectSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                validated_data = serializer.validated_data
-                if not isinstance(validated_data, dict):
+                valid_data = serializer.validated_data
+                if not isinstance(valid_data, dict):
                     return Response(
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-                new_user = Architect.objects.create(
-                    first_name=validated_data["first_name"],
-                    last_name=validated_data["last_name"],
-                    email=validated_data["email"],
-                    password=make_password(validated_data["password"]),
-                    adress=validated_data["adress"],
-                    region_code=validated_data["region_code"],
-                    phone_number=validated_data["phone_number"],
-                )
+                new_user = create_new_user(valid_data)
                 created_data = ArchitectSerializer(new_user).data
                 return Response(created_data, status=status.HTTP_201_CREATED)
             except Exception as e:
@@ -191,13 +154,8 @@ class ArchitectRegisterApiView(APIView):
 class LoginApiView(APIView):
     def post(self, request):
         try:
-            email = request.data["email"]
-            password = request.data["password"]
-            # authentificate the user with email and password
-            user = authenticate(request, username=email, password=password)
-
+            user = post_login(request)
             if user is not None:
-                # Login the user and create a session
                 login(request, user)
                 return Response(
                     {"message": "Login successful"}, status=status.HTTP_200_OK
