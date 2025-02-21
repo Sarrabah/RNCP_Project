@@ -36,7 +36,7 @@ run_front:
 
 .PHONY: verify_lint_front
 verify_lint_front:
-	@cd ./frontend && npm run lint
+	@cd ./frontend && npm run lint && npm run format:check
 
 .PHONY: lint_frontend
 lint_frontend:
