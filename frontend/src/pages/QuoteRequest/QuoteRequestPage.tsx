@@ -1,6 +1,6 @@
 import { Button, Divider, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
-import { QuoteRequest } from "../../types/types";
+import { QuoteRequestInterface } from "../../types/types";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import "./QuoteRequestFormStyle.css";
 import QuoteForm from "../../components/QuoteRequestForm";
@@ -8,11 +8,11 @@ import QuoteForm from "../../components/QuoteRequestForm";
 const QuotePage: React.FC = () => {
   const { Text } = Typography;
   const navigate: NavigateFunction = useNavigate();
-  const [dataList, setDataList] = useState<QuoteRequest[]>([]);
+  const [dataList, setDataList] = useState<QuoteRequestInterface[]>([]);
 
-  async function fetchQuoteRequests(): Promise<QuoteRequest[]> {
+  async function fetchQuoteRequests(): Promise<QuoteRequestInterface[]> {
     const response: Response = await fetch("/api/quoterequests");
-    const data: Promise<QuoteRequest[]> = await response.json();
+    const data: Promise<QuoteRequestInterface[]> = await response.json();
     return data;
   }
 
@@ -26,7 +26,7 @@ const QuotePage: React.FC = () => {
     {
       title: "View",
       key: "view",
-      render: (record: QuoteRequest) => (
+      render: (record: QuoteRequestInterface) => (
         <Button
           type="primary"
           style={{ backgroundColor: "#002766" }}
@@ -39,7 +39,7 @@ const QuotePage: React.FC = () => {
     {
       title: "Send",
       key: "send",
-      render: (record: QuoteRequest) => (
+      render: (record: QuoteRequestInterface) => (
         <Button
           style={{ backgroundColor: "#002766" }}
           type="primary"

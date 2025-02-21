@@ -2,13 +2,9 @@ import React from "react";
 import Product from "./Product";
 import "../pages/Home/Homepage.css";
 import { Col, Row } from "antd";
-import { ProductInterface } from "../types/types";
+import { ProductListInterface } from "../types/types";
 
-interface ProductListPropos {
-  products: Array<ProductInterface>;
-}
-
-const ProductList: React.FC<ProductListPropos> = ({ products }) => {
+const ProductList: React.FC<ProductListInterface> = ({ products }) => {
   return (
     <Row className="products-list">
       {products.map((product) => (

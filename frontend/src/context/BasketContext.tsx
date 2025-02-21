@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { BasketContextInterface, ProductInterface } from "../types/types";
 
-export const BasketContext = createContext<BasketContextInterface | undefined>(
+const BasketContext = createContext<BasketContextInterface | undefined>(
   undefined,
 );
 
@@ -44,7 +44,6 @@ const BasketProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 export const useBasketContext = () => {
   const context = useContext(BasketContext);
-  // console.log("context", context);
   if (context === undefined) {
     throw new Error("useBasketContext must be used within a BasketProvider");
   }

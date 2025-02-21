@@ -36,8 +36,8 @@
 @media (max-width: 768px) {
   .product-detail {
     flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center content */
-    text-align: center; /* Center align text */
+    align-items: center;
+    text-align: center;
   }
 
   .product-detail__image img {
