@@ -17,8 +17,8 @@ import QuoteRequestProductsPage from "../pages/QuoteRequestProductsPage";
 const { Content } = Layout;
 const AppRoutes = () => {
   const location = useLocation();
-  const hideLayoutPaths = ["/login", "/register", "/"];
-  const hideLayout = hideLayoutPaths.includes(location.pathname);
+  const hideLayoutPaths: string[] = ["/login", "/register", "/"];
+  const hideLayout: boolean = hideLayoutPaths.includes(location.pathname);
 
   return (
     <Layout>
