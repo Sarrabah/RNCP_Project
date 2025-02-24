@@ -5,12 +5,23 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Product, QuoteRequestProduct
-from .serializers import (ArchitectSerializer, BasketElementsSerializer,
-                          ProductSerializer, QuoteRequestProductsSerializer,
-                          QuoteRequestSerializer)
-from .services import (create_new_user, get_product_details, get_products,
-                       get_quote_request, get_quote_request_products,
-                       post_basket_elements, post_login, post_quote_request)
+from .serializers import (
+    ArchitectSerializer,
+    BasketElementsSerializer,
+    ProductSerializer,
+    QuoteRequestProductsSerializer,
+    QuoteRequestSerializer,
+)
+from .services import (
+    create_basket_elements,
+    create_login,
+    create_new_user,
+    create_quote_request,
+    get_product_details,
+    get_products,
+    get_quote_request,
+    get_quote_request_products,
+)
 
 
 class QuoteRequestApiView(LoginRequiredMixin, APIView):
@@ -39,7 +50,7 @@ class QuoteRequestApiView(LoginRequiredMixin, APIView):
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-                new_quote_request = post_quote_request(request, valid_data)
+                new_quote_request = create_quote_request(request, valid_data)
                 created_data = QuoteRequestSerializer(new_quote_request).data
                 return Response(created_data, status=status.HTTP_201_CREATED)
 
@@ -68,7 +79,7 @@ class ProductApiView(LoginRequiredMixin, APIView):
 class QuoteRequestProductsApiView(LoginRequiredMixin, APIView):
     def get(self, request, id):
         try:
-            finalResponse = get_quote_request_products()
+            finalResponse = get_quote_request_products(id)
             serializer = QuoteRequestProductsSerializer(finalResponse)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except QuoteRequestProduct.DoesNotExist:
@@ -116,7 +127,7 @@ class BasketElementsApiView(LoginRequiredMixin, APIView):
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-                valid_data = post_basket_elements(valid_data)
+                valid_data = create_basket_elements(valid_data)
                 return Response(valid_data, status=status.HTTP_200_OK)
 
             except Exception as e:
@@ -154,11 +165,11 @@ class ArchitectRegisterApiView(APIView):
 class LoginApiView(APIView):
     def post(self, request):
         try:
-            user = post_login(request)
+            user = create_login(request)
             if user is not None:
                 login(request, user)
                 return Response(
-                    {"message": "Login successful"}, status=status.HTTP_200_OK
+                    {"message": "Login successfully"}, status=status.HTTP_200_OK
                 )
             else:
                 return Response(
