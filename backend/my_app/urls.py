@@ -1,9 +1,15 @@
 from django.urls import path
 
-from .views import (ArchitectRegisterApiView, BasketElementsApiView,
-                    LoginApiView, LogoutApiView, ProductApiView,
-                    ProductDetailsApiView, QuoteRequestApiView,
-                    QuoteRequestProductsApiView)
+from .views import (
+    ArchitectRegisterApiView,
+    BasketElementsApiView,
+    LoginApiView,
+    LogoutApiView,
+    ProductApiView,
+    ProductDetailsApiView,
+    QuoteRequestApiView,
+    QuoteRequestProductsApiView,
+)
 
 urlpatterns = [
     path(

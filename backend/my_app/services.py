@@ -9,7 +9,7 @@ def get_quote_request(archiId):
     return quoteRequest
 
 
-def post_quote_request(request, valid_data):
+def create_quote_request(request, valid_data):
     new_quote_request = QuoteRequest.objects.create(
         name=valid_data["name"],
         status=valid_data["status"],
@@ -23,7 +23,7 @@ def get_products():
     return products
 
 
-def get_quote_request_products():
+def get_quote_request_products(id):
     quoteRequestProducts = QuoteRequestProduct.objects.all().filter(
         quote_request_object=id
     )
@@ -47,7 +47,7 @@ def get_product_details():
     return productDetails
 
 
-def post_basket_elements(valid_data):
+def create_basket_elements(valid_data):
     for qr_id in valid_data["quoteRequestIdList"]:
 
         for p in valid_data["productInformations"]:
@@ -74,7 +74,7 @@ def create_new_user(valid_data):
     return new_user
 
 
-def post_login(request):
+def create_login(request):
     email = request.data["email"]
     password = request.data["password"]
     user = authenticate(request, username=email, password=password)
