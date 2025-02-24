@@ -12,7 +12,6 @@ RUN npm install && npm run build
 RUN ls -l /app/frontend/build && echo "Build contents listed successfully."
 
 
-
 # Use an official Python image
 FROM python:3.11-slim
 
