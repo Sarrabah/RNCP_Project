@@ -5,3 +5,6 @@ sqlparse==0.5.1
 typing_extensions==4.12.2
 mysqlclient
 python-dotenv
+black==24.4.1 
+isort==5.13.2
+flake8==7.0.0

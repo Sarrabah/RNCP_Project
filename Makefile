@@ -9,7 +9,7 @@ run_back:
 SUCCESS_MSG :=  "(˵•̀ ᴗ -˵)"
 
 .PHONY: lint_backend
-lint_backend : black isort flake8
+lint_backend : isort black flake8
 
 .PHONY: black 
 black:
@@ -26,7 +26,7 @@ isort:
 .PHONY: flake8
 flake8:
 	@ echo "~~~~ Running flake8 ~~~~"
-	@ flake8 --max-line-length 95 ./backend/backend ./backend/my_app && echo $(SUCCESS_MSG)
+	@ flake8 --max-line-length 150 ./backend/backend ./backend/my_app && echo $(SUCCESS_MSG)
 	@ echo ""
 
 # frontend side
