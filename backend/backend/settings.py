@@ -53,7 +53,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-# not sure
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Frontend URL
     "http://localhost:8000",  # Backend
