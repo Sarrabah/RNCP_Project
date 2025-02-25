@@ -60,7 +60,7 @@ const Basket: React.FC = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to save the basket!");
+          throw new Error("Failed to save the list of choices!");
         }
 
         const data = await response.json();
@@ -76,8 +76,8 @@ const Basket: React.FC = () => {
         setBasket([]);
         return data;
       } catch (error) {
-        message.error("An error is occured while saving the basket!");
-        console.error("Error saving basket", error);
+        message.error("An error is occured while saving the list of choices!");
+        console.error("Error saving the list of choices", error);
       }
     } else {
       notification.warning({
@@ -96,7 +96,7 @@ const Basket: React.FC = () => {
   return (
     <div>
       <Title level={2} style={{ textAlign: "center" }}>
-        Basket
+        The list of choices
       </Title>
       <div>
         {basket.map((item) => (
@@ -150,7 +150,7 @@ const Basket: React.FC = () => {
               }}
               onClick={handleSaveBasket}
             >
-              Save Basket
+              Save the list of choices
             </Button>
           </div>
         )}
@@ -158,7 +158,7 @@ const Basket: React.FC = () => {
       <Divider />
       {basket.length === 0 && (
         <Title level={3} style={{ textAlign: "center" }}>
-          Your basket is empty!
+          Your list of choices is empty!
         </Title>
       )}
     </div>
