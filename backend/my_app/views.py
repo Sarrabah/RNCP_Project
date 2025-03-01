@@ -98,7 +98,7 @@ class ProductDetailsApiView(LoginRequiredMixin, APIView):
 
     def get(self, request, id):
         try:
-            productRes = get_product_details()
+            productRes = get_product_details(id)
             serializer = ProductSerializer(productRes)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Product.DoesNotExist:

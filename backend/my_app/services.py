@@ -42,7 +42,7 @@ def get_quote_request_products(id):
     return QuoteRequestProducts
 
 
-def get_product_details():
+def get_product_details(id):
     productDetails = Product.objects.get(pk=id)
     return productDetails
 
