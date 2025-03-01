@@ -8,10 +8,15 @@ export interface ProductInterface {
 export interface ProductListInterface {
   products: ProductInterface[];
 }
+export enum Statusenum {
+  Created = "Created",
+  Inprogress = "In progress",
+  Finished = "Finished",
+}
 export interface QuoteRequestInterface {
   id: number;
   name: string;
-  status: string;
+  status: Statusenum;
   archi_id: number;
 }
 

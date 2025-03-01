@@ -1,6 +1,6 @@
-import { Button, Divider, Table, Typography } from "antd";
+import { Button, Divider, notification, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
-import { QuoteRequestInterface } from "../../types/types";
+import { QuoteRequestInterface, Statusenum } from "../../types/types";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import "./QuoteRequestFormStyle.css";
 import QuoteForm from "../../components/QuoteRequestForm";
@@ -43,7 +43,7 @@ const QuotePage: React.FC = () => {
         <Button
           style={{ backgroundColor: "#002766" }}
           type="primary"
-          onClick={() => handleSend(record.id)}
+          onClick={() => handleSend(record)}
         >
           Send
         </Button>
@@ -56,8 +56,17 @@ const QuotePage: React.FC = () => {
     navigate("/quoterequestproducts");
   };
 
-  const handleSend = (key: number) => {
-    console.log(`Sending quote request with key: ${key}`);
+  const handleSend = (qr: QuoteRequestInterface) => {
+    notification.success({
+      message:
+        "The quote request been successfully sended to the hardware store!",
+      placement: "topRight",
+    });
+
+    setTimeout(() => {
+      navigate("/quoterequestlist");
+    }, 1000);
+    qr.status = Statusenum.Finished;
   };
 
   return (
