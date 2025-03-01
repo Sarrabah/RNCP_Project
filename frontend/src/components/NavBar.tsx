@@ -55,11 +55,7 @@ const NavBar: React.FC = () => {
       console.error("Logout error: ", error);
     }
   };
-  const profileMenu: MenuProps["items"] = [
-    {
-      key: "profile",
-      label: <Link to="/profile">Profile</Link>,
-    },
+  const Menu: MenuProps["items"] = [
     {
       key: "logout",
       label: <span onClick={handleLogout}>Logout</span>,
@@ -73,7 +69,7 @@ const NavBar: React.FC = () => {
       </Link>
       <div className="icons">
         <Dropdown
-          menu={{ items: profileMenu }}
+          menu={{ items: Menu }}
           placement="bottomRight"
           trigger={["hover"]}
         >
