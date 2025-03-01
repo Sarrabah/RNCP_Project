@@ -108,6 +108,10 @@ const Register = () => {
           name="email"
           rules={[
             { required: true, message: "Please put here your adress mail ! " },
+            {
+              type: "email",
+              message: "The input is not a valid email address!",
+            }
           ]}
         >
           <Input
