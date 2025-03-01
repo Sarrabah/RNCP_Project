@@ -6,7 +6,7 @@ const WelcomePage: React.FC = () => {
   return (
     <div className="container">
       <div className="form">
-        <h2 className="title">Welcome to our site! </h2>
+        <h2 className="title">Welcome to Art Créa Pro! </h2>
         <p>
           It is a space dedicated to professionals in the construction and
           interior design sector, to facilitate their task of requesting quotes
