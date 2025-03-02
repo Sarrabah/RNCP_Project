@@ -36,5 +36,5 @@ export interface BasketContextInterface {
 export interface ProductDetails {
   product_name: string;
   product_image: string;
-  quantity: number
+  quantity: number;
 }
