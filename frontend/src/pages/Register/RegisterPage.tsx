@@ -7,7 +7,7 @@ import {
   HomeOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
-import "../styles/LoginAndRegister.css";
+import "../../styles/LoginAndRegister.css";
 import { NavigateFunction } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -107,11 +107,11 @@ const Register = () => {
         <Form.Item
           name="email"
           rules={[
-            { required: true, message: "Please put here your adress mail ! " },
+            { required: true, message: "Please put here your adress mail!" },
             {
               type: "email",
               message: "The input is not a valid email address!",
-            }
+            },
           ]}
         >
           <Input
@@ -123,7 +123,7 @@ const Register = () => {
         <Form.Item
           name="password"
           rules={[
-            { required: true, message: "Please put here your password! " },
+            { required: true, message: "Please put here your password!" },
           ]}
         >
           <Input
