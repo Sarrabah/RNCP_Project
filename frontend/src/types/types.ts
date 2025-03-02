@@ -32,3 +32,9 @@ export interface BasketContextInterface {
   >;
   addToBasket: (product: ProductInterface, quantity: number) => void;
 }
+
+export interface ProductDetails {
+  product_name: string;
+  product_image: string;
+  quantity: number
+}

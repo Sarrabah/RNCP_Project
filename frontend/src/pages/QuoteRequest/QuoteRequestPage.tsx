@@ -51,9 +51,8 @@ const QuotePage: React.FC = () => {
     },
   ];
 
-  const handleView = (key: number) => {
-    console.log(`Viewing quote request with key: ${key}`);
-    navigate("/quoterequestproducts");
+  const handleView = (id: number) => {
+    navigate(`/quoterequestproducts/${id}`);
   };
 
   const handleSend = (qr: QuoteRequestInterface) => {
