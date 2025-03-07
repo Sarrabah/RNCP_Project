@@ -22,7 +22,7 @@ test("Form validation: errors appear and disappear correctly", async () => {
   const emailInput = screen.getByPlaceholderText("E-mail");
   const passwordInput = screen.getByPlaceholderText("Password");
   const submitButton = screen.getByRole("button", {
-    name: /Create an account/i,
+    name: "Create an account",
   });
 
   fireEvent.click(submitButton);
