@@ -128,7 +128,8 @@ class BasketElementsApiView(LoginRequiredMixin, APIView):
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
                 valid_data = create_basket_elements(valid_data)
-                return Response(valid_data, status=status.HTTP_200_OK)
+                created_data = BasketElementsSerializer(valid_data).data
+                return Response(created_data, status=status.HTTP_200_OK)
 
             except Exception as e:
                 return Response(
