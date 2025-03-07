@@ -8,7 +8,7 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 import "../../styles/LoginAndRegister.css";
-import { NavigateFunction } from "react-router-dom";
+import { Link, NavigateFunction } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -163,6 +163,7 @@ const Register = () => {
           <Button type="primary" htmlType="submit" className="form-button">
             Create an account
           </Button>
+          <Link to="/login">Return to login page </Link>
         </Form.Item>
       </Form>
     </div>
