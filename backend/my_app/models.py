@@ -51,7 +51,9 @@ class QuoteRequest(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     status = models.CharField(max_length=8)
-    archi_id = models.ForeignKey(Architect, models.DO_NOTHING, db_column="archi_id")
+    archi_id = models.ForeignKey(
+        Architect, on_delete=models.CASCADE, db_column="archi_id"
+    )
 
     def __str__(self) -> str:
         return self.name
@@ -63,10 +65,10 @@ class QuoteRequest(models.Model):
 class QuoteRequestProduct(models.Model):
     id = models.AutoField(primary_key=True)
     quote_request_object = models.ForeignKey(
-        QuoteRequest, models.DO_NOTHING, db_column="quote_request_id"
+        QuoteRequest, on_delete=models.CASCADE, db_column="quote_request_id"
     )
     product_object = models.ForeignKey(
-        Product, models.DO_NOTHING, db_column="product_id"
+        Product, on_delete=models.CASCADE, db_column="product_id"
     )
     quantity = models.IntegerField()
 
@@ -77,10 +79,10 @@ class QuoteRequestProduct(models.Model):
 
 class HardwareStoreQuoteRequest(models.Model):
     hardware_store_id = models.ForeignKey(
-        HardwareStore, models.DO_NOTHING, db_column="hardware_store_id"
+        HardwareStore, on_delete=models.CASCADE, db_column="hardware_store_id"
     )
     quote_request_id = models.ForeignKey(
-        QuoteRequest, models.DO_NOTHING, db_column="quote_request_id"
+        QuoteRequest, on_delete=models.CASCADE, db_column="quote_request_id"
     )
 
     class Meta:
