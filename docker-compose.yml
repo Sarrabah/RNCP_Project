@@ -13,7 +13,7 @@ services:
       - DB_NAME=rncpdockerdb
       - DB_USER=root
       - DB_PASSWORD=rootpassword
-      - SECRET_KEY=xyz
+      - DJANGO_SECRET_KEY=xyz
     volumes:
       - ./backend/backend:/app/backend
 
