@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import Login from "../pages/LoginPage";
-import Register from "../pages/Register/RegisterPage";
+/* import Login from "../pages/LoginPage";
+import Register from "../pages/Register/RegisterPage"; */
 import Homepage from "../pages/Home/HomePage";
 import WelcomePage from "../pages/WelcomePage";
 import NavBar from "../components/NavBar";
@@ -28,8 +28,8 @@ const AppRoutes = () => {
         <Content>
           <Routes>
             <Route path="/" element={<WelcomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            {/* <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} /> */}
             <Route
               path="/homepage"
               element={
