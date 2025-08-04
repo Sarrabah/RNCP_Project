@@ -1,23 +1,55 @@
-import React from "react";
-import "../styles/LoginAndRegister.css";
-import { Link } from "react-router-dom";
+import type React from "react";
+import { useState } from "react";
+import { ConfigProvider, theme } from "antd";
+/* import Header from "./components/Header"
+import Footer from "./components/Footer"*/
+import { useTheme } from "../hooks/useTheme";
+/* import "./styles/app.css"
+ */ import Description from "../components/Description";
 
-const WelcomePage: React.FC = () => {
+/* const SignForms = lazy(() => import("./components/SignForms"));
+ */ const WelcomePage: React.FC = () => {
+  const { isDark } = useTheme();
+  const [activeForm, setActiveForm] = useState<"signin" | "signup" | null>(
+    null,
+  );
+
+  const handleSignInClick = () => {
+    setActiveForm("signin");
+  };
+
+  const handleSignUpClick = () => {
+    setActiveForm("signup");
+  };
+
   return (
-    <div className="container">
-      <div className="form">
-        <h2 className="title">Welcome to Art Créa Pro! </h2>
-        <p>
-          It is a space dedicated to professionals in the construction and
-          interior design sector, to facilitate their task of requesting quotes
-          from suppliers.
-        </p>
-        <div className="link">
-          <Link to="/login"> Sign In </Link> or
-          <Link to="/register"> Sign Up </Link>
-        </div>
+    <ConfigProvider
+      theme={{
+        algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+        token: {
+          colorPrimary: "#06b6d4", // Primary color (Ant Design's accent color)
+          colorBgBase: isDark ? "#0f172a" : "#f8fafc", // Base background for components if needed
+          colorTextBase: isDark ? "#ffffff" : "#0f172a", // Base text color for components
+          colorBgContainer: isDark ? "#1e293b" : "#ffffff", // Background for cards/containers
+          colorBorder: isDark
+            ? "rgba(255, 255, 255, 0.2)"
+            : "rgba(15, 23, 42, 0.2)", // Border color
+        },
+      }}
+    >
+      <div className="app">
+        {" "}
+        {/* The class `app` is enough, `dark-theme` or `light-theme` is no longer needed here */}
+        {/*         <Header onSignInClick={handleSignInClick} onSignUpClick={handleSignUpClick} />
+         */}{" "}
+        <main aria-hidden={activeForm ? "true" : "false"}>
+          <Description
+            onSignInClick={handleSignInClick}
+            onSignUpClick={handleSignUpClick}
+          />
+        </main>
       </div>
-    </div>
+    </ConfigProvider>
   );
 };
 export default WelcomePage;
