@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent IA: Générateur de Design System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light blue-gray background */
+            color: #1e293b; /* Dark slate text */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 2.25rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            text-align: center; /* text-center */
+            margin-bottom: 1.5rem; /* mb-6 */
+            color: #4f46e5; /* indigo-700 */
+        }
+        h2 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 1rem; /* mb-4 */
+            color: #4f46e5; /* indigo-700 */
+        }
+        h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 0.75rem; /* mb-3 */
+            color: #334155; /* gray-800 */
+        }
+        h4 {
+            font-size: 1rem; /* text-md */
+            font-weight: 600; /* font-semibold */
+            margin-top: 1rem; /* mt-4 */
+            margin-bottom: 0.5rem; /* mb-2 */
+            color: #475569; /* gray-700 */
+        }
+
+
+        /* Paragraphs */
+        p {
+            color: #475569; /* text-gray-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            text-align: center; /* text-center */
+        }
+        p.text-sm {
+            font-size: 0.875rem; /* text-sm */
+            color: #64748b; /* text-gray-600 */
+        }
+        p.italic {
+            font-style: italic;
+            color: #6b7280; /* text-gray-500 */
+        }
+
+        /* Form elements */
+        textarea, input[type="file"] {
+            border: 1px solid #cbd5e1; /* Gray border */
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+            box-sizing: border-box; /* Include padding in width */
+            font-size: 0.875rem; /* sm:text-sm */
+            color: #1e293b;
+        }
+        textarea::placeholder {
+            color: #94a3b8; /* gray-400 */
+        }
+        input[type="file"] {
+            display: block;
+            background-color: #f9fafb; /* bg-gray-50 */
+            cursor: pointer;
+        }
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #6366f1; /* focus:border-indigo-500 */
+            box-shadow: 0 0 0 1px #6366f1; /* focus:ring-indigo-500 */
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #6366f1; /* focus:border-indigo-500 */
+            box-shadow: 0 0 0 1px #6366f1; /* focus:ring-indigo-500 */
+        }
+
+        /* Section for file upload and paste code */
+        .input-section {
+            margin-bottom: 1.5rem; /* mb-6 */
+            padding: 1rem; /* p-4 */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        .input-section label {
+            display: block;
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 500; /* font-medium */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .file-upload-section {
+            border: 1px solid #bfdbfe; /* border-blue-200 */
+            background-color: #eff6ff; /* bg-blue-50 */
+        }
+        .file-upload-section label {
+             color: #1d4ed8; /* text-blue-700 */
+        }
+        .paste-code-section {
+            border: 1px solid #dcfce7; /* border-green-200 */
+            background-color: #f0fdf4; /* bg-green-50 */
+        }
+        .paste-code-section label {
+            color: #15803d; /* text-green-700 */
+        }
+
+        /* Button styling */
+        button {
+            background-color: #6366f1; /* Indigo */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: none;
+        }
+        button:hover {
+            background-color: #4f46e5; /* Darker indigo on hover */
+        }
+        button#processButton {
+            width: 100%;
+            max-width: 200px; /* sm:w-auto equivalent for a centered button */
+            margin: 0 auto;
+            display: block;
+            padding-top: 0.75rem; /* py-3 */
+            padding-bottom: 0.75rem; /* py-3 */
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 2rem; /* mb-8 */
+        }
+        button#copyJsonButton, button#copyCssButton {
+            margin-top: 0.5rem; /* mt-2 */
+            background-color: #334155; /* gray-700 */
+            font-size: 0.875rem; /* text-sm */
+            padding: 0.5rem 1rem; /* px-4 py-2 */
+        }
+        button#copyJsonButton:hover, button#copyCssButton:hover {
+            background-color: #1e293b; /* gray-800 */
+        }
+
+
+        /* Results section */
+        .result-section {
+            background-color: #f1f5f9; /* Light gray background for results */
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        .result-section.hidden {
+            display: none;
+        }
+
+        /* Token item display */
+        .token-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+            background-color: #ffffff; /* bg-white */
+            padding: 0.5rem; /* p-2 */
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+        .token-item span.text-sm {
+            font-size: 0.875rem;
+            font-family: monospace; /* font-mono */
+        }
+
+        /* Color box preview */
+        .color-box {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid #cbd5e1;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        /* Grid for token display */
+        .grid-cols-1 { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 0.75rem; } /* gap-3 */
+        @media (min-width: 640px) { /* sm breakpoint */
+            .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        /* Preformatted text for JSON/CSS */
+        pre {
+            background-color: #e2e8f0; /* Lighter gray for code blocks */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: #334155;
+            white-space: pre-wrap; /* For better word wrapping */
+        }
+
+        /* Inconsistencies list */
+        ul.list-disc {
+            list-style-type: disc;
+            padding-left: 1.25rem; /* pl-5 */
+            color: #475569; /* text-gray-700 */
+        }
+        ul.list-disc li {
+            margin-bottom: 0.25rem;
+            color: #dc2626; /* text-red-600 */
+        }
+
+
+        /* Message Box styling */
+        .fixed { position: fixed; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .bg-gray-600 { background-color: rgba(75, 85, 99, 1); } /* gray-600 */
+        .bg-opacity-50 { background-color: rgba(75, 85, 99, 0.5); } /* bg-opacity-50 */
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .max-w-sm { max-width: 24rem; } /* max-w-sm */
+        .w-full { width: 100%; }
+        .text-center { text-align: center; }
+        .p-6 { padding: 1.5rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .bg-white { background-color: #ffffff; }
+        .text-lg { font-size: 1.125rem; }
+        .font-medium { font-weight: 500; }
+        .text-gray-800 { color: #1f2937; }
+        .mb-4 { margin-bottom: 1rem; }
+        .rounded-md { border-radius: 0.375rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .hover\:bg-indigo-600:hover { background-color: #4f46e5; } /* Hover effect */
+
+        /* Correction for the 'hidden' class to apply universally */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agent IA: Générateur de Design System</h1>
+
+        <p>
+            Téléversez un ou plusieurs fichiers de code (CSS, React, HTML) ou collez votre code ci-dessous. L'agent analysera le code pour extraire les tokens de design (couleurs, tailles de police, espacements, typographies).
+        </p>
+
+        <!-- File Upload Section -->
+        <div class="input-section file-upload-section">
+            <label for="codeFile">1. Télécharger un ou plusieurs fichiers de code:</label>
+            <input type="file" id="codeFile" accept=".css,.js,.jsx,.ts,.tsx,.html" multiple>
+            <p class="text-sm">Fichiers supportés: CSS, JavaScript (React), HTML.</p>
+        </div>
+
+        <!-- Paste Code Section -->
+        <div class="input-section paste-code-section">
+            <label for="codePaste">2. Ou coller votre code ici:</label>
+            <textarea id="codePaste" rows="10" placeholder="Collez votre code CSS, React ou HTML ici..."></textarea>
+        </div>
+
+        <!-- Process Button -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button id="processButton">
+                Analyser le Code
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="result-section hidden">
+            <h2>Résultats de l'Analyse</h2>
+
+            <!-- Extracted Colors -->
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Couleurs Détectées:</h3>
+                <p class="text-sm">
+                    Classification automatique des couleurs (primaire, secondaire, accent, neutre) basée sur l'ordre de détection.
+                    Notez que cette classification est rudimentaire et qu'une classification plus précise nécessiterait une définition manuelle ou des algorithmes d'analyse de couleur plus sophistiqués.
+                </p>
+                <div id="detectedColors" class="grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                    <!-- Colors will be injected here -->
+                    <p id="noColors" class="italic hidden">Aucune couleur détectée.</p>
+                </div>
+            </div>
+
+            <!-- Extracted Font Sizes -->
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Tailles de Police Détectées:</h3>
+                <div id="detectedFontSizes" class="grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                    <!-- Font sizes will be injected here -->
+                    <p id="noFontSizes" class="italic hidden">Aucune taille de police détectée.</p>
+                </div>
+            </div>
+
+            <!-- Extracted Spacings -->
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Espacements (Margin/Padding) Détectés:</h3>
+                <div id="detectedSpacings" class="grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                    <!-- Spacings will be injected here -->
+                    <p id="noSpacings" class="italic hidden">Aucun espacement détecté.</p>
+                </div>
+            </div>
+
+            <!-- Extracted Line Heights -->
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Hauteurs de Ligne Détectées:</h3>
+                <div id="detectedLineHeights" class="grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                    <!-- Line heights will be injected here -->
+                    <p id="noLineHeights" class="italic hidden">Aucune hauteur de ligne détectée.</p>
+                </div>
+            </div>
+
+            <!-- Extracted Font Families -->
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Familles de Police Détectées:</h3>
+                <div id="detectedFontFamilies" class="grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                    <!-- Font families will be injected here -->
+                    <p id="noFontFamilies" class="italic hidden">Aucune famille de police détectée.</p>
+                </div>
+            </div>
+
+            <!-- Inconsistency Detection (Basic) -->
+            <div style="margin-bottom: 2rem;">
+                <h3 style="color: #dc2626;">Incohérences Potentielles:</h3>
+                <ul id="inconsistencies" class="list-disc">
+                    <!-- Inconsistencies will be injected here -->
+                    <p id="noInconsistencies" class="italic">Aucune incohérence majeure détectée pour l'instant (basé sur une analyse simple).</p>
+                </ul>
+            </div>
+
+            <!-- Generated Tokens.json -->
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Tokens au format JSON:</h3>
+                <pre id="tokensJson"></pre>
+                <button id="copyJsonButton">Copier JSON</button>
+            </div>
+
+            <!-- Generated CSS Variables -->
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Variables CSS:</h3>
+                <pre id="cssVariables"></pre>
+                <button id="copyCssButton">Copier CSS</button>
+            </div>
+        </div>
+
+        <!-- Message Box for alerts -->
+        <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+                <p id="messageContent" class="text-lg font-medium text-gray-800 mb-4"></p>
+                <button id="messageBoxClose" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const codeFile = document.getElementById('codeFile');
+        const codePaste = document.getElementById('codePaste');
+        const processButton = document.getElementById('processButton');
+        const resultsDiv = document.getElementById('results');
+
+        const detectedColorsDiv = document.getElementById('detectedColors');
+        const detectedFontSizesDiv = document.getElementById('detectedFontSizes');
+        const detectedSpacingsDiv = document.getElementById('detectedSpacings');
+        const detectedLineHeightsDiv = document.getElementById('detectedLineHeights');
+        const detectedFontFamiliesDiv = document.getElementById('detectedFontFamilies');
+
+        const inconsistenciesList = document.getElementById('inconsistencies');
+        const noColorsMsg = document.getElementById('noColors');
+        const noFontSizesMsg = document.getElementById('noFontSizes');
+        const noSpacingsMsg = document.getElementById('noSpacings');
+        const noLineHeightsMsg = document.getElementById('noLineHeights');
+        const noFontFamiliesMsg = document.getElementById('noFontFamilies');
+        const noInconsistenciesMsg = document.getElementById('noInconsistencies');
+
+        const tokensJsonPre = document.getElementById('tokensJson');
+        const cssVariablesPre = document.getElementById('cssVariables');
+        const copyJsonButton = document.getElementById('copyJsonButton');
+        const copyCssButton = document.getElementById('copyCssButton');
+
+        const messageBox = document.getElementById('messageBox');
+        const messageContent = document.getElementById('messageContent');
+        const messageBoxClose = document.getElementById('messageBoxClose');
+
+        // Show custom message box instead of alert()
+        function showMessage(message) {
+            messageContent.textContent = message;
+            messageBox.classList.remove('hidden'); // This will now correctly make it visible
+        }
+
+        // Add event listener to close button
+        messageBoxClose.addEventListener('click', () => {
+            messageBox.classList.add('hidden'); // This will now correctly hide it
+        });
+
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; // Avoid scrolling to bottom
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showMessage('Copié dans le presse-papiers !');
+            } catch (err) {
+                showMessage('Impossible de copier. Veuillez copier manuellement.');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        copyJsonButton.addEventListener('click', () => {
+            copyToClipboard(tokensJsonPre.textContent);
+        });
+
+        copyCssButton.addEventListener('click', () => {
+            copyToClipboard(cssVariablesPre.textContent);
+        });
+
+        codeFile.addEventListener('change', async (event) => {
+            const files = event.target.files;
+            if (files.length > 0) {
+                const fileReads = Array.from(files).map(file => {
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.onerror = reject;
+                        reader.readAsText(file);
+                    });
+                });
+
+                try {
+                    const allContents = await Promise.all(fileReads);
+                    codePaste.value = allContents.join('\n\n/* --- Nouveau Fichier --- */\n\n'); // Concatenate file contents
+                } catch (error) {
+                    showMessage("Erreur lors de la lecture des fichiers.");
+                    console.error("Error reading files:", error);
+                }
+            }
+        });
+
+        processButton.addEventListener('click', () => {
+            const code = codePaste.value;
+            if (code.trim() === '') {
+                showMessage("Veuillez téléverser des fichiers ou coller du code pour l'analyse.");
+                return;
+            }
+            processCode(code);
+        });
+
+        function processCode(code) {
+            // Reset previous results
+            detectedColorsDiv.innerHTML = '';
+            detectedFontSizesDiv.innerHTML = '';
+            detectedSpacingsDiv.innerHTML = '';
+            detectedLineHeightsDiv.innerHTML = '';
+            detectedFontFamiliesDiv.innerHTML = '';
+            inconsistenciesList.innerHTML = '';
+            tokensJsonPre.textContent = '';
+            cssVariablesPre.textContent = '';
+
+            noColorsMsg.classList.add('hidden');
+            noFontSizesMsg.classList.add('hidden');
+            noSpacingsMsg.classList.add('hidden');
+            noLineHeightsMsg.classList.add('hidden');
+            noFontFamiliesMsg.classList.add('hidden');
+            noInconsistenciesMsg.classList.remove('hidden'); // Show by default, hide if inconsistencies found
+
+            const detectedColors = new Set();
+            const detectedFontSizes = new Set();
+            const detectedSpacings = new Set();
+            const detectedLineHeights = new Set();
+            const detectedFontFamilies = new Set();
+
+            // Regex to find CSS color values (hex, rgb, rgba, named colors)
+            const colorRegex = /#(?:[0-9a-fA-F]{3}){1,2}|rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)|rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(?:0?\.\d+|1)\s*\)|(?:(?:aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkgrey|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|green|greenyellow|grey|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen)\b)/gi;
+            // Regex to find font sizes (e.g., 12px, 1.5em, 2rem, 100%)
+            const fontSizeRegex = /(\d*\.?\d+(?:px|em|rem|%|ch|ex)?)\b/gi;
+            // Regex to find margin/padding values (e.g., 10px, "1rem 2rem", "5px 10px 15px 20px")
+            const spacingRegex = /(?:(?:margin|padding)(?:-[a-z]+)?\s*:\s*([^;]+);)/gi;
+            // Regex to find line-height values (e.g., 1.5, 24px, 150%)
+            const lineHeightRegex = /(?:line-height\s*:\s*)(\d*\.?\d+(?:px|em|rem|%)?)\b/gi;
+            // Regex to find font-family values (e.g., 'Arial', "Helvetica Neue", sans-serif)
+            const fontFamilyRegex = /(?:font-family\s*:\s*([^;]+);)/gi;
+
+
+            let match;
+
+            // Extract Colors
+            while ((match = colorRegex.exec(code)) !== null) {
+                detectedColors.add(match[0].toLowerCase());
+            }
+
+            // Extract Font Sizes
+            while ((match = fontSizeRegex.exec(code)) !== null) {
+                detectedFontSizes.add(match[0].toLowerCase());
+            }
+
+            // Extract Spacings (margin/padding)
+            while ((match = spacingRegex.exec(code)) !== null) {
+                // Split values like "10px 20px" into individual tokens
+                const values = match[1].trim().split(/\s+/);
+                values.forEach(val => {
+                    // Filter out non-numeric/non-unit values if needed, though regex usually handles it
+                    if (val && (!isNaN(parseFloat(val)) || val.match(/(px|em|rem|%|vw|vh)$/))) {
+                         detectedSpacings.add(val.toLowerCase());
+                    }
+                });
+            }
+
+            // Extract Line Heights
+            while ((match = lineHeightRegex.exec(code)) !== null) {
+                detectedLineHeights.add(match[1].toLowerCase());
+            }
+
+            // Extract Font Families
+            while ((match = fontFamilyRegex.exec(code)) !== null) {
+                // Clean up quotes and trim
+                const fontFamily = match[1].replace(/['"]/g, '').trim();
+                if (fontFamily) {
+                    detectedFontFamilies.add(fontFamily);
+                }
+            }
+
+
+            displayTokens(detectedColors, detectedFontSizes, detectedSpacings, detectedLineHeights, detectedFontFamilies);
+            detectInconsistencies(detectedColors, detectedFontSizes, detectedSpacings, detectedLineHeights, detectedFontFamilies);
+            generateDesignTokens(detectedColors, detectedFontSizes, detectedSpacings, detectedLineHeights, detectedFontFamilies);
+
+            resultsDiv.classList.remove('hidden');
+        }
+
+        function displayTokens(colors, fontSizes, spacings, lineHeights, fontFamilies) {
+            // Clear previous content
+            detectedColorsDiv.innerHTML = '';
+            detectedFontSizesDiv.innerHTML = '';
+            detectedSpacingsDiv.innerHTML = '';
+            detectedLineHeightsDiv.innerHTML = '';
+            detectedFontFamiliesDiv.innerHTML = '';
+
+            // Categorize colors for display
+            const categorizedColors = categorizeColors(Array.from(colors));
+
+            // Display Categorized Colors
+            if (Object.keys(categorizedColors.primary).length > 0) {
+                const primaryHeader = document.createElement('h4');
+                primaryHeader.textContent = 'Couleurs Primaires:';
+                detectedColorsDiv.appendChild(primaryHeader);
+                for (const key in categorizedColors.primary) {
+                    const div = document.createElement('div');
+                    div.className = 'token-item';
+                    div.innerHTML = `
+                        <div class="color-box" style="background-color: ${categorizedColors.primary[key].value};"></div>
+                        <span class="text-sm">${key}: ${categorizedColors.primary[key].value}</span>
+                    `;
+                    detectedColorsDiv.appendChild(div);
+                }
+            }
+            if (Object.keys(categorizedColors.secondary).length > 0) {
+                const secondaryHeader = document.createElement('h4');
+                secondaryHeader.textContent = 'Couleurs Secondaires:';
+                detectedColorsDiv.appendChild(secondaryHeader);
+                for (const key in categorizedColors.secondary) {
+                    const div = document.createElement('div');
+                    div.className = 'token-item';
+                    div.innerHTML = `
+                        <div class="color-box" style="background-color: ${categorizedColors.secondary[key].value};"></div>
+                        <span class="text-sm">${key}: ${categorizedColors.secondary[key].value}</span>
+                    `;
+                    detectedColorsDiv.appendChild(div);
+                }
+            }
+            if (Object.keys(categorizedColors.accent).length > 0) {
+                const accentHeader = document.createElement('h4');
+                accentHeader.textContent = 'Couleurs Accent:';
+                detectedColorsDiv.appendChild(accentHeader);
+                for (const key in categorizedColors.accent) {
+                    const div = document.createElement('div');
+                    div.className = 'token-item';
+                    div.innerHTML = `
+                        <div class="color-box" style="background-color: ${categorizedColors.accent[key].value};"></div>
+                        <span class="text-sm">${key}: ${categorizedColors.accent[key].value}</span>
+                    `;
+                    detectedColorsDiv.appendChild(div);
+                }
+            }
+            if (Object.keys(categorizedColors.neutral).length > 0) {
+                const neutralHeader = document.createElement('h4');
+                neutralHeader.textContent = 'Couleurs Neutres/Autres:';
+                detectedColorsDiv.appendChild(neutralHeader);
+                for (const key in categorizedColors.neutral) {
+                    const div = document.createElement('div');
+                    div.className = 'token-item';
+                    div.innerHTML = `
+                        <div class="color-box" style="background-color: ${categorizedColors.neutral[key].value};"></div>
+                        <span class="text-sm">${key}: ${categorizedColors.neutral[key].value}</span>
+                    `;
+                    detectedColorsDiv.appendChild(div);
+                }
+            }
+
+            if (colors.size === 0) {
+                noColorsMsg.classList.remove('hidden');
+            }
+
+
+            // Display Font Sizes
+            if (fontSizes.size > 0) {
+                fontSizes.forEach(size => {
+                    const div = document.createElement('div');
+                    div.className = 'token-item';
+                    div.innerHTML = `
+                        <span class="text-sm">Text-${formatTokenName(size)}: ${size}</span>
+                    `;
+                    detectedFontSizesDiv.appendChild(div);
+                });
+            } else {
+                noFontSizesMsg.classList.remove('hidden');
+            }
+
+            // Display Spacings
+            if (spacings.size > 0) {
+                spacings.forEach(spacing => {
+                    const div = document.createElement('div');
+                    div.className = 'token-item';
+                    div.innerHTML = `
+                        <span class="text-sm">Spacing-${formatTokenName(spacing)}: ${spacing}</span>
+                    `;
+                    detectedSpacingsDiv.appendChild(div);
+                });
+            } else {
+                noSpacingsMsg.classList.remove('hidden');
+            }
+
+            // Display Line Heights
+            if (lineHeights.size > 0) {
+                lineHeights.forEach(height => {
+                    const div = document.createElement('div');
+                    div.className = 'token-item';
+                    div.innerHTML = `
+                        <span class="text-sm">LineHeight-${formatTokenName(height)}: ${height}</span>
+                    `;
+                    detectedLineHeightsDiv.appendChild(div);
+                });
+            } else {
+                noLineHeightsMsg.classList.remove('hidden');
+            }
+
+            // Display Font Families
+            if (fontFamilies.size > 0) {
+                fontFamilies.forEach(family => {
+                    const div = document.createElement('div');
+                    div.className = 'token-item';
+                    div.innerHTML = `
+                        <span class="text-sm">FontFamily-${formatTokenName(family)}: ${family}</span>
+                    `;
+                    detectedFontFamiliesDiv.appendChild(div);
+                });
+            } else {
+                noFontFamiliesMsg.classList.remove('hidden');
+            }
+        }
+
+        // Function to categorize colors (unchanged, still heuristic-based)
+        function categorizeColors(colorsArray) {
+            const categories = {
+                primary: {},
+                secondary: {},
+                accent: {},
+                neutral: {}
+            };
+
+            // Simple heuristic for demonstration: assign based on order of appearance
+            if (colorsArray.length > 0) {
+                categories.primary['default'] = { value: colorsArray[0] };
+            }
+            if (colorsArray.length > 1) {
+                categories.secondary['default'] = { value: colorsArray[1] };
+            }
+            if (colorsArray.length > 2) {
+                categories.accent['default'] = { value: colorsArray[2] };
+            }
+            // Assign remaining colors to neutral
+            for (let i = 3; i < colorsArray.length; i++) {
+                categories.neutral[`shade${i - 2}`] = { value: colorsArray[i] };
+            }
+            return categories;
+        }
+
+        function formatTokenName(value) {
+            // Remove units (px, em, rem, %) and replace dots/spaces with hyphens
+            return value.replace(/(px|em|rem|%|ch|ex|vw|vh)$/i, '')
+                        .replace(/\./g, 'dot') // Handle decimals
+                        .replace(/\s+/g, '-') // Handle spaces
+                        .toLowerCase();
+        }
+
+        function detectInconsistencies(colors, fontSizes, spacings, lineHeights, fontFamilies) {
+            let foundInconsistencies = false;
+            inconsistenciesList.innerHTML = ''; // Clear previous inconsistencies
+
+            // Inconsistency checks for Colors
+            if (colors.size > 10) {
+                const li = document.createElement('li');
+                li.textContent = `Plus de ${colors.size} couleurs uniques détectées. Cela pourrait indiquer un manque de palette de couleurs définie.`;
+                inconsistenciesList.appendChild(li);
+                foundInconsistencies = true;
+            }
+
+            // Inconsistency checks for Font Sizes
+            if (fontSizes.size > 5) {
+                const li = document.createElement('li');
+                li.textContent = `Plus de ${fontSizes.size} tailles de police uniques détectées. Considérez de réduire pour une meilleure cohérence typographique.`;
+                inconsistenciesList.appendChild(li);
+                foundInconsistencies = true;
+            }
+            const hasPxFs = Array.from(fontSizes).some(size => size.endsWith('px'));
+            const hasRemEmFs = Array.from(fontSizes).some(size => size.endsWith('rem') || size.endsWith('em'));
+            if (hasPxFs && hasRemEmFs && fontSizes.size > 2) {
+                const li = document.createElement('li');
+                li.textContent = `Mélange d'unités de taille de police (px, em/rem) et grand nombre de tailles. Essayez de standardiser pour une meilleure scalabilité.`;
+                inconsistenciesList.appendChild(li);
+                foundInconsistencies = true;
+            }
+
+            // Inconsistency checks for Spacings
+            if (spacings.size > 8) { // Arbitrary threshold
+                const li = document.createElement('li');
+                li.textContent = `Plus de ${spacings.size} valeurs d'espacement uniques détectées. Il est recommandé de standardiser les espacements.`;
+                inconsistenciesList.appendChild(li);
+                foundInconsistencies = true;
+            }
+            const hasPxSp = Array.from(spacings).some(size => size.endsWith('px'));
+            const hasRemEmSp = Array.from(spacings).some(size => size.endsWith('rem') || size.endsWith('em'));
+            if (hasPxSp && hasRemEmSp && spacings.size > 2) {
+                const li = document.createElement('li');
+                li.textContent = `Mélange d'unités d'espacement (px, em/rem) et grand nombre d'espacements. Essayez de standardiser.`;
+                inconsistenciesList.appendChild(li);
+                foundInconsistencies = true;
+            }
+
+            // Inconsistency checks for Line Heights
+            if (lineHeights.size > 3) { // Arbitrary threshold
+                const li = document.createElement('li');
+                li.textContent = `Plus de ${lineHeights.size} hauteurs de ligne uniques détectées. Une standardisation améliorerait la lisibilité.`;
+                inconsistenciesList.appendChild(li);
+                foundInconsistencies = true;
+            }
+
+            // Inconsistency checks for Font Families
+            if (fontFamilies.size > 3) { // Arbitrary threshold
+                const li = document.createElement('li');
+                li.textContent = `Plus de ${fontFamilies.size} familles de police uniques détectées. Considérez de limiter le nombre de polices pour la cohérence.`;
+                inconsistenciesList.appendChild(li);
+                foundInconsistencies = true;
+            }
+
+
+            if (foundInconsistencies) {
+                noInconsistenciesMsg.classList.add('hidden');
+            } else {
+                noInconsistenciesMsg.classList.remove('hidden');
+            }
+        }
+
+        function generateDesignTokens(colors, fontSizes, spacings, lineHeights, fontFamilies) {
+            const tokens = {
+                color: {},
+                fontSize: {},
+                spacing: {},
+                lineHeight: {},
+                fontFamily: {},
+            };
+
+            // Categorize colors
+            const categorizedColors = categorizeColors(Array.from(colors));
+            tokens.color = {
+                primary: {},
+                secondary: {},
+                accent: {},
+                neutral: {}
+            };
+
+            // Assign primary, secondary, accent, neutral colors with better naming
+            if (categorizedColors.primary.default) {
+                tokens.color.primary = { value: categorizedColors.primary.default.value };
+            }
+            if (categorizedColors.secondary.default) {
+                tokens.color.secondary = { value: categorizedColors.secondary.default.value };
+            }
+            if (categorizedColors.accent.default) {
+                tokens.color.accent = { value: categorizedColors.accent.default.value };
+            }
+            for (const key in categorizedColors.neutral) {
+                const originalValue = categorizedColors.neutral[key].value;
+                // Generate a more descriptive name, e.g., "neutral-gray-100" or "neutral-black"
+                // For simplicity, just use "neutral-X" for now. A more advanced agent would identify color names.
+                const nameSuffix = originalValue.replace(/[^a-zA-Z0-9]/g, '').slice(-4); // Use last 4 chars of hex/rgb string
+                tokens.color[`neutral-${nameSuffix || key}`] = { value: originalValue };
+            }
+
+
+            // Convert sets to sorted arrays for consistent output
+            const sortedFontSizes = Array.from(fontSizes).sort((a, b) => parseFloat(a) - parseFloat(b));
+            const sortedSpacings = Array.from(spacings).sort((a, b) => parseFloat(a) - parseFloat(b));
+            const sortedLineHeights = Array.from(lineHeights).sort((a, b) => parseFloat(a) - parseFloat(b));
+            const sortedFontFamilies = Array.from(fontFamilies).sort();
+
+            // Populate font size tokens with more descriptive names
+            // Attempt to map to common sizes, otherwise use a generic numerical suffix
+            const fontSizeNames = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl'];
+            sortedFontSizes.forEach((size, index) => {
+                const name = fontSizeNames[index] ? `text-${fontSizeNames[index]}` : `text-${index + 1}`;
+                tokens.fontSize[name] = { value: size };
+            });
+
+            // Populate spacing tokens with more descriptive names
+            const spacingNames = ['0', 'px', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '8', '10', '12', '16', '20', '24', '32', '40', '48', '56', '64'];
+            sortedSpacings.forEach((spacing, index) => {
+                const numericValue = parseFloat(spacing);
+                let name = `spacing-${index + 1}`; // Default
+                const matchedName = spacingNames.find(sName => parseFloat(sName) === numericValue && spacing.includes('rem') || (spacing.includes('px') && parseFloat(sName) === numericValue / 16)); // Basic mapping attempt
+                if (matchedName !== undefined) {
+                    name = `spacing-${matchedName.replace('.', 'dot')}`;
+                } else if (spacing.endsWith('px')) {
+                    name = `spacing-${numericValue}px`;
+                } else if (spacing.endsWith('rem')) {
+                    name = `spacing-${numericValue}rem`;
+                } else if (spacing.endsWith('em')) {
+                    name = `spacing-${numericValue}em`;
+                }
+                tokens.spacing[name] = { value: spacing };
+            });
+
+
+            // Populate line height tokens with more descriptive names
+            const lineHeightNames = ['none', 'tight', 'snug', 'normal', 'relaxed', 'loose']; // Common semantic names
+            sortedLineHeights.forEach((height, index) => {
+                const name = lineHeightNames[index] ? `line-height-${lineHeightNames[index]}` : `line-height-${index + 1}`;
+                tokens.lineHeight[name] = { value: height };
+            });
+
+            // Populate font family tokens with more descriptive names
+            sortedFontFamilies.forEach((family, index) => {
+                const cleanFamilyName = family.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '').toLowerCase();
+                const name = `font-family-${cleanFamilyName || `font-${index + 1}`}`;
+                tokens.fontFamily[name] = { value: family };
+            });
+
+            tokensJsonPre.textContent = JSON.stringify(tokens, null, 2);
+
+            // Generate CSS Variables
+            let cssVars = ':root {\n';
+
+            // CSS Variables for Colors
+            if (Object.keys(tokens.color.primary).length > 0) {
+                cssVars += '  /* Couleurs Primaires */\n';
+                cssVars += `  --color-primary: ${tokens.color.primary.value};\n`;
+            }
+            if (Object.keys(tokens.color.secondary).length > 0) {
+                cssVars += '  /* Couleurs Secondaires */\n';
+                cssVars += `  --color-secondary: ${tokens.color.secondary.value};\n`;
+            }
+            if (Object.keys(tokens.color.accent).length > 0) {
+                cssVars += '  /* Couleurs Accent */\n';
+                cssVars += `  --color-accent: ${tokens.color.accent.value};\n`;
+            }
+            if (Object.keys(tokens.color.neutral).length > 0) {
+                cssVars += '  /* Couleurs Neutres/Autres */\n';
+                for (const key in tokens.color) {
+                    if (key.startsWith('neutral-')) {
+                        cssVars += `  --color-${key}: ${tokens.color[key].value};\n`;
+                    }
+                }
+            }
+
+
+            if (Object.keys(tokens.fontSize).length > 0) {
+                cssVars += '\n  /* Tailles de Police */\n';
+                for (const key in tokens.fontSize) {
+                    cssVars += `  --${key}: ${tokens.fontSize[key].value};\n`;
+                }
+            }
+            if (Object.keys(tokens.spacing).length > 0) {
+                cssVars += '\n  /* Espacements */\n';
+                for (const key in tokens.spacing) {
+                    cssVars += `  --${key}: ${tokens.spacing[key].value};\n`;
+                }
+            }
+            if (Object.keys(tokens.lineHeight).length > 0) {
+                cssVars += '\n  /* Hauteurs de Ligne */\n';
+                for (const key in tokens.lineHeight) {
+                    cssVars += `  --${key}: ${tokens.lineHeight[key].value};\n`;
+                }
+            }
+            if (Object.keys(tokens.fontFamily).length > 0) {
+                cssVars += '\n  /* Familles de Police */\n';
+                for (const key in tokens.fontFamily) {
+                    cssVars += `  --${key}: ${tokens.fontFamily[key].value};\n`;
+                }
+            }
+            cssVars += '}';
+            cssVariablesPre.textContent = cssVars;
+        }
+    </script>
+</body>
+</html>

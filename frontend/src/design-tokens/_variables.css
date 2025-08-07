@@ -1,0 +1,161 @@
+/* Design Tokens - CSS Custom Properties */
+
+:root {
+  /* === LIGHT THEME (Default) === */
+
+  /* Colors - Primary */
+  --color-primary: #06b6d4;
+
+  /* Colors - Text */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: rgba(15, 23, 42, 0.8);
+  --color-text-muted: rgba(15, 23, 42, 0.5);
+
+  /* Colors - Background */
+  --color-bg-primary: rgba(248, 250, 252, 0.9);
+  --color-bg-secondary: #ffffff;
+  --color-bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+
+  /* Colors - Border */
+  --color-border-primary: rgba(15, 23, 42, 0.1);
+  --color-border-secondary: rgba(15, 23, 42, 0.2);
+
+  /* Spacing */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+  --spacing-2xl: 2.5rem; /* 40px */
+  --spacing-3xl: 3rem; /* 48px */
+  --spacing-4xl: 4rem; /* 64px */
+  --spacing-5xl: 5rem; /* 80px */
+
+  /* Typography - Font Size */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
+  --font-size-6xl: 3.75rem; /* 60px */
+
+  /* Typography - Font Weight */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Typography - Line Height */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Typography - Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* Border Radius */
+  --border-radius-none: 0px;
+  --border-radius-sm: 0.125rem; /* 2px */
+  --border-radius-md: 0.375rem; /* 6px */
+  --border-radius-lg: 0.5rem; /* 8px */
+  --border-radius-xl: 0.75rem; /* 12px */
+  --border-radius-2xl: 1rem; /* 16px */
+  --border-radius-3xl: 1.5rem; /* 24px */
+  --border-radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: all 0.15s ease;
+  --transition-normal: all 0.3s ease;
+  --transition-slow: all 0.5s ease;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Legacy variable names for backward compatibility */
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --bg-primary: var(--color-bg-primary);
+  --bg-secondary: var(--color-bg-secondary);
+  --border-primary: var(--color-border-primary);
+  --border-secondary: var(--color-border-secondary);
+  --primary-color: var(--color-primary);
+  --theme-transition: var(--transition-normal);
+  --description-transition: var(--transition-normal);
+  --description-border-radius: var(--border-radius-lg);
+}
+
+/* === DARK THEME === */
+.dark-theme {
+  /* Colors - Primary (same as light) */
+  --color-primary: #06b6d4;
+
+  /* Colors - Text */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.8);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+
+  /* Colors - Background */
+  --color-bg-primary: rgba(15, 23, 42, 0.9);
+  --color-bg-secondary: #1e293b;
+  --color-bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+
+  /* Colors - Border */
+  --color-border-primary: rgba(255, 255, 255, 0.1);
+  --color-border-secondary: rgba(255, 255, 255, 0.2);
+
+  /* Legacy variable names for backward compatibility */
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --bg-primary: var(--color-bg-primary);
+  --bg-secondary: var(--color-bg-secondary);
+  --border-primary: var(--color-border-primary);
+  --border-secondary: var(--color-border-secondary);
+}
+
+/* === THEME UTILITIES === */
+
+/* Automatic theme switching based on system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme):not(.dark-theme) {
+    /* Apply dark theme colors when system prefers dark and no explicit theme is set */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: rgba(255, 255, 255, 0.8);
+    --color-text-muted: rgba(255, 255, 255, 0.5);
+    --color-bg-primary: rgba(15, 23, 42, 0.9);
+    --color-bg-secondary: #1e293b;
+    --color-bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --color-border-primary: rgba(255, 255, 255, 0.1);
+    --color-border-secondary: rgba(255, 255, 255, 0.2);
+
+    /* Update legacy variables */
+    --text-primary: var(--color-text-primary);
+    --text-secondary: var(--color-text-secondary);
+    --bg-primary: var(--color-bg-primary);
+    --bg-secondary: var(--color-bg-secondary);
+    --border-primary: var(--color-border-primary);
+    --border-secondary: var(--color-border-secondary);
+  }
+}
+
+/* Force explicit theme classes to override system preference */
+.light-theme {
+  color-scheme: light;
+}
+
+.dark-theme {
+  color-scheme: dark;
+}
