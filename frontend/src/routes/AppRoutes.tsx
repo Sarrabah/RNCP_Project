@@ -1,7 +1,5 @@
 import React from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-/* import Login from "../pages/LoginPage";
-import Register from "../pages/Register/RegisterPage"; */
 import Homepage from "../pages/Home/HomePage";
 import WelcomePage from "../pages/WelcomePage";
 import NavBar from "../components/NavBar";
@@ -13,6 +11,7 @@ import ProductDetail from "../components/ProductDetail";
 import Basket from "../pages/BasketPage";
 import PrivateRoute from "../components/PrivateRoute";
 import QuoteRequestProductsPage from "../pages/QuoteRequestProductsPage";
+import "../styles/welcomepage.css";
 
 const { Content } = Layout;
 const AppRoutes = () => {
@@ -25,11 +24,9 @@ const AppRoutes = () => {
       {hideLayout === false && <NavBar />}
       <Layout>
         {hideLayout === false && <Sidebar />}
-        <Content>
+        <Content className="full-layout">
           <Routes>
             <Route path="/" element={<WelcomePage />} />
-            {/* <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} /> */}
             <Route
               path="/homepage"
               element={
