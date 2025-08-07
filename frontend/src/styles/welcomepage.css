@@ -3,16 +3,16 @@
 
 /* === HEADER STYLES === */
 .header {
-  padding: var(--spacing-lg) 0;
-  border-bottom: 1px solid var(--color-border-primary);
-  background: var(--color-bg-primary);
-  transition: var(--transition-normal);
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-primary);
+  background: var(--bg-primary);
+  transition: var(--theme-transition);
 }
 
 .header-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,43 +20,11 @@
 
 .logo {
   margin: 0;
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-wide);
-  color: var(--color-text-primary) !important;
-  transition: var(--transition-normal);
-}
-
-/* Force header text color for Ant Design components */
-.header .logo.ant-typography,
-.header .logo.ant-typography h1,
-.header .logo.ant-typography h2 {
-  color: var(--color-text-primary) !important;
-}
-
-.theme-toggle-btn {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-border-secondary);
-  border-radius: var(--border-radius-full);
-  color: var(--color-text-primary);
-  background: transparent;
-  transition: var(--transition-normal);
-}
-
-.theme-toggle-btn:hover {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #ffffff;
-  transform: rotate(180deg);
-}
-
-.theme-toggle-btn .anticon {
-  font-size: var(--font-size-base);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+  transition: var(--theme-transition);
 }
 
 /* === BASIC RESET & BASE STYLES === */
