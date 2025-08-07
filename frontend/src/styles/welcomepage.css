@@ -1,0 +1,384 @@
+/* Import design tokens */
+@import "../design-tokens/_variables.css";
+
+/* === HEADER STYLES === */
+.header {
+  padding: var(--spacing-lg) 0;
+  border-bottom: 1px solid var(--color-border-primary);
+  background: var(--color-bg-primary);
+  transition: var(--transition-normal);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-primary) !important;
+  transition: var(--transition-normal);
+}
+
+/* Force header text color for Ant Design components */
+.header .logo.ant-typography,
+.header .logo.ant-typography h1,
+.header .logo.ant-typography h2 {
+  color: var(--color-text-primary) !important;
+}
+
+.theme-toggle-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-full);
+  color: var(--color-text-primary);
+  background: transparent;
+  transition: var(--transition-normal);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  transform: rotate(180deg);
+}
+
+.theme-toggle-btn .anticon {
+  font-size: var(--font-size-base);
+}
+
+/* === BASIC RESET & BASE STYLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  transition: var(--transition-normal);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  transition: var(--transition-normal);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  height: 100%;
+  background: var(--color-bg-gradient);
+  color: var(--color-text-primary);
+}
+
+#root {
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  min-height: 100vh;
+  transition: var(--transition-normal);
+  overflow-x: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-gradient);
+}
+
+/* === DESCRIPTION SECTION === */
+.description-section {
+  padding: var(--spacing-lg) var(--spacing-md);
+  max-width: 75rem;
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.description-content {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.description-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-primary) !important;
+  transition: var(--transition-normal);
+}
+
+.description-text {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-secondary) !important;
+  transition: var(--transition-normal);
+  padding: 0 var(--spacing-sm);
+}
+
+/* Force description text colors for Ant Design components */
+.description-title.ant-typography,
+.description-title.ant-typography h1 {
+  color: var(--color-text-primary) !important;
+}
+
+.description-text.ant-typography,
+.description-text.ant-typography p {
+  color: var(--color-text-secondary) !important;
+}
+
+.description-actions {
+  width: 100%;
+  justify-content: center;
+}
+
+.description-actions .ant-space-item {
+  width: 100%;
+  max-width: 17.5rem;
+}
+
+.description-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: var(--spacing-md);
+}
+
+.description-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 18.75rem;
+  transition: var(--transition-normal);
+  border-radius: var(--border-radius-lg);
+}
+
+/* === ANT DESIGN THEME OVERRIDES === */
+
+/* Input Components */
+.ant-input-affix-wrapper {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-lg);
+  transition: var(--transition-normal);
+}
+
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
+}
+
+.ant-input-affix-wrapper input {
+  background: transparent;
+  color: var(--color-text-primary);
+}
+
+.ant-input-affix-wrapper input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Card Components */
+.ant-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-lg);
+}
+
+/* Button Components */
+.ant-btn-text {
+  color: var(--color-text-primary);
+}
+
+/* Typography Components */
+.ant-typography {
+  color: var(--color-text-primary);
+}
+
+.ant-typography.ant-typography-secondary {
+  color: var(--color-text-secondary);
+}
+
+/* Form Components */
+.ant-form-item-label > label {
+  color: var(--color-text-primary);
+}
+
+.ant-form-item-explain-error {
+  color: #ef4444;
+}
+
+.ant-form-item-has-error .ant-input-affix-wrapper {
+  border-color: #ef4444;
+}
+
+.ant-form-item-has-error .ant-input-affix-wrapper:hover,
+.ant-form-item-has-error .ant-input-affix-wrapper:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+/* === RESPONSIVE BREAKPOINTS === */
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 var(--spacing-md);
+  }
+
+  .logo {
+    font-size: var(--font-size-xl);
+  }
+
+  .theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Tablet - 768px+ */
+@media (min-width: 48rem) {
+  body {
+    font-size: var(--font-size-base);
+  }
+
+  .description-section {
+    padding: var(--spacing-3xl) var(--spacing-lg);
+  }
+
+  .description-title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .description-text {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-xl);
+    padding: 0 var(--spacing-md);
+  }
+
+  .description-image {
+    max-height: 25rem;
+  }
+
+  .description-actions .ant-space-item {
+    width: auto;
+  }
+}
+
+/* Desktop - 1024px+ */
+@media (min-width: 64rem) {
+  body {
+    font-size: var(--font-size-base);
+  }
+
+  .description-section {
+    padding: var(--spacing-4xl) var(--spacing-lg);
+  }
+
+  .description-content {
+    text-align: left;
+    padding-right: var(--spacing-2xl);
+    margin-bottom: 0;
+  }
+
+  .description-title {
+    font-size: var(--font-size-5xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .description-text {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2xl);
+    padding: 0;
+  }
+
+  .description-image {
+    max-height: 31.25rem;
+  }
+
+  .description-actions {
+    justify-content: flex-start;
+  }
+}
+
+/* Large Desktop - 1440px+ */
+@media (min-width: 90rem) {
+  .description-section {
+    padding: var(--spacing-5xl) var(--spacing-lg);
+  }
+
+  .description-title {
+    font-size: var(--font-size-6xl);
+  }
+
+  .description-text {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .description-image {
+    max-height: 37.5rem;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .description-title,
+  .description-text,
+  .description-image,
+  .header,
+  .logo,
+  .theme-toggle-btn {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .description-title {
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  .description-text {
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+/* === PRINT STYLES === */
+@media print {
+  .description-section {
+    padding: var(--spacing-md);
+  }
+
+  .description-actions {
+    display: none;
+  }
+
+  .description-image {
+    max-height: 15rem;
+    filter: none;
+  }
+
+  .theme-toggle-btn {
+    display: none;
+  }
+}
