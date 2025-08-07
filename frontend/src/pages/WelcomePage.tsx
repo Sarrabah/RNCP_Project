@@ -1,5 +1,5 @@
 import type React from "react";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Button, ConfigProvider, Space, theme, Typography } from "antd";
 import { useTheme } from "../hooks/useTheme";
 import { DesignTokensUtil } from "../design-tokens/utils";
@@ -12,6 +12,7 @@ import Description from "../components/Description";
 import Footer from "../components/Footer";
 
 const { Title } = Typography;
+const SignForms = lazy(() => import("../components/SignForms"));
 
 const WelcomePage: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
@@ -26,6 +27,9 @@ const WelcomePage: React.FC = () => {
 
   const handleSignUpClick = () => {
     setActiveForm("signup");
+  };
+  const handleCloseForm = () => {
+    setActiveForm(null);
   };
 
   return (
@@ -58,6 +62,17 @@ const WelcomePage: React.FC = () => {
             onSignInClick={handleSignInClick}
             onSignUpClick={handleSignUpClick}
           />
+          {activeForm && (
+            <Suspense fallback={<div>Loading form...</div>}>
+              {" "}
+              {/* Provide a fallback UI */}
+              <SignForms
+                activeForm={activeForm}
+                onFormChange={setActiveForm}
+                onCloseForm={handleCloseForm}
+              />
+            </Suspense>
+          )}
         </main>
         <Footer />
       </div>
