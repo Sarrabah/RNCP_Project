@@ -5,7 +5,6 @@ import { useTheme } from "../hooks/useTheme";
 import { DesignTokensUtil } from "../design-tokens/utils";
 import { SunOutlined, MoonOutlined } from "@ant-design/icons";
 
-// Import your CSS files
 import "../design-tokens/_variables.css";
 import "../styles/welcomepage.css";
 
@@ -39,9 +38,7 @@ const WelcomePage: React.FC = () => {
       <div className="app">
         <header className="header">
           <div className="header-content">
-            <Title level={2} className="logo">
-              Art Créa Pro
-            </Title>
+            <Title level={1}>Art Créa Pro</Title>
             <Space size="middle">
               <Button
                 type="text"
