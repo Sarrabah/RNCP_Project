@@ -1,38 +1,97 @@
 import type React from "react";
-import { Button, Form, Input, Typography, Row, Col, Card, message } from "antd";
-import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Form,
+  Input,
+  Typography,
+  Row,
+  Col,
+  Card,
+  message,
+  notification,
+} from "antd";
+import {
+  UserOutlined,
+  LockOutlined,
+  MailOutlined,
+  HomeOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
 import type {
   SignFormsProps,
   SignInFormData,
   SignUpFormData,
 } from "../types/types";
-import { validateEmail, validatePassword } from "../utils/validators";
+import { validatePassword } from "../utils/validators";
 import "../styles/signForms.css";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 
 const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
   const [signInForm] = Form.useForm();
-  const [signUpForm] = Form.useForm();
 
   const onFinishSignIn = (values: SignInFormData) => {
     console.log("Sign in values:", values);
     message.success("Sign in successful!");
   };
 
-  const onFinishSignUp = (values: SignUpFormData) => {
-    console.log("Sign up values:", values);
-    message.success("Sign up successful!");
+  const navigate: NavigateFunction = useNavigate();
+  const addUser = async (values: SignUpFormData) => {
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      adress,
+      region_code,
+      phone_number,
+    } = values;
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify({
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          password: password,
+          adress: adress || null,
+          region_code: region_code,
+          phone_number: phone_number || null,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit the new user!");
+      }
+
+      const data = await response.json();
+
+      notification.success({
+        message: "Création réussie",
+        description: "Login juste now!",
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+
+      return data;
+    } catch (error: any) {
+      notification.error({
+        message: "Error",
+        description: "Error occured when registering",
+      });
+      console.error("Error submitting the new user ", error);
+    }
   };
 
   const onSignInFailed = (errorInfo: any) => {
     console.log("Sign in failed:", errorInfo);
     message.error("Please check your credentials");
-  };
-
-  const onSignUpFailed = (errorInfo: any) => {
-    console.log("Sign up failed:", errorInfo);
-    message.error("Please check your information");
   };
 
   const switchToSignUp = () => {
@@ -75,7 +134,6 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                     name="email"
                     rules={[
                       { required: true, message: "Please input your email!" },
-                      { validator: validateEmail },
                     ]}
                   >
                     <Input
@@ -134,18 +192,19 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                 </Form>
               ) : (
                 <Form
-                  form={signUpForm}
                   name="signup"
-                  onFinish={onFinishSignUp}
-                  onFinishFailed={onSignUpFailed}
+                  onFinish={addUser}
                   layout="vertical"
                   size="large"
                 >
                   <Form.Item
-                    label="Name"
-                    name="name"
+                    label="First name"
+                    name="first_name"
                     rules={[
-                      { required: true, message: "Please input your name!" },
+                      {
+                        required: true,
+                        message: "Please input your first name!",
+                      },
                       {
                         min: 2,
                         message: "Name must be at least 2 characters!",
@@ -154,7 +213,24 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                   >
                     <Input
                       prefix={<UserOutlined />}
-                      placeholder="Enter your name"
+                      placeholder="First_name"
+                      className="form-input"
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Last name"
+                    name="last_name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your last name!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      prefix={<UserOutlined />}
+                      placeholder="Last_name"
                       className="form-input"
                     />
                   </Form.Item>
@@ -164,7 +240,10 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                     name="email"
                     rules={[
                       { required: true, message: "Please input your email!" },
-                      { validator: validateEmail },
+                      {
+                        type: "email",
+                        message: "The input is not a valid email address!",
+                      },
                     ]}
                   >
                     <Input
@@ -189,6 +268,36 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                       prefix={<LockOutlined />}
                       placeholder="Enter your password"
                       className="form-input"
+                    />
+                  </Form.Item>
+                  <Form.Item label="Adress" name="adress">
+                    <Input
+                      prefix={<HomeOutlined />}
+                      placeholder="Adress"
+                      className="site-form-item-icon"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    label="Region code"
+                    name="region_code"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please put here your Region Code! ",
+                      },
+                    ]}
+                  >
+                    <Input
+                      prefix={<HomeOutlined />}
+                      placeholder="Region_code"
+                      className="site-form-item-icon"
+                    />
+                  </Form.Item>
+                  <Form.Item label="Phone number" name="phone_number">
+                    <Input
+                      prefix={<PhoneOutlined />}
+                      placeholder="Phone_number"
+                      className="site-form-item-icon"
                     />
                   </Form.Item>
 

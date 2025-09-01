@@ -45,9 +45,13 @@ export interface SignInFormData {
 }
 
 export interface SignUpFormData {
-  name: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
+  adress: string;
+  region_code: string;
+  phone_number: string;
 }
 export interface SignFormsProps {
   activeForm: "signin" | "signup";
