@@ -3,13 +3,13 @@ import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import React from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import "../styles/LoginAndRegister.css";
-import { LoginPayload } from "../types/types";
+import { SignInFormData } from "../types/types";
 import { useBasketContext } from "../context/BasketContext";
 
 const Login = () => {
   const navigate: NavigateFunction = useNavigate();
   const { setBasket } = useBasketContext();
-  const handleLogin = async (values: LoginPayload): Promise<void> => {
+  const handleLogin = async (values: SignInFormData): Promise<void> => {
     try {
       const response = await fetch("/api/login", {
         method: "POST",
