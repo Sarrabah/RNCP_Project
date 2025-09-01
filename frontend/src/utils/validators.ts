@@ -1,22 +1,5 @@
 import type { Rule } from "antd/es/form";
 
-export const validateEmail = (_: Rule, value: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    if (!value) {
-      reject(new Error("Email is required"));
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      reject(new Error("Please enter a valid email address"));
-      return;
-    }
-
-    resolve();
-  });
-};
-
 export const validatePassword = (_: Rule, value: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     if (!value) {
