@@ -7,7 +7,6 @@ import {
   Row,
   Col,
   Card,
-  message,
   notification,
 } from "antd";
 import {
@@ -25,15 +24,51 @@ import type {
 import { validatePassword } from "../utils/validators";
 import "../styles/signForms.css";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useBasketContext } from "../context/BasketContext";
 
 const { Title } = Typography;
 
 const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
-  const [signInForm] = Form.useForm();
+  const { setBasket } = useBasketContext();
+  const handleSignIn = async (values: SignInFormData): Promise<void> => {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+        credentials: "include", // Ensure cookies (session) are included in the request
+      });
 
-  const onFinishSignIn = (values: SignInFormData) => {
-    console.log("Sign in values:", values);
-    message.success("Sign in successful!");
+      if (response.ok) {
+        notification.success({
+          message: "Login successful",
+          description: "Welcome! You are online now!",
+        });
+        localStorage.setItem("isAuthentificated", "true");
+        setBasket([]);
+
+        setTimeout(() => {
+          navigate("/homepage");
+        }, 2000);
+      } else {
+        const errorData = await response.json();
+        notification.error({
+          message: "Login failed",
+          description: errorData.error,
+        });
+      }
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: "An error occurred while login in! Please try again! ",
+      });
+      console.error("Error during login:", error);
+    }
+  };
+  const switchToSignIn = () => {
+    onFormChange("signin");
   };
 
   const navigate: NavigateFunction = useNavigate();
@@ -89,17 +124,8 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
     }
   };
 
-  const onSignInFailed = (errorInfo: any) => {
-    console.log("Sign in failed:", errorInfo);
-    message.error("Please check your credentials");
-  };
-
   const switchToSignUp = () => {
     onFormChange("signup");
-  };
-
-  const switchToSignIn = () => {
-    onFormChange("signin");
   };
 
   return (
@@ -122,10 +148,9 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
 
               {activeForm === "signin" ? (
                 <Form
-                  form={signInForm}
                   name="signin"
-                  onFinish={onFinishSignIn}
-                  onFinishFailed={onSignInFailed}
+                  onFinish={handleSignIn}
+                  initialValues={{ remember: true }}
                   layout="vertical"
                   size="large"
                 >
@@ -151,11 +176,11 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                         required: true,
                         message: "Please input your password!",
                       },
-                      { validator: validatePassword },
                     ]}
                   >
                     <Input.Password
                       prefix={<LockOutlined />}
+                      type="password"
                       placeholder="Enter your password"
                       className="form-input"
                     />

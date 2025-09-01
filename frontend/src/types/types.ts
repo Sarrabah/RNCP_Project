@@ -20,11 +20,6 @@ export interface QuoteRequestInterface {
   archi_id: number;
 }
 
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
-
 export interface BasketContextInterface {
   basket: Array<{ product: ProductInterface; quantity: number }>;
   setBasket: React.Dispatch<
