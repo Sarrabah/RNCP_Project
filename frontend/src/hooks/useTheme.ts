@@ -6,7 +6,7 @@ interface ThemeState {
 }
 
 export const useTheme = (): ThemeState => {
-  const [isDark, setIsDark] = useState<boolean>(true); // Start with dark theme
+  const [isDark, setIsDark] = useState<boolean>(false); // Start with light theme
 
   useEffect(() => {
     // Only run in browser environment
