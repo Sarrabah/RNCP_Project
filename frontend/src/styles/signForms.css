@@ -8,8 +8,8 @@
 }
 
 .form-input {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   color: #1d1b1b;
   padding: 12px 16px;
@@ -30,7 +30,7 @@
 }
 
 .form-input .ant-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(14, 46, 88, 0.6);
 }
 
 .form-input .anticon {
@@ -87,9 +87,6 @@
   transition: all 0.3s ease;
   font-weight: 500;
 }
-.dark-theme .switch-text {
-  color: rgba(255, 255, 255, 0.7);
-}
 
 @media (max-width: 768px) {
   .forms-section {
@@ -113,76 +110,6 @@
   border-color: #ef4444 !important;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
 }
-
-.dark-theme .ant-form-item-has-error .form-input,
-.dark-theme .ant-form-item-has-error .ant-input-affix-wrapper {
-  background: rgba(239, 68, 68, 0.1) !important;
-  border-color: #ef4444 !important;
-}
-
-.light-theme .ant-form-item-has-error .form-input,
-.light-theme .ant-form-item-has-error .ant-input-affix-wrapper {
-  background: rgba(254, 242, 242, 0.9) !important;
-  border-color: #ef4444 !important;
-}
-
-.ant-form-item-has-error .form-input:hover,
-.ant-form-item-has-error .form-input:focus,
-.ant-form-item-has-error .ant-input-affix-wrapper:hover,
-.ant-form-item-has-error .ant-input-affix-wrapper:focus,
-.ant-form-item-has-error .ant-input-affix-wrapper-focused {
-  border-color: #dc2626 !important;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2) !important;
-}
-
-.dark-theme .ant-form-item-has-error .form-input .ant-input,
-.dark-theme .ant-form-item-has-error .ant-input-affix-wrapper input {
-  background: transparent !important;
-  color: #ffffff !important;
-}
-
-.light-theme .ant-form-item-has-error .form-input .ant-input,
-.light-theme .ant-form-item-has-error .ant-input-affix-wrapper input {
-  background: transparent !important;
-  color: #0f172a !important;
-}
-
-.dark-theme .ant-form-item-has-error .form-input .ant-input::placeholder,
-.dark-theme
-  .ant-form-item-has-error
-  .ant-input-affix-wrapper
-  input::placeholder {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-
-.light-theme .ant-form-item-has-error .form-input .ant-input::placeholder,
-.light-theme
-  .ant-form-item-has-error
-  .ant-input-affix-wrapper
-  input::placeholder {
-  color: rgba(15, 23, 42, 0.6) !important;
-}
-
-.dark-theme .ant-form-item-has-error .form-input .anticon,
-.dark-theme .ant-form-item-has-error .ant-input-affix-wrapper .anticon {
-  color: #ef4444 !important;
-}
-
-.light-theme .ant-form-item-has-error .form-input .anticon,
-.light-theme .ant-form-item-has-error .ant-input-affix-wrapper .anticon {
-  color: #ef4444 !important;
-}
-
-.light-theme .submit-btn {
-  background: rgba(15, 23, 42, 0.9) !important;
-  border: 2px solid rgba(15, 23, 42, 0.8) !important;
-  color: #ffffff !important;
-}
-
-.light-theme .submit-btn:hover {
-  background: rgba(15, 23, 42, 1) !important;
-  border-color: rgba(15, 23, 42, 1) !important;
-  color: #ffffff !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.25) !important;
+.switch-link {
+  color: #06b6d4;
 }

@@ -1,21 +1,18 @@
 import type React from "react";
 import { lazy, Suspense, useState } from "react";
-import { Button, ConfigProvider, Space, theme, Typography } from "antd";
-import { useTheme } from "../hooks/useTheme";
-import { SunOutlined, MoonOutlined } from "@ant-design/icons";
+import { Col, ConfigProvider, Row } from "antd";
 
 import "../design-tokens/_variables.css";
 import "../styles/welcomepage.css";
 
 import Description from "../components/Description";
 import Footer from "../components/Footer";
+import { Header } from "antd/es/layout/layout";
+import logo from "../assets/logo.svg";
 
-const { Title } = Typography;
 const SignForms = lazy(() => import("../components/SignForms"));
 
 const WelcomePage: React.FC = () => {
-  const { isDark, toggleTheme } = useTheme();
-
   const [activeForm, setActiveForm] = useState<"signin" | "signup" | null>(
     null,
   );
@@ -32,38 +29,37 @@ const WelcomePage: React.FC = () => {
   };
 
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-        token: {
-          colorPrimary: "#06b6d4", // Primary color (Ant Design's accent color)
-          colorBgBase: isDark ? "#0f172a" : "#f8fafc", // Base background for components if needed
-          colorTextBase: isDark ? "#ffffff" : "#0f172a", // Base text color for components
-          colorBgContainer: isDark ? "#1e293b" : "#ffffff", // Background for cards/containers
-          colorBorder: isDark
-            ? "rgba(255, 255, 255, 0.2)"
-            : "rgba(15, 23, 42, 0.2)", // Border color
-        },
-      }}
-    >
+    <ConfigProvider>
       <div className="welcome">
-        <header className="header">
-          <div className="header-content">
-            <Title level={1}>Art Créa Pro</Title>
-            <Space size="middle">
-              <Button
-                type="text"
-                className="theme-toggle-btn"
-                onClick={toggleTheme}
-                icon={isDark ? <SunOutlined /> : <MoonOutlined />}
-                title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                aria-label={
-                  isDark ? "Switch to light mode" : "Switch to dark mode"
-                }
+        <Header
+          style={{
+            background: "#fff",
+            padding: "0 20px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "80px", // increase height
+            boxShadow: "0 2px 8px #f0f1f2",
+            position: "fixed",
+            top: 0,
+            width: "100%",
+            zIndex: 1000,
+          }}
+        >
+          <Row justify="center" align="middle" style={{ width: "100%" }}>
+            <Col>
+              <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  marginTop: "28px",
+                  height: "80px", // bigger logo
+                  objectFit: "contain",
+                }}
               />
-            </Space>
-          </div>
-        </header>
+            </Col>
+          </Row>
+        </Header>
         <main aria-hidden={activeForm ? "true" : "false"}>
           <Description
             onSignInClick={handleSignInClick}

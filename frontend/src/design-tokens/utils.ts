@@ -5,7 +5,6 @@ import tokens from "./tokens.json";
 export interface DesignTokens {
   color: {
     light: ThemeColors;
-    dark: ThemeColors;
   };
   spacing: Record<string, string>;
   typography: {
@@ -40,24 +39,6 @@ export interface ThemeColors {
 // Utility functions to access design tokens
 export class DesignTokensUtil {
   private static tokens: DesignTokens = tokens as DesignTokens;
-
-  // Get color tokens for a specific theme
-  static getThemeColors(theme: "light" | "dark"): ThemeColors {
-    return this.tokens.color[theme];
-  }
-
-  // Get Ant Design theme configuration
-  static getAntdTheme(isDark: boolean) {
-    const colors = this.getThemeColors(isDark ? "dark" : "light");
-
-    return {
-      colorPrimary: colors.primary,
-      colorBgBase: colors.background.secondary,
-      colorTextBase: colors.text.primary,
-      colorBgContainer: colors.background.secondary,
-      colorBorder: colors.border.secondary,
-    };
-  }
 
   // Get CSS custom property name
   static getCSSVar(path: string): string {

@@ -1,4 +1,7 @@
 /* Mobile First - Description Section */
+.ant-layout-content {
+  padding-top: 80px; /* same as header height */
+}
 .description-section {
   padding: 1.5rem 1rem;
   max-width: 75rem;
@@ -25,6 +28,7 @@
   font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 1.5rem;
+  margin-top: auto;
   transition: var(--description-transition);
   padding: 0 0.5rem;
 }
