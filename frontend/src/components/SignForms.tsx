@@ -299,7 +299,7 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                     <Input
                       prefix={<HomeOutlined />}
                       placeholder="Adress"
-                      className="site-form-item-icon"
+                      className="form-input"
                     />
                   </Form.Item>
                   <Form.Item
@@ -315,14 +315,14 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                     <Input
                       prefix={<HomeOutlined />}
                       placeholder="Region_code"
-                      className="site-form-item-icon"
+                      className="form-input"
                     />
                   </Form.Item>
                   <Form.Item label="Phone number" name="phone_number">
                     <Input
                       prefix={<PhoneOutlined />}
                       placeholder="Phone_number"
-                      className="site-form-item-icon"
+                      className="form-input"
                     />
                   </Form.Item>
 

@@ -13,18 +13,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-  display: flex;
+  display: center;
   justify-content: space-between;
   align-items: center;
-}
-
-.logo {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--text-primary);
-  transition: var(--theme-transition);
 }
 
 /* === BASIC RESET & BASE STYLES === */
