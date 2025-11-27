@@ -5,6 +5,9 @@ from ..models import Architect
 
 
 def create_new_user(valid_data):
+    if not valid_data["password"]:
+        raise ValueError("Password cannot be empty")
+
     new_user = Architect.objects.create(
         first_name=valid_data["first_name"],
         last_name=valid_data["last_name"],
