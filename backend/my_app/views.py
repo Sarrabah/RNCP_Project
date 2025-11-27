@@ -12,16 +12,14 @@ from .serializers import (
     QuoteRequestProductsSerializer,
     QuoteRequestSerializer,
 )
-from .services import (
-    create_basket_elements,
-    create_login,
-    create_new_user,
+from .services.basketservice import create_basket_elements
+from .services.productservice import get_product_details, get_products
+from .services.quoterequestservice import (
     create_quote_request,
-    get_product_details,
-    get_products,
     get_quote_request,
     get_quote_request_products,
 )
+from .services.userservice import create_login, create_new_user
 
 
 class QuoteRequestApiView(LoginRequiredMixin, APIView):
