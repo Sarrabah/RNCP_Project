@@ -16,8 +16,8 @@ RUN ls -l /app/frontend/build && echo "Build contents listed successfully."
 FROM python:3.11-slim
 
 # Set environment variables for python
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Set the working directory
 WORKDIR /app
