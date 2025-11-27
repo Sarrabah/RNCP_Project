@@ -50,7 +50,7 @@ const WelcomePage: React.FC = () => {
             <Col>
               <img
                 src={logo}
-                alt="Logo"
+                alt="Art Crea Pro Logo"
                 style={{
                   marginTop: "28px",
                   height: "80px", // bigger logo
