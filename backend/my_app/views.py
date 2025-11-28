@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -22,10 +22,16 @@ from .services.quoterequestservice import (
 from .services.userservice import create_login, create_new_user
 
 
-class QuoteRequestApiView(LoginRequiredMixin, APIView):
+class QuoteRequestApiView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         try:
+            if not request.user or not request.user.is_authenticated:
+                return Response(
+                    {"error": "Authentication credentials were not provided."},
+                    status=403,
+                )
             archiId = request.user.id
             qrRes = get_quote_request(archiId)
             serializer = QuoteRequestSerializer(qrRes, many=True)
@@ -61,7 +67,9 @@ class QuoteRequestApiView(LoginRequiredMixin, APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProductApiView(LoginRequiredMixin, APIView):
+class ProductApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         try:
             productsRes = get_products()
@@ -74,7 +82,9 @@ class ProductApiView(LoginRequiredMixin, APIView):
             )
 
 
-class QuoteRequestProductsApiView(LoginRequiredMixin, APIView):
+class QuoteRequestProductsApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, id):
         try:
             finalResponse = get_quote_request_products(id)
@@ -92,7 +102,8 @@ class QuoteRequestProductsApiView(LoginRequiredMixin, APIView):
             )
 
 
-class ProductDetailsApiView(LoginRequiredMixin, APIView):
+class ProductDetailsApiView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, id):
         try:
@@ -111,7 +122,8 @@ class ProductDetailsApiView(LoginRequiredMixin, APIView):
             )
 
 
-class BasketElementsApiView(LoginRequiredMixin, APIView):
+class BasketElementsApiView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         serializer = BasketElementsSerializer(data=request.data)
