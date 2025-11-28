@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 
+from ..utils.email_validator import is_valid_email
+
 from ..models import Architect
 
 
@@ -21,6 +23,8 @@ def create_new_user(valid_data):
 
 
 def create_login(request):
+    if is_valid_email(request.data["email"]) is False:
+        raise ValueError("Invalid email format")
     email = request.data["email"]
     password = request.data["password"]
     user = authenticate(request, username=email, password=password)
