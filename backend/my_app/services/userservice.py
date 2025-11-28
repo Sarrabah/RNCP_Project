@@ -1,9 +1,8 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 
-from ..utils.email_validator import is_valid_email
-
 from ..models import Architect
+from ..utils.email_validator import is_valid_email
 
 
 def create_new_user(valid_data):
