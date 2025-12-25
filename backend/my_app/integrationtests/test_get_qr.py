@@ -36,14 +36,3 @@ class SimpleTest(TestCase):
 
         self.assertEqual(response.status_code, 403)
 
-
-"""     def test_non_existing_user_id(self):
-        request = self.factory.get("/quoterequests")
-
-        request.user = self.user
-        request.user.id = 9999
-
-        view = QuoteRequestApiView.as_view()
-        response = view(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, []) """
