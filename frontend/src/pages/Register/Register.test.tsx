@@ -1,51 +1,37 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-//import Register from "./RegisterPage";
-import SignForms from "../../components/SignForms";
-import BasketProvider from "../../context/BasketContext";
+import Register from "./RegisterPage";
 
-const expectErrorMessage = async (message: string) => {
-  await waitFor(() => {
-    expect(screen.getByRole("alert")).toHaveTextContent(
-      "The input is not a valid email address!",
-    );
-  });
+const expectErrorMessage = (message: string) => {
+  return waitFor(() => expect(screen.getByText(message)).toBeInTheDocument());
 };
 
-const expectNoErrorMessage = async (message: string) => {
-  await waitFor(() => {
-    expect(screen.getByRole("alert")).toHaveTextContent(
-      "The input is not a valid email address!",
-    );
-  });
+const expectNoErrorMessage = (message: string) => {
+  return waitFor(() =>
+    expect(screen.queryByText(message)).not.toBeInTheDocument(),
+  );
 };
 
 test("Form validation: errors appear and disappear correctly", async () => {
   render(
     <MemoryRouter>
-      <BasketProvider>
-        <SignForms
-          activeForm="signup"
-          onFormChange={jest.fn()}
-          onCloseForm={jest.fn()}
-        />
-      </BasketProvider>
+      <Register />
     </MemoryRouter>,
   );
 
-  const emailInput = screen.getByPlaceholderText("Enter your email");
-  const passwordInput = screen.getByPlaceholderText("Enter your password");
+  const emailInput = screen.getByPlaceholderText("E-mail");
+  const passwordInput = screen.getByPlaceholderText("Password");
   const submitButton = screen.getByRole("button", {
-    name: "Sign up",
+    name: "Create an account",
   });
 
   fireEvent.click(submitButton);
-  await expectErrorMessage("The input is not a valid email address!");
-  await expectErrorMessage("Please input your password!");
+  await expectErrorMessage("Please put here your adress mail!");
+  await expectErrorMessage("Please put here your password!");
 
   fireEvent.change(emailInput, { target: { value: "test@gmail.com" } });
   fireEvent.change(passwordInput, { target: { value: "helloSecure3#" } });
   fireEvent.click(submitButton);
-  await expectNoErrorMessage("The input is not a valid email address!");
-  await expectNoErrorMessage("Please input your password!");
+  await expectNoErrorMessage("Please put here your adress mail!");
+  await expectNoErrorMessage("Please put here your password!");
 });
