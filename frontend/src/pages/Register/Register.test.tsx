@@ -6,16 +6,18 @@ import BasketProvider from "../../context/BasketContext";
 
 const expectErrorMessage = async (message: string) => {
   await waitFor(() => {
-    expect(screen.getByRole("alert")).toHaveTextContent("The input is not a valid email address!");
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "The input is not a valid email address!",
+    );
   });
-  
 };
 
 const expectNoErrorMessage = async (message: string) => {
   await waitFor(() => {
-    expect(screen.getByRole("alert")).toHaveTextContent("The input is not a valid email address!");
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "The input is not a valid email address!",
+    );
   });
-  
 };
 
 test("Form validation: errors appear and disappear correctly", async () => {

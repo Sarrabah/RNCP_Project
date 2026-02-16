@@ -329,7 +329,7 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                   <Form.Item>
                     <Button
                       type="primary"
-                      name= "Create an account"
+                      name="Create an account"
                       htmlType="submit"
                       block
                       size="large"
