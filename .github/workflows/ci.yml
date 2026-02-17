@@ -5,7 +5,7 @@ on:
   - push
 
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Run frontend tests
         run: make test
-  lhci:
+  lighthouseci:
     name: Lighthouse
     runs-on: ubuntu-latest
     steps:
