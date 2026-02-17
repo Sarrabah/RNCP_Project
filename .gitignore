@@ -168,3 +168,4 @@ cython_debug/
 staticfiles
 node_modules
 frontend/.lighthouseci
+frontend/.pa11yci.json
