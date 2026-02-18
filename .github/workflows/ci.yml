@@ -24,7 +24,7 @@ jobs:
 
       - name: Run frontend tests
         run: make test
-  Linting&formatting:
+  Linting_and_formatting:
     runs-on: ubuntu-latest
 
     steps:
