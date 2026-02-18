@@ -9,7 +9,7 @@ import { Badge, Dropdown, MenuProps, message } from "antd";
 
 export const getCSRFToken = (): string | null => {
   const cookies = document.cookie.split("; ");
-  for (let cookie of cookies) {
+  for (const cookie of cookies) {
     if (cookie.startsWith("csrftoken=")) {
       return cookie.split("=")[1];
     }
@@ -23,7 +23,7 @@ const NavBar: React.FC = () => {
     totalBasketItems = totalBasketItems + item.quantity;
   }
   const navigate: NavigateFunction = useNavigate();
-  const handleLogout = async (): Promise<any> => {
+  const handleLogout = async (): Promise<void> => {
     try {
       const csrfToken = getCSRFToken();
       if (!csrfToken) {

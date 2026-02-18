@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProductDetails } from "../types/types";
 import { Col, Row, Typography } from "antd";
@@ -9,15 +9,15 @@ const QuoteRequestProductsPage = () => {
   const [productsDetails, setProductsDetails] = useState<ProductDetails[]>([]);
   const { id } = useParams<{ id: string }>();
 
-  const getAllProductsDetails = useCallback(async () => {
-    const reponse = await fetch(`/api/quoterequestproducts/${id}`);
-    const data = await reponse.json();
-    setProductsDetails(data.product_id_quantity);
+  useEffect(() => {
+    const getAllProductsDetails = async () => {
+      const response = await fetch(`/api/quoterequestproducts/${id}`);
+      const data = await response.json();
+      setProductsDetails(data.product_id_quantity);
+    };
+    getAllProductsDetails();
   }, [id]);
 
-  useEffect(() => {
-    getAllProductsDetails();
-  }, [getAllProductsDetails]);
   console.log(productsDetails);
   return (
     <div>

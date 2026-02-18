@@ -115,7 +115,7 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
       }, 2000);
 
       return data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       notification.error({
         message: "Error",
         description: "Error occured when registering",
@@ -205,7 +205,9 @@ const SignForms: React.FC<SignFormsProps> = ({ activeForm, onFormChange }) => {
                   </Form.Item>
 
                   <div className="form-switch">
-                    <span className="switch-text">Don't have an account? </span>
+                    <span className="switch-text">
+                      {"Don't have an account?"}{" "}
+                    </span>
                     <Button
                       type="link"
                       onClick={switchToSignUp}

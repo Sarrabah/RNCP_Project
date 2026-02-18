@@ -6,7 +6,7 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const isAuthentificated: Boolean =
+  const isAuthentificated: boolean =
     localStorage.getItem("isAuthentificated") === "true";
   return isAuthentificated ? <>{children}</> : <Navigate to="/" replace />;
 };

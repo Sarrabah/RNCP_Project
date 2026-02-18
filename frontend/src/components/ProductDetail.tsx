@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProductInterface } from "../types/types";
 import { Button, InputNumber } from "antd";
@@ -12,15 +12,14 @@ const ProductDetail: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const { addToBasket } = useBasketContext();
 
-  const fetchProductDetails = useCallback(async () => {
-    const response = await fetch(`/api/product/${id}`);
-    const data = await response.json();
-    setProduct(data);
-  }, [id]);
-
   useEffect(() => {
+    const fetchProductDetails = async () => {
+      const response = await fetch(`/api/product/${id}`);
+      const data = await response.json();
+      setProduct(data);
+    };
     fetchProductDetails();
-  }, [fetchProductDetails]);
+  }, [id]);
 
   const handleAddToBasket = () => {
     if (!product) {
