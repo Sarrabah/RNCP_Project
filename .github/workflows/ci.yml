@@ -24,6 +24,26 @@ jobs:
 
       - name: Run frontend tests
         run: make test
+  Linting&formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Run linting and formatting checks
+        run: make verify_lint_front 
+
   lighthouseci:
     name: Lighthouse
     runs-on: ubuntu-latest
