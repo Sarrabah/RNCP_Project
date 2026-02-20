@@ -29,7 +29,8 @@
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
-    "lhci": "lhci autorun"
+    "lhci": "lhci autorun",
+    "a11y": "pa11y-ci"
   },
   "eslintConfig": {
     "root": true,
