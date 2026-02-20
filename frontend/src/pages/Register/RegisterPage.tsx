@@ -64,7 +64,7 @@ const Register = () => {
       }, 2000);
 
       return data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       notification.error({
         message: "Error",
         description: "Error occured when registering",

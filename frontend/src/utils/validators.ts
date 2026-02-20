@@ -48,7 +48,7 @@ export const validateName = (_: Rule, value: string): Promise<void> => {
 
 export const validateRequired =
   (fieldName: string) =>
-  (_: Rule, value: any): Promise<void> => {
+  (_: Rule, value: unknown): Promise<void> => {
     return new Promise((resolve, reject) => {
       if (!value || (typeof value === "string" && value.trim() === "")) {
         reject(new Error(`${fieldName} is required`));
