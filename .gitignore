@@ -165,4 +165,12 @@ cython_debug/
 .vscode
 
 #staticfiles
+<<<<<<< Updated upstream
 staticfiles
+=======
+staticfiles
+node_modules
+frontend/.lighthouseci
+frontend/.pa11yci.json
+frontend/.pa11yci
+>>>>>>> Stashed changes

@@ -20,11 +20,6 @@ export interface QuoteRequestInterface {
   archi_id: number;
 }
 
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
-
 export interface BasketContextInterface {
   basket: Array<{ product: ProductInterface; quantity: number }>;
   setBasket: React.Dispatch<
@@ -37,4 +32,24 @@ export interface ProductDetails {
   product_name: string;
   product_image: string;
   quantity: number;
+}
+
+export interface SignInFormData {
+  email: string;
+  password: string;
+}
+
+export interface SignUpFormData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  adress: string;
+  region_code: string;
+  phone_number: string;
+}
+export interface SignFormsProps {
+  activeForm: "signin" | "signup";
+  onFormChange: (form: "signin" | "signup" | null) => void;
+  onCloseForm: () => void;
 }

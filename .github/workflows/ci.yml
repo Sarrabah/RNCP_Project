@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install frontend dependencies
         run: |
@@ -26,3 +26,72 @@ jobs:
 
       - name: Run frontend tests
         run: make test
+<<<<<<< Updated upstream
+=======
+  
+  Linting_and_formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Run linting and formatting checks
+        run: make verify_lint_front 
+
+  lighthouseci:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: npm install, build
+        run: |
+          cd frontend
+          npm install
+          npm run build
+      - name: run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.15.x
+          cd frontend
+          lhci autorun
+
+  a11y:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Builder l'app
+        run: npm run build
+
+      - name: Lancer l'app en arrière-plan
+        run: make run_frontend &
+
+      - name: Attendre que l'app soit prête
+        run: npx wait-on http://localhost:3000
+
+      - name: Lancer pa11y
+        run: npm run a11y
+>>>>>>> Stashed changes
