@@ -5,6 +5,11 @@
 run_back:
 	@ ./backend/.venv/bin/python ./backend/manage.py runserver
 
+#run backend tests
+.PHONY: test_backend
+test_backend:
+	@ cd ./backend && ./manage.py test
+
 # Linting and formatting
 SUCCESS_MSG :=  "(˵•̀ ᴗ -˵)"
 
