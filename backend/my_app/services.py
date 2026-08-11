@@ -23,7 +23,9 @@ def get_products():
     return products
 
 
-def get_quote_request_products(id):
+def get_quote_request_products(id, user_id):
+    if not QuoteRequest.objects.filter(id=id, archi_id=user_id).exists():
+        return None
     quoteRequestProducts = QuoteRequestProduct.objects.all().filter(
         quote_request_object=id
     )

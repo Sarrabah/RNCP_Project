@@ -79,7 +79,12 @@ class ProductApiView(LoginRequiredMixin, APIView):
 class QuoteRequestProductsApiView(LoginRequiredMixin, APIView):
     def get(self, request, id):
         try:
-            finalResponse = get_quote_request_products(id)
+            finalResponse = get_quote_request_products(id, request.user.id)
+            if finalResponse is None:
+                return Response(
+                    {"error": f"Quote request with id {id} not found for this user."},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
             serializer = QuoteRequestProductsSerializer(finalResponse)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except QuoteRequestProduct.DoesNotExist:
