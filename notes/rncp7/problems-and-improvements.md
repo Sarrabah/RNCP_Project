@@ -2,7 +2,115 @@
 
 This note records practical improvements for Art Créa Pro after the current MVP. The application already supports the main architect workflow; these items focus on making it safer, clearer, and more reliable as it grows.
 
-## 1. API robustness
+## 1. Dependency and Runtime Maintenance
+
+Dependencies and runtime images need regular review because security fixes are
+published after a project is initially built. Keeping a package installed is
+not enough when its release line is no longer supported.
+
+### Frontend audit findings
+
+> **Severity: Critical**
+
+An `npm audit --omit=dev` review of the current frontend dependency tree found
+**67 known findings: 3 critical, 35 high, 13 moderate, and 16 low**. Most of
+these findings come from the Create React App (`react-scripts`) build-tool
+dependency chain.
+
+Some build-tool findings affect the development or image-build environment more
+directly than the static frontend served in production. They still need to be
+addressed because the build environment handles the project's source code and
+produces the deployed assets.
+
+### Unsupported Django release
+
+> **Severity: Critical**
+
+The backend pins `Django==5.1`. Django 5.1 no longer receives security fixes.
+
+**Improvement:** upgrade to the latest compatible `5.2.x` patch release, then
+run Django tests and manually verify login, quote-request creation, basket
+submission, and static-file collection. Django 5.2 is an LTS release and is
+compatible with the project's Python 3.10 local environment and Python 3.11
+Docker image.
+
+References:
+
+* [Django supported versions](https://www.djangoproject.com/download/)
+* [Django Python compatibility](https://docs.djangoproject.com/en/dev/faq/install/)
+
+### React Router upgrade
+
+> **Severity: High**
+
+The project uses `react-router-dom==6.26.2`. The audit reports high-severity
+findings in the current React Router dependency tree. The fully patched upgrade
+path requires a major-version migration, so it must be tested rather than
+blindly applied.
+
+The current application uses declarative routing with `<BrowserRouter>`. One
+published open-redirect advisory does not affect that routing mode, but this
+does not remove the need to review and upgrade the package.
+
+**Improvement:** plan a separate React Router upgrade, then test every route,
+private-route behavior, redirects, and links before release.
+
+Reference: [React Router security advisory](https://github.com/remix-run/react-router/security/advisories/GHSA-2w69-qvjg-hvjx)
+
+### Create React App build chain
+
+> **Severity: High**
+
+The project uses `react-scripts==5.0.1`, the Create React App build chain.
+Create React App is deprecated and the current audit contains high and critical
+transitive findings for this chain that cannot be resolved through a safe
+in-place update.
+
+**Improvement:** migrate the frontend from Create React App to Vite, following
+the decision in `notes/adr/001-migrate-cra-to-vite.md`. This should be treated
+as a planned, tested migration; do not use `npm audit fix --force` as a
+replacement for it.
+
+Reference: [React announcement: Sunsetting Create React App](https://react.dev/blog/2025/02/14/sunsetting-create-react-app)
+
+### Docker Node.js image
+
+> **Severity: High**
+
+The Docker frontend build stage uses `node:18`. Node.js 18 reached end of life
+in March 2025 and no longer receives security updates.
+
+**Improvement:** update `backend/Dockerfile` to use a currently supported LTS
+Node.js image (Node 24 LTS at the time of this review), then rebuild and test
+the frontend Docker build.
+
+Reference: [Node.js release status](https://nodejs.org/en/about/previous-releases)
+
+### Ongoing dependency checks
+
+> **Severity: Medium**
+
+Without automated checks, vulnerable versions can remain unnoticed until a
+manual review.
+
+**Improvements:**
+
+* Run `npm audit --omit=dev` in CI and review high/critical findings.
+* Add a Python dependency audit, for example with `pip-audit`, to CI.
+* Review and update supported Docker base images regularly.
+* Pin reviewed dependency versions and test upgrades in a branch before
+  deployment.
+
+### Recommended dependency upgrade order
+
+1. Upgrade Django `5.1` to the latest `5.2.x` patch release and test the
+   backend.
+2. Migrate Create React App to Vite and upgrade the Docker Node image from 18
+   to a supported LTS version.
+3. Upgrade React Router in a dedicated, fully tested migration.
+4. Add recurring JavaScript, Python, and Docker-image dependency checks to CI.
+
+## 2. API robustness
 
 API robustness means that the backend behaves predictably with valid, invalid, incomplete, or malicious requests.
 
@@ -29,6 +137,44 @@ The backend should validate more than the presence and type of fields.
 - Confirm that every submitted quote request belongs to the logged-in architect.
 - Limit quote-request statuses to a known set of values.
 - Handle an already-added product in a quote request deliberately—for example, update its quantity or return a clear validation error.
+
+### Domain business rules for quote requests
+
+> **Severity: Medium**
+
+The quote-request workflow needs explicit business rules. These rules should be
+implemented in the domain/application layers so that they apply consistently
+regardless of which API endpoint triggers the action.
+
+**Improvements:**
+
+- A quote request must belong to exactly one architect, and only that architect
+  may read, modify, submit, or cancel it.
+- A quote request must have a non-empty customer/project name.
+- Product quantities must be positive integers; a quantity of zero or less must
+  not be stored.
+- A product may appear only once in a quote request. Adding an existing product
+  should increase/update its quantity, or return a clear error according to the
+  chosen product-management behaviour.
+- A quote request can be submitted only when it contains at least one product.
+- Define an explicit status lifecycle, for example:
+
+  ```text
+  draft -> submitted -> closed
+  ```
+
+  Only allowed status changes should be accepted. A closed request must not be
+  edited; a submitted request should not accept product changes unless it is
+  deliberately returned to draft.
+- A submitted quote request should be linked to at least one hardware store
+  before it is considered sent.
+- The same hardware store must not be selected twice for the same quote request.
+
+**Implementation direction:** put rules that describe the quote request itself
+in the `quote_requests` domain; put workflows such as ownership checking,
+submission, and hardware-store assignment in application use cases. The API
+views should validate incoming JSON and turn rule failures into clear `400`,
+`403`, or `404` responses.
 
 ### Clear API errors
 
@@ -62,7 +208,7 @@ Backend tests protect existing features when the code changes.
 
 **Priorities for tests:** registration and login, access control for quote requests, product retrieval, invalid quantities, duplicate products, and successful basket submission.
 
-## 2. Security and deployment
+## 3. Security and deployment
 
 Security and deployment concern running the application safely on Scaleway, rather than only on a local development machine.
 
@@ -120,7 +266,7 @@ A Docker volume preserves MySQL data while the server remains available, but it 
 
 **Improvements:** schedule database backups, retain them in a separate secure location, and periodically test the restoration process.
 
-## 3. User experience
+## 4. User experience
 
 User experience (UX) is about making the architect’s workflow easy to understand, efficient to complete, and usable on different devices.
 
@@ -169,11 +315,14 @@ Add tests for the important user journeys: registration, login, browsing product
 
 ## Suggested order of work for all detected problems
 
-1. Add ownership checks and validation to the quote-request endpoints.
-2. Add backend tests for those rules.
-3. Move production settings and secrets into environment variables, then secure the Scaleway deployment with HTTPS and backups.
-4. Improve feedback, forms, and the quote-request review/editing experience.
-5. Add responsive/accessibility checks and frontend user-flow tests.
+1. Upgrade Django to a supported 5.2.x release, and begin the planned Create
+   React App-to-Vite migration with a supported Node.js Docker image.
+2. Add ownership checks and validation to the quote-request endpoints.
+3. Add backend tests for those rules.
+4. Move production settings and secrets into environment variables, then secure the Scaleway deployment with HTTPS and backups.
+5. Improve feedback, forms, and the quote-request review/editing experience.
+6. Add recurring dependency audits, responsive/accessibility checks, and
+   frontend user-flow tests.
 
 ## Problem severity classification
 
