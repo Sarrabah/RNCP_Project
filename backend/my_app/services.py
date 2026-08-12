@@ -49,9 +49,10 @@ def get_product_details(id):
     return productDetails
 
 
-def create_basket_elements(valid_data):
+def create_basket_elements(valid_data, user_id):
     for qr_id in valid_data["quoteRequestIdList"]:
-
+        if not QuoteRequest.objects.filter(pk=qr_id, archi_id=user_id).exists():
+            return None
         for p in valid_data["productInformations"]:
             instanceQuoteRequest = QuoteRequest.objects.get(pk=qr_id)
             instanceProduct = Product.objects.get(pk=p["id"])
