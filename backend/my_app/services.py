@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
+from django.db import transaction
 
 from .models import Architect, Product, QuoteRequest, QuoteRequestProduct
 
@@ -49,6 +50,7 @@ def get_product_details(id):
     return productDetails
 
 
+@transaction.atomic
 def create_basket_elements(valid_data, user_id):
     for qr_id in valid_data["quoteRequestIdList"]:
         if not QuoteRequest.objects.filter(pk=qr_id, archi_id=user_id).exists():
