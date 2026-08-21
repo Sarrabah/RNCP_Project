@@ -26,12 +26,12 @@ test("Form validation: errors appear and disappear correctly", async () => {
   });
 
   fireEvent.click(submitButton);
-  await expectErrorMessage("Please put here your adress mail!");
+  await expectErrorMessage("Please put here your address mail!");
   await expectErrorMessage("Please put here your password!");
 
   fireEvent.change(emailInput, { target: { value: "test@gmail.com" } });
   fireEvent.change(passwordInput, { target: { value: "helloSecure3#" } });
   fireEvent.click(submitButton);
-  await expectNoErrorMessage("Please put here your adress mail!");
+  await expectNoErrorMessage("Please put here your address mail!");
   await expectNoErrorMessage("Please put here your password!");
 });

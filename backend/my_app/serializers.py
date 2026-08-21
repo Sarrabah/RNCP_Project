@@ -46,7 +46,7 @@ class ArchitectSerializer(serializers.ModelSerializer):
             "last_name",
             "email",
             "password",
-            "adress",
+            "address",
             "region_code",
             "phone_number",
         ]
