@@ -132,7 +132,13 @@ class BasketElementsApiView(LoginRequiredMixin, APIView):
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-                valid_data = create_basket_elements(valid_data, request.user.id)
+                try:
+                    valid_data = create_basket_elements(valid_data, request.user.id)
+                except Product.DoesNotExist:
+                    return Response(
+                        {"error": "A product does not exist."},
+                        status=status.HTTP_404_NOT_FOUND,
+                    )
                 if valid_data is None:
                     return Response(
                         {"error": "Quote request does not exist for this user."},
