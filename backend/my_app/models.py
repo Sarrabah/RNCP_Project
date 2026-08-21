@@ -35,7 +35,7 @@ class Architect(AbstractUser):
 class HardwareStore(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    adresse = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=255, blank=True)
     region_code = models.CharField(max_length=10, blank=True)
     email = models.CharField(unique=True, max_length=255)
 
