@@ -16,7 +16,6 @@ class Product(models.Model):
 
 
 class Architect(AbstractUser):
-    id = models.AutoField(primary_key=True)
     email = models.CharField(unique=True, max_length=255)
     adress = models.CharField(max_length=255, blank=True, null=True)
     region_code = models.CharField(max_length=20)
