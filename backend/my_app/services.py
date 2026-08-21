@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
+from django.db import transaction
 
 from .models import Architect, Product, QuoteRequest, QuoteRequestProduct
 
@@ -23,7 +24,9 @@ def get_products():
     return products
 
 
-def get_quote_request_products(id):
+def get_quote_request_products(id, user_id):
+    if not QuoteRequest.objects.filter(pk=id, archi_id=user_id).exists():
+        return None
     quoteRequestProducts = QuoteRequestProduct.objects.all().filter(
         quote_request_object=id
     )
@@ -47,11 +50,14 @@ def get_product_details(id):
     return productDetails
 
 
-def create_basket_elements(valid_data):
+@transaction.atomic
+def create_basket_elements(valid_data, user_id):
     for qr_id in valid_data["quoteRequestIdList"]:
-
+        if not QuoteRequest.objects.filter(pk=qr_id, archi_id=user_id).exists():
+            return None
+    for qr_id in valid_data["quoteRequestIdList"]:
+        instanceQuoteRequest = QuoteRequest.objects.get(pk=qr_id)
         for p in valid_data["productInformations"]:
-            instanceQuoteRequest = QuoteRequest.objects.get(pk=qr_id)
             instanceProduct = Product.objects.get(pk=p["id"])
             QuoteRequestProduct.objects.create(
                 quote_request_object=instanceQuoteRequest,

@@ -79,7 +79,12 @@ class ProductApiView(LoginRequiredMixin, APIView):
 class QuoteRequestProductsApiView(LoginRequiredMixin, APIView):
     def get(self, request, id):
         try:
-            finalResponse = get_quote_request_products(id)
+            finalResponse = get_quote_request_products(id, request.user.id)
+            if finalResponse is None:
+                return Response(
+                    {"error": f"Quote request with id {id} not found for this user."},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
             serializer = QuoteRequestProductsSerializer(finalResponse)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except QuoteRequestProduct.DoesNotExist:
@@ -127,7 +132,18 @@ class BasketElementsApiView(LoginRequiredMixin, APIView):
                         {"error": "Data is not in the expected format!"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
-                valid_data = create_basket_elements(valid_data)
+                try:
+                    valid_data = create_basket_elements(valid_data, request.user.id)
+                except Product.DoesNotExist:
+                    return Response(
+                        {"error": "A product does not exist."},
+                        status=status.HTTP_404_NOT_FOUND,
+                    )
+                if valid_data is None:
+                    return Response(
+                        {"error": "Quote request does not exist for this user."},
+                        status=status.HTTP_404_NOT_FOUND,
+                    )
                 created_data = BasketElementsSerializer(valid_data).data
                 return Response(created_data, status=status.HTTP_200_OK)
 
