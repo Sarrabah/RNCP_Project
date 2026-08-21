@@ -16,7 +16,7 @@ class Product(models.Model):
 
 
 class Architect(AbstractUser):
-    email = models.CharField(unique=True, max_length=255)
+    email = models.EmailField(unique=True, max_length=255)
     adress = models.CharField(max_length=255, blank=True, null=True)
     region_code = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=30, blank=True, null=True)
