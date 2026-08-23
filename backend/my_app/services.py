@@ -73,7 +73,7 @@ def create_new_user(valid_data):
         last_name=valid_data["last_name"],
         email=valid_data["email"],
         password=make_password(valid_data["password"]),
-        adress=valid_data["adress"],
+        address=valid_data["address"],
         region_code=valid_data["region_code"],
         phone_number=valid_data["phone_number"],
     )

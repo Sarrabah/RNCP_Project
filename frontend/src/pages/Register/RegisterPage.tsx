@@ -18,7 +18,7 @@ const Register = () => {
     last_name: string;
     email: string;
     password: string;
-    adress: string;
+    address: string;
     region_code: string;
     phone_number: string;
   }) => {
@@ -27,7 +27,7 @@ const Register = () => {
       last_name,
       email,
       password,
-      adress,
+      address,
       region_code,
       phone_number,
     } = values;
@@ -39,7 +39,7 @@ const Register = () => {
           last_name: last_name,
           email: email,
           password: password,
-          adress: adress || null,
+          address: address || null,
           region_code: region_code,
           phone_number: phone_number || null,
         }),
@@ -107,7 +107,7 @@ const Register = () => {
         <Form.Item
           name="email"
           rules={[
-            { required: true, message: "Please put here your adress mail!" },
+            { required: true, message: "Please put here your address mail!" },
             {
               type: "email",
               message: "The input is not a valid email address!",
@@ -133,10 +133,10 @@ const Register = () => {
             className="site-form-item-icon"
           />
         </Form.Item>
-        <Form.Item name="adress">
+        <Form.Item name="address">
           <Input
             prefix={<HomeOutlined />}
-            placeholder="Adress"
+            placeholder="Address"
             className="site-form-item-icon"
           />
         </Form.Item>

@@ -16,9 +16,8 @@ class Product(models.Model):
 
 
 class Architect(AbstractUser):
-    id = models.AutoField(primary_key=True)
-    email = models.CharField(unique=True, max_length=255)
-    adress = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(unique=True, max_length=255)
+    address = models.CharField(max_length=255, blank=True, null=True)
     region_code = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=30, blank=True, null=True)
     username = models.CharField(unique=False, max_length=100, default="username")
@@ -36,7 +35,7 @@ class Architect(AbstractUser):
 class HardwareStore(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    adresse = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=255, blank=True)
     region_code = models.CharField(max_length=10, blank=True)
     email = models.CharField(unique=True, max_length=255)
 
